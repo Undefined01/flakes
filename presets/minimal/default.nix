@@ -1,10 +1,6 @@
 { pkgs, ... }:
 
 {
-  imports = [
-    ../../modules/impermanence
-  ];
-
   environment.systemPackages = with pkgs; [
     git
     vim

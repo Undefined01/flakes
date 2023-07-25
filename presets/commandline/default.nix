@@ -12,9 +12,11 @@
     git
     python3Minimal
     man
+    gnutar
     zip
     unzip
     p7zip
+    zstd
 
     tldr
     du-dust
@@ -23,6 +25,8 @@
     jq
     fzf
     glances
+
+    ntfs3g
   ];
 
   environment.sessionVariables = {

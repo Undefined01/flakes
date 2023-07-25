@@ -22,30 +22,6 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  time.timeZone = "Asia/Shanghai";
-  i18n.defaultLocale = "en_US.UTF-8";
-  time.hardwareClockInLocalTime = true;
-  console.keyMap = "us";
-  console = {
-    # font = "Lat2-Terminus16";
-    # useXkbConfig = true; # use xkbOptions in tty.
-  };
-
-  # Select internationalisation properties.
-  users.mutableUsers = false;
-  users.users.root.initialPassword = "lh";
-  users.users.lh = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "lh" ];
-    initialPassword = "lh";
-    packages = with pkgs; [
-    ];
-  };
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -61,12 +37,5 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
-
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-    substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store" ];
-    auto-optimise-store = true;
-  };
-  nixpkgs.config.allowUnfree = true;
 }
 

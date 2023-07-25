@@ -6,12 +6,16 @@
   inputs =
     {
       nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
-      # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+      nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
       nixos-hardware.url = "github:nixos/nixos-hardware";
       nur.url = "github:nix-community/NUR";
       impermanence.url = "github:nix-community/impermanence";
       home-manager = {
         url = "github:nix-community/home-manager/release-23.05";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
+      nixos-wsl = {
+        url = "github:nix-community/NixOS-WSL";
         inputs.nixpkgs.follows = "nixpkgs";
       };
       # neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
@@ -48,6 +52,7 @@
 
   outputs = { self, nixpkgs, ... }@inputs:
     let
+      user = "lh";
       inherit (self) outputs;
       forAllSystems = nixpkgs.lib.genAttrs [
         "aarch64-linux"
@@ -72,18 +77,33 @@
 
       nixosConfigurations = {
         nixos = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs; };
+          specialArgs = { inherit inputs outputs user; };
           modules = [
             inputs.nur.nixosModules.nur
             { nixpkgs.overlays = builtins.attrValues overlays; }
 
+            ./nixos/common.nix
             ./nixos/configuration.nix
+            ./modules/impermanence
+          ];
+        };
+
+        wsl = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs outputs user; };
+          modules = [
+            "${inputs.nixos-wsl}/configuration.nix"
+            inputs.nur.nixosModules.nur
+            { nixpkgs.overlays = builtins.attrValues overlays; }
+
+            ./nixos/common.nix
+            ./presets/commandline
           ];
         };
       };
 
       homeConfigurations = {
-        lh = inputs.home-manager.lib.homeManagerConfiguration {
+        ${user} = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [ ./home-manager/home.nix ];
