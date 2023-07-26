@@ -98,6 +98,8 @@
 
             ./nixos/common.nix
             ./presets/commandline
+            ./presets/develop
+            ./presets/wsl
           ];
         };
       };
