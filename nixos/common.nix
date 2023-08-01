@@ -1,4 +1,4 @@
-{ config, pkgs, user, ... }:
+{ config, inputs, pkgs, user, ... }:
 
 {
   # Configure network proxy if necessary
@@ -16,10 +16,11 @@
 
   # Select internationalisation properties.
   users.mutableUsers = false;
+  users.groups.${user} = {};
   users.users.root.initialPassword = "${user}";
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "${user}" ];
+    extraGroups = [ "wheel" "users" "${user}" ];
     initialPassword = "${user}";
     packages = with pkgs; [
     ];
@@ -29,6 +30,13 @@
     experimental-features = [ "nix-command" "flakes" ];
     substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store" ];
     auto-optimise-store = true;
+  };
+  nix.registry = {
+    nixpkgs.flake = inputs.nixpkgs;
+    nixpkgs-unstable.to = {
+      type = "path";
+      path = "github:NixOS/nixpkgs/nixos-unstable";
+    };
   };
   nixpkgs.config.allowUnfree = true;
 }
