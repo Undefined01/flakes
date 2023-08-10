@@ -27,10 +27,10 @@
       # flake-parts.url = "github:hercules-ci/flake-parts";
       # sops-nix.url = "github:Mic92/sops-nix";
       # picom.url = "github:yaocccc/picom";
-      hyprland = {
-        url = "github:hyprwm/Hyprland";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
+      # hyprland = {
+      #   url = "github:hyprwm/Hyprland";
+      #   inputs.nixpkgs.follows = "nixpkgs";
+      # };
       # flake-root.url = "github:srid/flake-root";
       # mission-control.url = "github:Platonic-Systems/mission-control";
       # treefmt-nix.url = "github:numtide/treefmt-nix";

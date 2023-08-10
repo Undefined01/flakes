@@ -16,7 +16,7 @@
 
   # Select internationalisation properties.
   users.mutableUsers = false;
-  users.groups.${user} = {};
+  users.groups.${user} = { };
   users.users.root.initialPassword = "${user}";
   users.users.${user} = {
     isNormalUser = true;
@@ -33,6 +33,14 @@
   };
   nix.registry = {
     nixpkgs.flake = inputs.nixpkgs;
+    nixpkgs-current = {
+      from = {
+        type = "indirect";
+        id = "nixpkgs";
+        ref = "nixos-23.05";
+      };
+      flake = inputs.nixpkgs;
+    };
     nixpkgs-unstable.to = {
       type = "path";
       path = "github:NixOS/nixpkgs/nixos-unstable";

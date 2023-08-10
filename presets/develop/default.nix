@@ -9,7 +9,7 @@
     rustc
     cargo
     nodejs
-    python3Minimal
+    python3
     jdk17_headless
     maven
     kotlin
