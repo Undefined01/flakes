@@ -38,6 +38,8 @@
     fish
     gnupg
     chezmoi
+
+    shell_gpt
   ];
 
   programs.fzf.keybindings = true;
