@@ -41,9 +41,11 @@
       };
       flake = inputs.nixpkgs;
     };
-    nixpkgs-unstable.to = {
-      type = "path";
-      path = "github:NixOS/nixpkgs/nixos-unstable";
+    unstable.to = {
+      "type" = "github";
+      "owner" = "NixOS";
+      "repo" = "nixpkgs";
+      "ref" = "nixos-unstable";
     };
   };
   nixpkgs.config.allowUnfree = true;
