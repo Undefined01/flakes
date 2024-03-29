@@ -8,9 +8,7 @@
   imports = [
     ./hardware-configuration.nix
 
-    # ../presets/minimal
-
-    ../presets/desktop
+    ../../presets/desktop
   ];
 
   # Use the systemd-boot EFI boot loader.

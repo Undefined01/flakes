@@ -21,7 +21,7 @@
     killall
 
     delta
-    exa
+    eza
     bat
     tldr
     du-dust
@@ -31,6 +31,8 @@
     fzf
     glances
     zoxide
+    tokei
+    difftastic
 
     ntfs3g
 

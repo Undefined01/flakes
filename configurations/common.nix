@@ -26,21 +26,15 @@
     ];
   };
 
+  home-manager.users.${user} = import ../home/default.nix;
+
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
-    substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store" ];
+    substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store" "https://cache.nixos.org/" ];
     auto-optimise-store = true;
   };
   nix.registry = {
     nixpkgs.flake = inputs.nixpkgs;
-    nixpkgs-current = {
-      from = {
-        type = "indirect";
-        id = "nixpkgs";
-        ref = "nixos-23.05";
-      };
-      flake = inputs.nixpkgs;
-    };
     unstable.to = {
       "type" = "github";
       "owner" = "NixOS";

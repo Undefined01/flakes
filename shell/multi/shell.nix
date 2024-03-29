@@ -4,12 +4,14 @@ pkgs.mkShell {
   buildInputs = with pkgs; [
     gcc
     gnumake
-    cargo
+    cmake
     rustc
+    cargo
     nodejs
+    python3
     jdk17_headless
     maven
-    kotlin
+    gradle
   ];
 }
 

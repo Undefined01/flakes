@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ../minimal
     ../commandline
 
     ../../modules/desktop/sway
