@@ -9,5 +9,5 @@
   home-manager.useUserPackages = true;
   home-manager.users.${user} = import ../../home;
 
-  home-manager.extraSpecialArgs = { inherit inputs outputs; };
+  home-manager.extraSpecialArgs = { inherit inputs outputs user; };
 }

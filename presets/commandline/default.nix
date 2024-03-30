@@ -23,7 +23,7 @@
     delta
     eza
     bat
-    tldr
+    tealdeer
     du-dust
     ripgrep
     fd
@@ -39,6 +39,7 @@
     zsh
     fish
     gnupg
+    age
     chezmoi
 
     shell_gpt

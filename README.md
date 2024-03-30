@@ -14,4 +14,6 @@ Some useful commands:
 
 ```
 nix fmt
+
+nix run nixpkgs#sops secrets/common.yaml
 ```

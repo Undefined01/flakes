@@ -24,9 +24,10 @@
     initialPassword = "${user}";
     packages = with pkgs; [
     ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDcTQOKYRyLoviozP5Ba6k8N+1Sn7LZ1wECHiPa2FF1V amoscr@163.com"
+    ];
   };
-
-  home-manager.users.${user} = import ../home/default.nix;
 
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];

@@ -1,11 +1,25 @@
-{ inputs, outputs, lib, config, pkgs, ... }: {
+{ inputs, outputs, lib, config, pkgs, user, ... }: {
   imports = [
-    # If you want to use home-manager modules from other flakes (such as nix-colors):
-    # inputs.nix-colors.homeManagerModule
-
-    # You can also split up your configuration and import pieces of it here:
-    # ./nvim.nix
+    inputs.sops-nix.homeManagerModules.sops
   ];
+
+  programs.ssh = {
+    enable = true;
+    matchBlocks = {
+      h5 = {
+        hostname = "107.172.5.176";
+        user = "lh";
+      };
+      github = {
+        hostname = "github.com";
+        user = "git";
+      };
+      "github.com" = {
+        hostname = "github.com";
+        user = "git";
+      };
+    };
+  };
 
   programs.git = {
     enable = true;
@@ -29,17 +43,15 @@
       column.ui = "auto";
       branch.sort = "committerdate";
 
-user.signing.key = "77E1D17E9CA01924BC8A0FD7CD40B1410BA0D1DF";
+      gpg.format = "ssh";
+      user.signingkey = "/home/${user}/.ssh/id_ed25519.pub";
       commit.gpgSign = true;
     };
   };
 
-sops = {
-    age.sshKeyPaths = [ "/home/user/id_" ];
-    defaultSopsFile = ./secrets.yaml;
-    secrets.test = {
-      path = "%r/test.txt"; 
-    };
+  sops = {
+    age.sshKeyPaths = [ "/home/${user}/id_ed25519" ];
+    defaultSopsFile = ./secrets/common.yaml;
   };
 
   systemd.user.startServices = "sd-switch";
