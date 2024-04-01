@@ -1,57 +1,37 @@
-{ inputs, outputs, lib, config, pkgs, user, ... }: {
+{ inputs, outputs, lib, config, pkgs, user, ... }:
+
+let
+  isDarwin = pkgs.stdenv.isDarwin;
+  isLinux = pkgs.stdenv.isLinux;
+
+  # For our MANPAGER env var
+  # https://github.com/sharkdp/bat/issues/1145
+  manpager = (pkgs.writeShellScriptBin "manpager" (if isDarwin then ''
+    sh -c 'col -bx | bat -l man -p'
+  '' else ''
+    col -bx < "$1" | bat --language man -p
+  ''));
+in
+{
   imports = [
-    inputs.sops-nix.homeManagerModules.sops
+    # ./modules/sops
+    ./modules/agenix
+
+    ./modules/git
+    ./modules/ssh
+    ./modules/direnv
+    ./modules/shell_gpt
   ];
 
-  programs.ssh = {
-    enable = true;
-    matchBlocks = {
-      h5 = {
-        hostname = "107.172.5.176";
-        user = "lh";
-      };
-      github = {
-        hostname = "github.com";
-        user = "git";
-      };
-      "github.com" = {
-        hostname = "github.com";
-        user = "git";
-      };
-    };
-  };
+  nixpkgs.overlays = builtins.attrValues (import ./overlays { inherit inputs; });
 
-  programs.git = {
-    enable = true;
-    userName = "Undefined01";
-    userEmail = "amoscr@163.com";
-
-    aliases = {
-      graph = "log --decorate --oneline --graph";
-    };
-
-    difftastic = {
-      enable = true;
-    };
-    extraConfig = {
-      init.defaultBranch = "main";
-      core.autocrlf = "input";
-      push.autoSetupRemote = true;
-      merge.conflictStyle = "zdiff3";
-      commit.verbose = true;
-      log.date = "iso";
-      column.ui = "auto";
-      branch.sort = "committerdate";
-
-      gpg.format = "ssh";
-      user.signingkey = "/home/${user}/.ssh/id_ed25519.pub";
-      commit.gpgSign = true;
-    };
-  };
-
-  sops = {
-    age.sshKeyPaths = [ "/home/${user}/id_ed25519" ];
-    defaultSopsFile = ./secrets/common.yaml;
+  home.sessionVariables = {
+    LANG = "en_US.UTF-8";
+    LC_CTYPE = "en_US.UTF-8";
+    LC_ALL = "en_US.UTF-8";
+    EDITOR = "nvim";
+    PAGER = "less -FirSwX";
+    MANPAGER = "${manpager}/bin/manpager";
   };
 
   systemd.user.startServices = "sd-switch";

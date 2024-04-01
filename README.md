@@ -15,5 +15,6 @@ Some useful commands:
 ```
 nix fmt
 
-nix run nixpkgs#sops secrets/common.yaml
+nix run nixpkgs#sops home/secrets/common.yaml
+(cd home/secrets/; nix run github:ryantm/agenix -- -e common.age)
 ```

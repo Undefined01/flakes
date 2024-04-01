@@ -41,8 +41,6 @@
     gnupg
     age
     chezmoi
-
-    shell_gpt
   ];
 
   programs.fzf.keybindings = true;
