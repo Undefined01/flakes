@@ -15,6 +15,13 @@ Some useful commands:
 ```
 nix fmt
 
+# system wide 
+sudo nix-collect-garbage --delete-old
+# homemanager
+nix-collect-garbage --delete-old
+
 nix run nixpkgs#sops home/secrets/common.yaml
-(cd home/secrets/; nix run github:ryantm/agenix -- -e common.age)
+bash -c 'cd home/secrets/; nix run .#agenix -- -e common.age)
+
+nix shell nixpkgs#{bash,graphviz,nix-du} -c bash -c 'nix-du | dot -Tpng > store.png'
 ```

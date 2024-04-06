@@ -3,8 +3,6 @@
 {
   imports = [
     inputs.nixos-wsl.nixosModules.wsl
-
-    ../../presets/commandline
   ];
 
   wsl.enable = true;

@@ -31,6 +31,7 @@ in
         OPENAI_USE_FUNCTIONS=true
         USE_LITELLM=false
         EOF
+        chmod 600 ${config.home.homeDirectory}/.config/shell_gpt/.sgptrc
         exit 0
       '';
     })

@@ -21,4 +21,6 @@
       config.allowUnfree = true;
     };
   };
+
+  agenix = inputs.agenix.overlays.default;
 }

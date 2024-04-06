@@ -3,16 +3,16 @@
 {
   programs.direnv = {
     enable = true;
+    nix-direnv.enable = true;
 
     config = {
       whitelist = {
-        prefix = [
-          "$HOME/code/go/src/github.com/hashicorp"
-          "$HOME/code/go/src/github.com/mitchellh"
-        ];
+        prefix = [ ];
 
-        exact = [ "$HOME/.envrc" ];
+        exact = [ ];
       };
     };
   };
+
+  programs.git.ignores = [ ".direnv/" ".envrc" ];
 }

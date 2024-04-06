@@ -1,4 +1,4 @@
-{ inputs, outputs, user, ... }:
+{ inputs, outputs, user, config, ... }:
 
 {
   imports = [
@@ -8,5 +8,5 @@
   home-manager.useUserPackages = true;
   home-manager.users.${user} = import ../../home;
 
-  home-manager.extraSpecialArgs = { inherit inputs outputs user; };
+  home-manager.extraSpecialArgs = { inherit inputs outputs user; isWsl = config.wsl.enable; };
 }
