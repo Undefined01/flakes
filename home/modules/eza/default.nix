@@ -9,6 +9,7 @@
 
   home.shellAliases = {
     ls = "eza --color=auto";
-    ll = "eza --color=auto --long --all --color-scale all --extended";
+    ll = "eza --color=auto --color-scale all --long --all --extended";
+    tree = "eza --color=auto --tree";
   };
 }

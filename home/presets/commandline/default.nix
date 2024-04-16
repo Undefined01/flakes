@@ -12,8 +12,9 @@
     ../../modules/eza
     ../../modules/bat
     ../../modules/bottom
-    ../../modules/tealdeer
     ../../modules/zoxide
+    ../../modules/gitui
+    ../../modules/tealdeer
 
     ../../modules/direnv
     ../../modules/neovim
@@ -46,6 +47,7 @@
     ripgrep
     fd
     jq
+    sd
     tokei
     difftastic
 

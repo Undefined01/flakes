@@ -29,19 +29,28 @@
     ];
   };
 
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-    substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store" "https://cache.nixos.org/" ];
-    auto-optimise-store = true;
-  };
-  nix.registry = {
-    nixpkgs.flake = inputs.nixpkgs;
-    unstable.to = {
-      "type" = "github";
-      "owner" = "NixOS";
-      "repo" = "nixpkgs";
-      "ref" = "nixos-unstable";
+  nix = {
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store" "https://cache.nixos.org/" ];
+    };
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
+    optimise.automatic = true;
+    optimise.dates = [ "03:45" ];
+    registry = {
+      nixpkgs.flake = inputs.nixpkgs;
+      unstable.to = {
+        "type" = "github";
+        "owner" = "NixOS";
+        "repo" = "nixpkgs";
+        "ref" = "nixos-unstable";
+      };
     };
   };
+
   nixpkgs.config.allowUnfree = true;
 }
