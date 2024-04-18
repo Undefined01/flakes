@@ -12,4 +12,8 @@
     ll = "eza --color=auto --color-scale all --long --all --extended";
     tree = "eza --color=auto --tree";
   };
+
+  programs.fzf = {
+    changeDirWidgetOptions = [ "--preview 'eza --color=always --tree --icons {} | head -200'" ];
+  };
 }

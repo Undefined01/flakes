@@ -13,6 +13,8 @@
     ../../modules/bat
     ../../modules/bottom
     ../../modules/zoxide
+    ../../modules/fd
+    ../../modules/fzf
     ../../modules/gitui
     ../../modules/tealdeer
 
@@ -20,8 +22,6 @@
     ../../modules/neovim
     ../../modules/shell_gpt
   ];
-
-  programs.fzf.enable = true;
 
   home.packages = with pkgs; [
     # busybox
@@ -45,7 +45,6 @@
     age
     du-dust
     ripgrep
-    fd
     jq
     sd
     tokei
