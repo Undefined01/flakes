@@ -24,4 +24,6 @@ nix run nixpkgs#sops home/secrets/common.yaml
 bash -c 'cd home/secrets/; nix run .#agenix -- -e common.age)
 
 nix shell nixpkgs#{bash,graphviz,nix-du} -c bash -c 'nix-du | dot -Tpng > store.png'
+
+nix build .#nixosConfigurations.iso.config.system.build.isoImage
 ```

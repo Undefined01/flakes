@@ -8,5 +8,5 @@
   home-manager.useUserPackages = true;
   home-manager.users.${user} = import ../../home;
 
-  home-manager.extraSpecialArgs = { inherit inputs outputs user; isWsl = config.wsl.enable; };
+  home-manager.extraSpecialArgs = { inherit inputs outputs user; isWsl = if config ? wsl then config.wsl.enable else false; };
 }

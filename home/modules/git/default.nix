@@ -32,4 +32,6 @@
       user.signingkey = "/home/${user}/.ssh/id_ed25519.pub";
     };
   };
+
+  programs.gpg.enable = true;
 }

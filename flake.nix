@@ -88,6 +88,19 @@
             ./configurations/wsl
           ];
         };
+
+        iso = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs outputs user; };
+          modules = [
+            inputs.nur.nixosModules.nur
+            { nixpkgs.overlays = builtins.attrValues overlays; }
+
+            ./modules/home-manager
+            ./configurations/common.nix
+            ./configurations/iso
+          ];
+        };
       };
     };
 }
