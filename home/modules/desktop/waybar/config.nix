@@ -1,12 +1,5 @@
 {
   mainBar = {
-    # Position and dimensions commented out as they seem to be defaults or unused in the example
-    # layer = "top";
-    # position = "bottom";
-    # width = 1280;
-    # height = 24; # For auto height, you might want to remove or adjust this
-    # spacing = 4;
-
     modules-left = [ "sway/workspaces" "sway/mode" "sway/scratchpad" "custom/media" ];
     modules-center = [ "sway/window" ];
     modules-right = [ "mpd" "idle_inhibitor" "temperature" "cpu" "memory" "network" "pulseaudio" "backlight" "keyboard-state" "battery" "battery#bat2" "tray" "clock" ];
@@ -77,15 +70,15 @@
 
     clock = {
       "tooltip-format" = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-      format = "{:L%Y-%m-%d<small>[%a]</small> <tt><small>%p</small></tt>%I:%M}";
+      format = "{%Y-%m-%d %I:%M}";
     };
 
     cpu = {
-      format = " {usage}%";
+      format = "{usage}%";
     };
 
     memory = {
-      format = " {}%";
+      format = "{}%";
     };
 
     temperature = {
@@ -108,7 +101,7 @@
         critical = 15;
       };
       format = "{icon} {capacity}%";
-      "format-charging" = " {capacity}%";
+      "format-charging" = "󰂄 {capacity}%";
       "format-plugged" = " {capacity}%";
       "format-alt" = "{icon} {time}";
       "format-icons" = [ "" "" "" "" "" ];
@@ -119,21 +112,21 @@
     };
 
     network = {
-      "format-wifi" = "{essid} ({signalStrength}%) ";
-      "format-ethernet" = " {ifname}";
-      "tooltip-format" = " {ifname} via {gwaddr}";
-      "format-linked" = " {ifname} (No IP)";
+      "format-wifi" = "{essid} ({signalStrength}%)  ";
+      "format-ethernet" = " {ifname}";
+      "tooltip-format" = " {ifname} via {gwaddr}";
+      "format-linked" = " {ifname} (No IP)";
       "format-disconnected" = "Disconnected ⚠ {ifname}";
-      "format-alt" = " {ifname}: {ipaddr}/{cidr}";
+      "format-alt" = " {ifname}: {ipaddr}/{cidr}";
     };
 
     pulseaudio = {
       "scroll-step" = 5; # %, can be a float
       format = "{icon} {volume}% {format_source}";
       "format-bluetooth" = " {icon} {volume}% {format_source}";
-      "format-bluetooth-muted" = "  {icon} {format_source}";
-      "format-muted" = "  {format_source}";
-      "format-source" = " {volume}%";
+      "format-bluetooth-muted" = "  {icon} {format_source}";
+      "format-muted" = " {format_source}";
+      "format-source" = "{volume}%";
       "format-source-muted" = "";
       "format-icons" = {
         "default" = [ "" "" "" ];
@@ -147,12 +140,11 @@
       "return-type" = "json";
       "max-length" = 40;
       "format-icons" = {
-        spotify = "";
+        spotify = " ";
         "default" = "🎜";
       };
       escape = true;
       exec = "$HOME/.config/waybar/mediaplayer.py 2> /dev/null"; # Script in resources folder
-      # "exec" = "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null"; # Filter player based on name
     };
   };
 }

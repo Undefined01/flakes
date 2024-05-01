@@ -1,18 +1,26 @@
 { config, lib, pkgs, inputs, ... }:
 {
   # imports = [ ../../programs/wayland/waybar/hyprland_waybar.nix ];
+
   programs = {
     dconf.enable = true;
     light.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    inputs.hyprland.packages.${pkgs.system}.hyprland
-    # inputs.hypr-contrib.packages.${pkgs.system}.grimblast
-    # inputs.hyprpicker.packages.${pkgs.system}.hyprpicker
-    swaylock-effects
-    pamixer
-  ];
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
 
-  security.pam.services.swaylock = { };
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+    configPackages = [ pkgs.hyprland ];
+  };
+
+  environment.sessionVariables = {
+    SDL_VIDEODRIVER = "wayland";
+    XDG_SESSION_TYPE = "wayland";
+    NIXOS_OZONE_WL = "1";
+  };
 }

@@ -4,8 +4,9 @@
   imports = [
     ../commandline
 
-    ../../modules/desktop/sway
     ../../modules/desktop/wayland
+    ../../modules/desktop/hyprland
+    ../../modules/desktop/thunar
     ../../modules/hardware
     ../../modules/font
     ../../modules/input

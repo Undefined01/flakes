@@ -10,7 +10,12 @@
       noto-fonts-emoji
       source-han-sans
       source-han-serif
-      source-code-pro
+      cascadia-code
+      (nerdfonts.override {
+        fonts = [
+          "CascadiaCode"
+        ];
+      })
     ];
 
     fontconfig = {
@@ -18,6 +23,8 @@
         emoji = [ "Noto Color Emoji" ];
         monospace = [
           "Noto Sans Mono CJK SC"
+          "CaskaydiaCove Nerd Font"
+          "Cascadia Code"
           "Source Code Pro"
           "DejaVu Sans Mono"
         ];
@@ -25,11 +32,13 @@
           "Noto Sans CJK SC"
           "Source Han Sans SC"
           "DejaVu Sans"
+          "CaskaydiaCove Nerd Font"
         ];
         serif = [
           "Noto Serif CJK SC"
           "Source Han Serif SC"
           "DejaVu Serif"
+          "CaskaydiaCove Nerd Font"
         ];
       };
     };
