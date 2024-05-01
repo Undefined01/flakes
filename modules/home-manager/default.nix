@@ -1,12 +1,19 @@
 { inputs, outputs, user, config, ... }:
 
+let
+  isWsl = if config ? wsl then config.wsl.enable else false;
+in
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
   ];
 
-  home-manager.useUserPackages = true;
-  home-manager.users.${user} = import ../../home;
+  home-manager = {
+    useUserPackages = true;
+    extraSpecialArgs = {
+      inherit inputs outputs user isWsl;
+    };
 
-  home-manager.extraSpecialArgs = { inherit inputs outputs user; isWsl = if config ? wsl then config.wsl.enable else false; };
+    users.${user} = import ../../home;
+  };
 }
