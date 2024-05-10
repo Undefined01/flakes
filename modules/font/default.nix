@@ -10,7 +10,7 @@
       noto-fonts-emoji
       source-han-sans
       source-han-serif
-      cascadia-code
+      # cascadia-code
       (nerdfonts.override {
         fonts = [
           "CascadiaCode"

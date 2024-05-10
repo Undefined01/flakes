@@ -3,6 +3,7 @@
 {
   imports = [
     inputs.nixos-wsl.nixosModules.wsl
+    ../../modules/commandline/podman
   ];
 
   wsl.enable = true;

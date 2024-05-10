@@ -5,7 +5,7 @@ let
 in
 {
   shell_gpt = final: prev: {
-    shell_gpt = final.unstable.shell_gpt;
+    shell_gpt = final.unstable.shell-gpt;
   };
 
   neovim = final: prev: {

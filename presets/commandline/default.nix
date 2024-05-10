@@ -3,6 +3,10 @@
 {
   imports = [
     ../minimal
+
+    ../../modules/commandline/console
+    ../../modules/commandline/ssh
+    ../../modules/commandline/podman
   ];
 
   environment.systemPackages = with pkgs; [

@@ -2,25 +2,25 @@
 
 {
   imports = [
-    ../../modules/git
-    ../../modules/ssh
-    ../../modules/bash
-    ../../modules/fish
-    ../../modules/zsh
-    ../../modules/starship
+    ../../modules/commandline/git
+    ../../modules/commandline/ssh
+    ../../modules/commandline/bash
+    ../../modules/commandline/fish
+    ../../modules/commandline/zsh
+    ../../modules/commandline/starship
 
-    ../../modules/eza
-    ../../modules/bat
-    ../../modules/bottom
-    ../../modules/zoxide
-    ../../modules/fd
-    ../../modules/fzf
-    ../../modules/gitui
-    ../../modules/tealdeer
+    ../../modules/commandline/eza
+    ../../modules/commandline/bat
+    ../../modules/commandline/bottom
+    ../../modules/commandline/zoxide
+    ../../modules/commandline/fd
+    ../../modules/commandline/fzf
+    ../../modules/commandline/gitui
+    ../../modules/commandline/tealdeer
 
-    ../../modules/direnv
-    ../../modules/neovim
-    ../../modules/shell_gpt
+    ../../modules/commandline/direnv
+    ../../modules/commandline/neovim
+    ../../modules/commandline/shell_gpt
   ];
 
   home.packages = with pkgs; [
@@ -42,7 +42,9 @@
     nodejs-slim
 
     gnupg
+    openssl
     age
+
     du-dust
     ripgrep
     jq

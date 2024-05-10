@@ -30,10 +30,10 @@
       };
 
       # impermanence.url = "github:nix-community/impermanence";
-      hyprland = {
-        url = "github:hyprwm/Hyprland";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
+      # hyprland = {
+      #   url = "github:hyprwm/Hyprland";
+      #   inputs.nixpkgs.follows = "nixpkgs";
+      # };
     };
 
   outputs = { self, nixpkgs, ... }@inputs:
