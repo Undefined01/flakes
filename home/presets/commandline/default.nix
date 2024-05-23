@@ -54,6 +54,6 @@
 
     ntfs3g
   ] ++ lib.optionals isWsl [
-    win32yank
+    # win32yank
   ];
 }
