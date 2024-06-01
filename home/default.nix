@@ -10,6 +10,7 @@ in
     ./modules/agenix
 
     ./presets/commandline
+    ./presets/programming
   ];
 
   nixpkgs.overlays = builtins.attrValues ((import ../overlays { inherit inputs; }) // (import ./overlays { inherit inputs; }));

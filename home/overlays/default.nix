@@ -8,6 +8,12 @@ in
     shell_gpt = final.unstable.shell-gpt;
   };
 
+  java = final: prev: {
+    jdt-language-server = (override_package final final.unstable.jdt-language-server).override {
+      jdk = prev.jdk17_headless;
+    };
+  };
+
   neovim = final: prev: {
     neovim-unwrapped = final.unstable.neovim-unwrapped;
   };

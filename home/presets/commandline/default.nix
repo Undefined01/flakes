@@ -24,7 +24,6 @@
   ];
 
   home.packages = with pkgs; [
-    # busybox
     wget
     curl
     less
@@ -36,10 +35,7 @@
     zstd
     vim
 
-    gcc
-    gnumake
     python3Minimal
-    nodejs-slim
 
     gnupg
     openssl

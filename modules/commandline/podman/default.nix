@@ -11,5 +11,6 @@
 
   environment.systemPackages = [
     pkgs.buildah
+    pkgs.podman-compose
   ];
 }

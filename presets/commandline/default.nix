@@ -47,9 +47,6 @@
     chezmoi
   ];
 
-  programs.fzf.keybindings = true;
-  programs.fzf.fuzzyCompletion = true;
-
   environment.sessionVariables = {
     EDITOR = "vim";
   };

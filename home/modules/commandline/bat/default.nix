@@ -7,7 +7,8 @@
   };
 
   home.shellAliases = {
-    bat = "batdiff";
+    cat = "bat";
+    diff = "batdiff";
     man = "batman";
     grep = "batgrep";
   };
