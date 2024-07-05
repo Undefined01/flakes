@@ -8,6 +8,6 @@
     jdk17_headless
     jdt-language-server
 
-    nodejs-slim
+    nodejs
   ];
 }
