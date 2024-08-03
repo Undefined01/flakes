@@ -2,14 +2,13 @@
 
 {
   programs.vscode = {
-    enable = true;
-    extensions = with pkgs.vscode-extensions; [
+    extensions = with pkgs.open-vsx-release; [
       ms-python.python
       ms-python.black-formatter
       ms-python.mypy-type-checker
     ];
 
-    user-settings = {
+    userSettings = {
       "[python]" = {
         "editor.defaultFormatter" = "ms-python.black-formatter";
       };

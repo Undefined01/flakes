@@ -2,12 +2,11 @@
 
 {
   programs.vscode = {
-    enable = true;
-    extensions = with pkgs.vscode-extensions; [
+    extensions = with pkgs.open-vsx-release; [
       xaver.clang-format
     ];
 
-    user-settings = {
+    userSettings = {
       clang-format = {
         style = "{ BasedOnStyle: Google, IndentWidth: 4, IndentCaseLabels: false, AllowShortBlocksOnASingleLine: true, AllowShortIfStatementsOnASingleLine: true }";
 

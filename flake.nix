@@ -31,6 +31,11 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
 
+      nix-vscode-extensions = {
+        url = "github:nix-community/nix-vscode-extensions";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
+
       # impermanence.url = "github:nix-community/impermanence";
       # hyprland = {
       #   url = "github:hyprwm/Hyprland";
@@ -75,6 +80,19 @@
             ./modules/home-manager
             ./configurations/common.nix
             ./configurations/nixos
+          ];
+        };
+
+        work = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs outputs user; };
+          modules = [
+            inputs.nur.nixosModules.nur
+            { nixpkgs.overlays = builtins.attrValues overlays; }
+
+            ./modules/home-manager
+            ./configurations/common.nix
+            ./configurations/work
           ];
         };
 

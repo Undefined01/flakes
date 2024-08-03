@@ -2,8 +2,7 @@
 
 {
   programs.vscode = {
-    enable = true;
-    extensions = with pkgs.vscode-extensions; [
+    extensions = with pkgs.open-vsx-release; [
       llvm-vs-code-extensions.vscode-clangd
       vadimcn.vscode-lldb
     ];

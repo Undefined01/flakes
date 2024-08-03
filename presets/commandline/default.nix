@@ -7,6 +7,7 @@
     ../../modules/commandline/console
     ../../modules/commandline/ssh
     ../../modules/commandline/podman
+    ../../modules/commandline/zerotierone
   ];
 
   environment.systemPackages = with pkgs; [
@@ -46,6 +47,8 @@
     age
     chezmoi
   ];
+
+  networking.firewall.enable = false;
 
   environment.sessionVariables = {
     EDITOR = "vim";

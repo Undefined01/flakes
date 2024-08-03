@@ -2,13 +2,12 @@
 
 {
   programs.vscode = {
-    enable = true;
-    extensions = with pkgs.vscode-extensions; [
+    extensions = with pkgs.open-vsx-release; [
       fwcd.kotlin
     ];
 
-    user-settings = {
+    userSettings = {
       "kotlin.scripts.buildScriptsEnabled" = true;
-    }
-      };
-  }
+    };
+  };
+}

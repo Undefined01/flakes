@@ -17,4 +17,6 @@ in
   neovim = final: prev: {
     neovim-unwrapped = final.unstable.neovim-unwrapped;
   };
+
+  vscode-marketplace = inputs.nix-vscode-extensions.overlays.default;
 }

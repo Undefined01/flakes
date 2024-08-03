@@ -10,10 +10,12 @@ in
     ./modules/agenix
 
     ./presets/commandline
+    ./presets/desktop
     ./presets/programming
   ];
 
   nixpkgs.overlays = builtins.attrValues ((import ../overlays { inherit inputs; }) // (import ./overlays { inherit inputs; }));
+  nixpkgs.config.allowUnfreePredicate = p: true;
 
   home.sessionVariables = {
     PAGER = "less -FirSwX";
