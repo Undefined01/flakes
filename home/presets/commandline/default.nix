@@ -17,6 +17,7 @@
     ../../modules/commandline/fzf
     ../../modules/commandline/gitui
     ../../modules/commandline/tealdeer
+    ../../modules/commandline/atuin
 
     ../../modules/commandline/direnv
     ../../modules/commandline/neovim
