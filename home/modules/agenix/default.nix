@@ -5,5 +5,5 @@
     ./secret.nix
   ];
 
-  secret.enable = true;
+  secret.enable = false;
 }

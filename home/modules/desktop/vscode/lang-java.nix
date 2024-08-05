@@ -2,13 +2,12 @@
 
 {
   programs.vscode = {
-    enable = true;
-    extensions = with pkgs.vscode-extensions; [
+    extensions = with pkgs.open-vsx-release; [
       vscjava.vscode-java-pack
       vscjava.vscode-gradle
     ];
 
-    user-settings = {
+    userSettings = {
       "files.exclude" = {
         "**/.classpath" = true;
         "**/.factorypath" = true;

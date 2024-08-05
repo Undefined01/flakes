@@ -32,7 +32,7 @@
   nix = {
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
-      substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store" "https://cache.nixos.org/" ];
+      substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store" "https://nix-community.cachix.org" "https://cache.nixos.org/" ];
     };
     gc = {
       automatic = true;

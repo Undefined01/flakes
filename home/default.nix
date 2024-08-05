@@ -10,10 +10,12 @@ in
     ./modules/agenix
 
     ./presets/commandline
+    ./presets/desktop
     ./presets/programming
   ];
 
   nixpkgs.overlays = builtins.attrValues ((import ../overlays { inherit inputs; }) // (import ./overlays { inherit inputs; }));
+  nixpkgs.config.allowUnfreePredicate = p: true;
 
   home.sessionVariables = {
     PAGER = "less -FirSwX";
@@ -21,6 +23,6 @@ in
 
   systemd.user.startServices = "sd-switch";
 
-  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+  # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "23.05";
 }

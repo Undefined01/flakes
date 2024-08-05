@@ -2,8 +2,7 @@
 
 {
   programs.vscode = {
-    enable = true;
-    extensions = with pkgs.vscode-extensions; [
+    extensions = with pkgs.open-vsx-release; [
       rust-lang.rust-analyzer
     ];
   };
