@@ -74,7 +74,6 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs outputs user; };
           modules = [
-            inputs.nur.nixosModules.nur
             { nixpkgs.overlays = builtins.attrValues overlays; }
 
             ./modules/home-manager
@@ -87,7 +86,6 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs outputs user; };
           modules = [
-            inputs.nur.nixosModules.nur
             { nixpkgs.overlays = builtins.attrValues overlays; }
 
             ./modules/home-manager
@@ -100,7 +98,6 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs outputs user; };
           modules = [
-            inputs.nur.nixosModules.nur
             { nixpkgs.overlays = builtins.attrValues overlays; }
 
             ./modules/home-manager
@@ -113,7 +110,6 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs outputs user; };
           modules = [
-            inputs.nur.nixosModules.nur
             { nixpkgs.overlays = builtins.attrValues overlays; }
 
             ./modules/home-manager

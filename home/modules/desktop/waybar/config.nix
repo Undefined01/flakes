@@ -74,11 +74,11 @@
     };
 
     cpu = {
-      format = "{usage}%";
+      format = " {usage}%";
     };
 
     memory = {
-      format = "{}%";
+      format = " {}%";
     };
 
     temperature = {

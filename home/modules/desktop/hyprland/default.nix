@@ -6,8 +6,11 @@ in
 {
   wayland.windowManager.hyprland = {
     enable = true;
+    systemd.enable = true;
     settings = {
       "$mod" = "SUPER";
+
+      "exec-once"="fcitx5 -d --replace";
 
       general = {
         border_size = 0;

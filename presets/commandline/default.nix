@@ -48,8 +48,6 @@
     chezmoi
   ];
 
-  networking.firewall.enable = false;
-
   environment.sessionVariables = {
     EDITOR = "vim";
   };

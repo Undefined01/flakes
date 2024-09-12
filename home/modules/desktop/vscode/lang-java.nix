@@ -2,7 +2,7 @@
 
 {
   programs.vscode = {
-    extensions = with pkgs.open-vsx-release; [
+    extensions = with pkgs.vscode-marketplace; [
       vscjava.vscode-java-pack
       vscjava.vscode-gradle
     ];

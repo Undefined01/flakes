@@ -11,5 +11,7 @@
     ../../modules/desktop/wezterm
     ../../modules/desktop/vscode
     # ../../modules/desktop/wpsoffice
+    ../../modules/desktop/clash-verge-rev
+    ../../modules/desktop/firefox
   ];
 }

@@ -9,7 +9,6 @@
     ../../modules/desktop/thunar
     ../../modules/hardware
     ../../modules/font
-    ../../modules/input
     ./common-apps.nix
   ];
 }
