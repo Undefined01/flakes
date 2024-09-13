@@ -6,6 +6,7 @@
     ../../modules/desktop/mako
     # ../../modules/desktop/eww
     ../../modules/desktop/waybar
+    ../../modules/desktop/input
 
     ../../modules/desktop/foot
     ../../modules/desktop/wezterm
