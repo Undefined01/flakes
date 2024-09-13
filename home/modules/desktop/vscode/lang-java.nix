@@ -14,6 +14,11 @@
         "**/.project" = true;
         "**/.settings" = true;
       };
+
+      "remote.SSH.defaultExtensions" = [
+        "vscjava.vscode-java-pack"
+        "vscjava.vscode-gradle"
+      ];
     };
   };
 }

@@ -51,4 +51,7 @@
   environment.sessionVariables = {
     EDITOR = "vim";
   };
+
+  # For other machines connecting to nix host via vs code remote ssh
+  programs.nix-ld.enable = true;
 }

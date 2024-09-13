@@ -9,8 +9,10 @@
       search.force = true;
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [
         immersive-translate
+        adblocker-ultimate
         tampermonkey
         lastpass-password-manager
+        user-agent-string-switcher
       ];
     };
   };

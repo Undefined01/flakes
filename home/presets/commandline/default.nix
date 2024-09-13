@@ -22,6 +22,7 @@
     ../../modules/commandline/direnv
     ../../modules/commandline/neovim
     ../../modules/commandline/shell_gpt
+    ../../modules/commandline/rclone
   ];
 
   home.packages = with pkgs; [

@@ -2,6 +2,6 @@
 
 {
   home.packages = [
-    pkgs.clash-verge-rev
+    pkgs.rclone
   ];
 }

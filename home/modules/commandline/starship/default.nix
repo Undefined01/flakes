@@ -13,6 +13,7 @@
         show_milliseconds = true;
         show_notifications = true;
         min_time_to_notify = 60 * 1000;
+        notification_timeout = 1500;
       };
       time = {
         disabled = false;

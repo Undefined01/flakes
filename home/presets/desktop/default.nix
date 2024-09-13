@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -11,7 +11,12 @@
     ../../modules/desktop/wezterm
     ../../modules/desktop/vscode
     # ../../modules/desktop/wpsoffice
-    ../../modules/desktop/clash-verge-rev
     ../../modules/desktop/firefox
+    ../../modules/desktop/thunderbird
+  ];
+
+  home.packages = with pkgs; [
+    clash-verge-rev
+    localsend
   ];
 }

@@ -19,6 +19,8 @@
       usernamehw.errorlens
       mhutchie.git-graph
       wakatime.vscode-wakatime
+      ms-vscode-remote.remote-ssh
+      ms-vscode.remote-server
       github.copilot
       github.copilot-chat
     ];
@@ -41,6 +43,9 @@
         "plaintext" = true;
         "markdown" = true;
       };
+
+      "remote.SSH.configFile" = "/home/lh/.vscode/remote-ssh-config";
+      
     };
   };
 }

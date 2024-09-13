@@ -8,6 +8,10 @@
 
     userSettings = {
       "kotlin.scripts.buildScriptsEnabled" = true;
+
+      "remote.SSH.defaultExtensions" = [
+        "fwcd.kotlin"
+      ];
     };
   };
 }
