@@ -37,7 +37,6 @@
         mouseWheelZoom = true;
       };
 
-
       "github.copilot.enable" = {
         "*" = true;
         "plaintext" = true;
@@ -47,6 +46,7 @@
       "remote.SSH.configFile" = "/home/lh/.vscode/remote-ssh-config";
 
       "git.confirmSync" = false;
+      "explorer.confirmDragAndDrop" = false;
     };
   };
 }

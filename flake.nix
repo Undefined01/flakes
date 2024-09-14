@@ -58,8 +58,11 @@
   outputs = { self, nixpkgs, ... }@inputs:
     let
       user = "lh";
+      specialArgs = {
+        inherit self inputs user;
+        inherit (self) outputs;
+      };
 
-      inherit (self) outputs;
       forAllSystems = nixpkgs.lib.genAttrs [
         "aarch64-linux"
         "i686-linux"
@@ -81,70 +84,47 @@
 
       overlays = overlays;
 
+      nixosConfigurations = {
+        work = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          inherit specialArgs;
+          modules = [
+            ./configurations/work
+            ./modules/home-manager/nixos
+          ];
+        };
+
+        wsl = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          inherit specialArgs;
+          modules = [
+            ./configurations/wsl
+            ./modules/home-manager/nixos
+          ];
+        };
+
+        iso = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          inherit specialArgs;
+          modules = [
+            ./configurations/iso
+            ./modules/home-manager/nixos
+          ];
+        };
+      };
+
       darwinConfigurations = {
         "Han-MacBook-Air" = inputs.darwin.lib.darwinSystem {
           system = "aarch64-darwin";
-          specialArgs = { inherit inputs outputs; user = "han"; };
+          specialArgs = specialArgs // { user = "han"; };
           modules = [
-            inputs.home-manager.darwinModules.home-manager
-            inputs.nix-homebrew.darwinModules.nix-homebrew
-
             ./configurations/darwin
+            ./modules/home-manager/darwin
           ];
         };
       };
 
       # Expose the package set, including overlays, for convenience.
       darwinPackages = self.darwinConfigurations."Han-MacBook-Air".pkgs;
-
-      nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs user; };
-          modules = [
-            { nixpkgs.overlays = builtins.attrValues overlays; }
-
-            ./modules/home-manager
-            ./configurations/common.nix
-            ./configurations/nixos
-          ];
-        };
-
-        work = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs user; };
-          modules = [
-            { nixpkgs.overlays = builtins.attrValues overlays; }
-
-            ./modules/home-manager
-            ./configurations/common.nix
-            ./configurations/work
-          ];
-        };
-
-        wsl = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs user; };
-          modules = [
-            { nixpkgs.overlays = builtins.attrValues overlays; }
-
-            ./modules/home-manager
-            ./configurations/common.nix
-            ./configurations/wsl
-          ];
-        };
-
-        iso = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs user; };
-          modules = [
-            { nixpkgs.overlays = builtins.attrValues overlays; }
-
-            ./modules/home-manager
-            ./configurations/common.nix
-            ./configurations/iso
-          ];
-        };
-      };
     };
 }

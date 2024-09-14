@@ -32,17 +32,6 @@
   security.sudo.wheelNeedsPassword = false;
 
   nix = {
-    settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store" "https://nix-community.cachix.org" "https://cache.nixos.org/" ];
-    };
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 30d";
-    };
-    optimise.automatic = true;
-    optimise.dates = [ "03:45" ];
     registry = {
       nixpkgs.flake = inputs.nixpkgs;
       unstable.to = {
@@ -53,6 +42,4 @@
       };
     };
   };
-
-  nixpkgs.config.allowUnfree = true;
 }

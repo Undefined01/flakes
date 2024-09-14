@@ -10,7 +10,7 @@
     extraConfig = ''
       ClientAliveInterval 30
       ClientAliveCountMax 60
-      '';
+    '';
   };
   services.fail2ban.enable = true;
 }

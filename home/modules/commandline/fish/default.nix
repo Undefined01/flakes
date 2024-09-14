@@ -11,7 +11,7 @@
     enableBashIntegration = true;
     enableZshIntegration = true;
     enableFishIntegration = true;
-  }
+  };
 
   # [https://wiki.nixos.org/wiki/Fish](https://wiki.nixos.org/w/index.php?title=Fish&oldid=1222)
   # Using fish as login shell may cause issues because fish is not POSIX compliant.

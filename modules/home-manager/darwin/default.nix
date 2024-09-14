@@ -5,7 +5,7 @@ let
 in
 {
   imports = [
-    inputs.home-manager.nixosModules.home-manager
+    inputs.home-manager.darwinModules.home-manager
   ];
 
   home-manager = {
@@ -14,6 +14,6 @@ in
       inherit inputs outputs user isWsl;
     };
 
-    users.${user} = import ../../home;
+    users.${user} = import ../../../home;
   };
 }

@@ -7,6 +7,9 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../shared/nixos
+
+    ../../modules/nix
 
     ../../presets/desktop
   ];

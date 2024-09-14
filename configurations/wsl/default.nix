@@ -1,13 +1,17 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, user, ... }:
 
 {
   imports = [
     inputs.nixos-wsl.nixosModules.wsl
+
+    ../shared/nixos
+
+    ../../modules/nix
     ../../modules/commandline/podman
   ];
 
   wsl.enable = true;
-  wsl.defaultUser = "lh";
+  wsl.defaultUser = user;
 
   wsl.docker-desktop.enable = false;
   wsl.usbip.enable = false;
