@@ -22,7 +22,5 @@
     };
   };
 
-  agenix = inputs.agenix.overlays.default;
-
   nur = inputs.nur.overlay;
 }

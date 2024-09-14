@@ -17,10 +17,6 @@
         url = "github:nix-community/home-manager/master";
         inputs.nixpkgs.follows = "nixpkgs";
       };
-      agenix = {
-        url = "github:ryantm/agenix";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
 
       nix-vscode-extensions = {
         url = "github:nix-community/nix-vscode-extensions";

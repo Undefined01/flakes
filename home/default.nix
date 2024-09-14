@@ -6,16 +6,13 @@ let
 in
 {
   imports = [
-    # ./modules/sops
-    ./modules/agenix
-
     ./presets/commandline
     ./presets/desktop
     ./presets/programming
   ];
 
   nixpkgs.overlays = builtins.attrValues ((import ../overlays { inherit inputs; }) // (import ./overlays { inherit inputs; }));
-  nixpkgs.config.allowUnfreePredicate = p: true;
+  nixpkgs.config.allowUnfree = true;
 
   home.sessionVariables = {
     PAGER = "less -FirSwX";

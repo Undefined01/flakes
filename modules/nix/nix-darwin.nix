@@ -13,9 +13,5 @@
     settings = {
       trusted-users = [ "@admin" "${user}" ];
     };
-
-    gc = {
-      interval = lib.mkDefault { Weekday = 1; Hour = 0; Minute = 0; };
-    }
-      };
-  }
+  };
+}
