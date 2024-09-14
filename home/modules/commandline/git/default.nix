@@ -21,6 +21,7 @@
       init.defaultBranch = "main";
       core.autocrlf = "input";
       help.autocorrect = true;
+      pull.rebase = false;
       push.autoSetupRemote = true;
       merge.conflictStyle = "zdiff3";
       log.date = "iso";

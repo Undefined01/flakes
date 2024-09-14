@@ -45,7 +45,8 @@
       };
 
       "remote.SSH.configFile" = "/home/lh/.vscode/remote-ssh-config";
-      
+
+      "git.confirmSync" = false;
     };
   };
 }
