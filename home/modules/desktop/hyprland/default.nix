@@ -10,7 +10,7 @@ in
     settings = {
       "$mod" = "SUPER";
 
-      "exec-once"="fcitx5 -d --replace";
+      "exec-once" = "fcitx5 -d --replace";
 
       general = {
         border_size = 0;

@@ -17,15 +17,6 @@
         url = "github:nix-community/home-manager/master";
         inputs.nixpkgs.follows = "nixpkgs";
       };
-      nixos-wsl = {
-        url = "github:nix-community/NixOS-WSL";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
-
-      # sops-nix = {
-      #   url = "github:Mic92/sops-nix";
-      #   inputs.nixpkgs.follows = "nixpkgs";
-      # };
       agenix = {
         url = "github:ryantm/agenix";
         inputs.nixpkgs.follows = "nixpkgs";
@@ -36,11 +27,32 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
 
-      # impermanence.url = "github:nix-community/impermanence";
-      # hyprland = {
-      #   url = "github:hyprwm/Hyprland";
-      #   inputs.nixpkgs.follows = "nixpkgs";
-      # };
+      # nix for darwin
+      darwin = {
+        url = "github:LnL7/nix-darwin";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
+      nix-homebrew = {
+        url = "github:zhaofengli-wip/nix-homebrew";
+      };
+      homebrew-bundle = {
+        url = "github:homebrew/homebrew-bundle";
+        flake = false;
+      };
+      homebrew-core = {
+        url = "github:homebrew/homebrew-core";
+        flake = false;
+      };
+      homebrew-cask = {
+        url = "github:homebrew/homebrew-cask";
+        flake = false;
+      };
+
+      # nix for wsl
+      nixos-wsl = {
+        url = "github:nix-community/NixOS-WSL";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
     };
 
   outputs = { self, nixpkgs, ... }@inputs:
@@ -68,6 +80,22 @@
       );
 
       overlays = overlays;
+
+      darwinConfigurations = {
+        "Han-MacBook-Air" = inputs.darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          specialArgs = { inherit inputs outputs; user = "han"; };
+          modules = [
+            inputs.home-manager.darwinModules.home-manager
+            inputs.nix-homebrew.darwinModules.nix-homebrew
+
+            ./configurations/darwin
+          ];
+        };
+      };
+
+      # Expose the package set, including overlays, for convenience.
+      darwinPackages = self.darwinConfigurations."Han-MacBook-Air".pkgs;
 
       nixosConfigurations = {
         nixos = nixpkgs.lib.nixosSystem {
