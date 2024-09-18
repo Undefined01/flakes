@@ -15,8 +15,9 @@
       };
       "remote.SSH.defaultExtensions" = [
         "ms-python.python"
-        "ms-python.black-formatter"
         "ms-python.vscode-pylance"
+        
+        "ms-python.black-formatter"
         "ms-python.mypy-type-checker"
       ];
     };

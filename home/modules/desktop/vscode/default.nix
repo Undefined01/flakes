@@ -19,8 +19,12 @@
       usernamehw.errorlens
       mhutchie.git-graph
       wakatime.vscode-wakatime
+
       ms-vscode-remote.remote-ssh
+      ms-vscode-remote.remote-ssh-edit
+      ms-vscode.remote-explorer
       ms-vscode.remote-server
+
       github.copilot
       github.copilot-chat
     ];
