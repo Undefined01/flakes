@@ -11,7 +11,7 @@
         immersive-translate
         adblocker-ultimate
         tampermonkey
-        lastpass-password-manager
+        bitwarden
         user-agent-string-switcher
       ];
     };

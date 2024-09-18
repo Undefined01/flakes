@@ -47,6 +47,7 @@
 
       "git.confirmSync" = false;
       "explorer.confirmDragAndDrop" = false;
+      "explorer.confirmDelete"= false;
     };
   };
 }
