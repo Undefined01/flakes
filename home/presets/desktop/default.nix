@@ -18,6 +18,8 @@
 
   home.packages = with pkgs; [
     clash-verge-rev
+    polkit # for pkexec, used by clash-verge-rev
+
     localsend
     obs-studio
     qq
