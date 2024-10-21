@@ -50,10 +50,12 @@
       "remote.SSH.configFile" = "/home/${user}/.vscode/remote-ssh-config";
 
       "update.mode" = "none";
+      "extensions.autoUpdate" = false;
+
       "git.confirmSync" = false;
       "explorer.confirmDragAndDrop" = false;
-      "explorer.confirmDelete"= false;
-      "terminal.integrated.enableMultiLinePasteWarning" = false;
+      "explorer.confirmDelete" = false;
+      "terminal.integrated.enableMultiLinePasteWarning" = "never";
     };
   };
 }
