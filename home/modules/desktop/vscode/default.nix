@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, user, ... }:
 
 {
   imports = [
@@ -17,7 +17,7 @@
       ms-vscode.hexeditor
       alefragnani.bookmarks
       usernamehw.errorlens
-      mhutchie.git-graph
+      donjayamanne.githistory
       wakatime.vscode-wakatime
 
       ms-vscode-remote.remote-ssh
@@ -47,11 +47,13 @@
         "markdown" = true;
       };
 
-      "remote.SSH.configFile" = "/home/lh/.vscode/remote-ssh-config";
+      "remote.SSH.configFile" = "/home/${user}/.vscode/remote-ssh-config";
 
+      "update.mode" = "none";
       "git.confirmSync" = false;
       "explorer.confirmDragAndDrop" = false;
       "explorer.confirmDelete"= false;
+      "terminal.integrated.enableMultiLinePasteWarning" = false;
     };
   };
 }

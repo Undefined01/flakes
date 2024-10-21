@@ -11,7 +11,7 @@
     ../../modules/desktop/foot
     ../../modules/desktop/wezterm
     ../../modules/desktop/vscode
-    ../../modules/desktop/wpsoffice
+    # ../../modules/desktop/wpsoffice
     ../../modules/desktop/firefox
     ../../modules/desktop/thunderbird
   ];
