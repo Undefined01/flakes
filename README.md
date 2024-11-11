@@ -30,9 +30,9 @@ Some useful commands:
 ```
 nix fmt
 
-# system wide 
+# System-wide garbage collection
 sudo nix-collect-garbage --delete-old
-# homemanager
+# Homemanager garbage collection
 nix-collect-garbage --delete-old
 
 nix run nixpkgs#sops home/secrets/common.yaml
@@ -41,4 +41,19 @@ bash -c 'cd home/secrets/; nix run .#agenix -- -e common.age
 nix shell nixpkgs#{bash,graphviz,nix-du} -c bash -c 'nix-du | dot -Tpng > store.png'
 
 nix build .#nixosConfigurations.iso.config.system.build.isoImage
+
+# Set up a temporary proxy for the Nix daemon. Note that this configuration will be lost after a reboot.
+# It is recommended to enable TUN mode in your proxy software to capture all traffic.
+sudo bash -c '
+PROXY="http://localhost:7891"
+mkdir -p /run/systemd/system/nix-daemon.service.d
+cat << EOF >/run/systemd/system/nix-daemon.service.d/override.conf  
+[Service]
+Environment="http_proxy=$PROXY"
+Environment="https_proxy=$PROXY"
+Environment="all_proxy=$PROXY"
+EOF
+systemctl daemon-reload
+systemctl restart nix-daemon
+'
 ```

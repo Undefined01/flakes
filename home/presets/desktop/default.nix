@@ -8,6 +8,7 @@
     ../../modules/desktop/waybar
     ../../modules/desktop/input
 
+    ../../modules/desktop/clash-verge-rev
     ../../modules/desktop/foot
     ../../modules/desktop/wezterm
     ../../modules/desktop/vscode
@@ -17,11 +18,11 @@
   ];
 
   home.packages = with pkgs; [
-    clash-verge-rev
     polkit # for pkexec, used by clash-verge-rev
 
     localsend
     obs-studio
     qq
+    nur.repos.novel2430.wechat-universal-bwrap
   ];
 }
