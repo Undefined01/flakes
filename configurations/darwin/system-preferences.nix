@@ -42,25 +42,25 @@
         persistent-apps = [
           "/System/Applications/Launchpad.app"
           "/System/Applications/Utilities/Terminal.app"
-          "/Applications/Vscode.app"
+          "/Applications/Visual Studio Code.app"
           "/Applications/Firefox.app"
           "/System/Applications/App Store.app"
           "/System/Applications/System Settings.app"
         ];
-        persistent-others = [
-          "~/Documents"
-          "~/Downloads"
-        ];
+        # persistent-others = [
+        #   "~/Documents"
+        #   "~/Downloads"
+        # ];
         tilesize = 48;
 
         # Mission control
-        wvous-tl-corner = 2;
+        # wvous-tl-corner = 2;
         # Application Windows
-        wvous-tr-corner = 3;
+        # wvous-tr-corner = 3;
         # Launchpad
-        wvous-bl-corner = 11;
+        # wvous-bl-corner = 11;
         # Desktop
-        wvous-br-corner = 4;
+        # wvous-br-corner = 4;
       };
 
       finder = {

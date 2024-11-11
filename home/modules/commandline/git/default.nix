@@ -1,4 +1,4 @@
-{ user, ... }:
+{ config, user, ... }:
 
 {
   programs.git = {
@@ -30,7 +30,7 @@
 
       commit.gpgSign = true;
       gpg.format = "ssh";
-      user.signingkey = "/home/${user}/.ssh/id_ed25519.pub";
+      user.signingkey = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
     };
   };
 
