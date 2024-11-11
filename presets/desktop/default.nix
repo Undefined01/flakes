@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -11,4 +11,10 @@
     ../../modules/font
     ./common-apps.nix
   ];
+
+  programs.clash-verge = {
+    enable = true;
+    package = pkgs.clash-verge-rev;
+    tunMode = true;
+  };
 }

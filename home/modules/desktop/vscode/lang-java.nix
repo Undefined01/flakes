@@ -4,7 +4,13 @@
   programs.vscode = {
     extensions = with pkgs.vscode-marketplace; [
       vscjava.vscode-java-pack
+      redhat.java
       vscjava.vscode-gradle
+      visualstudioexptteam.vscodeintellicode
+      vscjava.vscode-java-debug
+      vscjava.vscode-maven
+      vscjava.vscode-java-test
+      vscjava.vscode-java-dependency
     ];
 
     userSettings = {
