@@ -15,18 +15,18 @@
   };
 
   # Select internationalisation properties.
-  users.mutableUsers = false;
-  users.groups.${user} = { };
-  users.users.root.initialPassword = "${user}";
-  users.users.${user} = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "users" "${user}" ];
-    initialPassword = "${user}";
-    packages = with pkgs; [
-    ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDcTQOKYRyLoviozP5Ba6k8N+1Sn7LZ1wECHiPa2FF1V amoscr@163.com"
-    ];
+  users = {
+    mutableUsers = false;
+    groups.${user} = { };
+    users.root.initialPassword = "${user}";
+    users.${user} = {
+      isNormalUser = true;
+      extraGroups = [ "wheel" "users" "${user}" ];
+      initialPassword = "${user}";
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDcTQOKYRyLoviozP5Ba6k8N+1Sn7LZ1wECHiPa2FF1V amoscr@163.com"
+      ];
+    };
   };
 
   security.sudo.wheelNeedsPassword = false;

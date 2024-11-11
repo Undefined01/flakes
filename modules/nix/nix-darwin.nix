@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, user, ... }:
 
 {
   # Auto upgrade nix package and the daemon service.
@@ -11,7 +11,7 @@
 
   nix = {
     settings = {
-      trusted-users = [ "@admin" "${user}" ];
+      trusted-users = [ "@admin" user ];
     };
   };
 }
