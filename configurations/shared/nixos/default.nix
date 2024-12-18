@@ -14,6 +14,11 @@
     # useXkbConfig = true; # use xkbOptions in tty.
   };
 
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50;
+  };
+
   # Select internationalisation properties.
   users = {
     mutableUsers = false;
@@ -40,6 +45,7 @@
         "repo" = "nixpkgs";
         "ref" = "nixos-unstable";
       };
+      nur.flake = inputs.nur;
     };
   };
 
