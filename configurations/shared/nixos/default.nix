@@ -8,8 +8,8 @@
   time.timeZone = "Asia/Shanghai";
   i18n.defaultLocale = "en_US.UTF-8";
   time.hardwareClockInLocalTime = true;
-  console.keyMap = "us";
   console = {
+    keyMap = "us";
     # font = "Lat2-Terminus16";
     # useXkbConfig = true; # use xkbOptions in tty.
   };

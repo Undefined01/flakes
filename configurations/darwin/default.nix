@@ -9,6 +9,7 @@
     ./system-preferences.nix
 
     ../../presets/commandline/common.nix
+    ../../modules/font/fonts.nix
   ];
 
   time.timeZone = "Asia/Shanghai";

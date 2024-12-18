@@ -43,6 +43,10 @@
         url = "github:homebrew/homebrew-cask";
         flake = false;
       };
+      homebrew-aerospace = {
+        url = "github:nikitabobko/homebrew-aerospace";
+        flake = false;
+      };
 
       # nix for wsl
       nixos-wsl = {

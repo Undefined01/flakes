@@ -1,4 +1,4 @@
-{ pkgs, user, ... }:
+{ pkgs, user, ... }@args:
 
 {
   imports = [
@@ -12,13 +12,14 @@
 
   programs.vscode = {
     enable = true;
-    extensions = with pkgs.vscode-marketplace; [
+    extensions = with (import ./extensions.nix) args; [
       smcpeak.default-keys-windows
       ms-vscode.hexeditor
       alefragnani.bookmarks
       usernamehw.errorlens
       donjayamanne.githistory
       wakatime.vscode-wakatime
+      grapecity.gc-excelviewer
 
       ms-vscode-remote.remote-ssh
       ms-vscode-remote.remote-ssh-edit
