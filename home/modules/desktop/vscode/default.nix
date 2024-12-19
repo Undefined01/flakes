@@ -1,4 +1,4 @@
-{ pkgs, user, ... }@args:
+{ pkgs, config, ... }@args:
 
 {
   imports = [
@@ -48,7 +48,7 @@
         "markdown" = true;
       };
 
-      "remote.SSH.configFile" = "/home/${user}/.vscode/remote-ssh-config";
+      "remote.SSH.configFile" = "${config.home.homeDirectory}/.vscode/remote-ssh-config";
 
       "update.mode" = "none";
       "extensions.autoUpdate" = false;
