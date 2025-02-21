@@ -10,5 +10,7 @@
     ../../modules/commandline/console
     ../../modules/commandline/zerotierone
     ../../modules/commandline/cloudflared
+
+    ../../modules/samba
   ];
 }

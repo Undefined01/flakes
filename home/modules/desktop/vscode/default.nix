@@ -4,9 +4,11 @@
   imports = [
     ./lang-cpp.nix
     ./lang-java.nix
+    ./lang-javascript.nix
     ./lang-kotlin.nix
     ./lang-python.nix
     ./lang-rust.nix
+    ./env-nix.nix
     ./clang-format.nix
   ];
 
@@ -19,6 +21,8 @@
       usernamehw.errorlens
       donjayamanne.githistory
       wakatime.vscode-wakatime
+      tamasfe.even-better-toml
+      pflannery.vscode-versionlens
 
       ms-vscode-remote.remote-ssh
       ms-vscode-remote.remote-ssh-edit

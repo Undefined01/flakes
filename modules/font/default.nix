@@ -11,11 +11,7 @@
       source-han-sans
       source-han-serif
       # cascadia-code
-      (nerdfonts.override {
-        fonts = [
-          "CascadiaCode"
-        ];
-      })
+      nerd-fonts.caskaydia-cove
     ];
 
     fontconfig = {

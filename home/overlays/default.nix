@@ -20,5 +20,5 @@ in
 
   vscode-marketplace = inputs.nix-vscode-extensions.overlays.default;
 
-  nur = inputs.nur.overlay;
+  nur = inputs.nur.overlays.default;
 }
