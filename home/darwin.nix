@@ -8,6 +8,8 @@ in
   imports = [
     ./presets/commandline
     ./presets/programming
+    ./modules/desktop/wezterm
+    ./modules/desktop/vscode
   ];
 
   nixpkgs.overlays = builtins.attrValues ((import ../overlays { inherit inputs; }) // (import ./overlays { inherit inputs; }));

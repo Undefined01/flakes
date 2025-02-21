@@ -1,4 +1,4 @@
-{ pkgs, user, ... }:
+{ pkgs, config, ... }@args:
 
 {
   imports = [
@@ -14,7 +14,7 @@
 
   programs.vscode = {
     enable = true;
-    extensions = with pkgs.vscode-marketplace; [
+    extensions = with (import ./extensions.nix) args; [
       smcpeak.default-keys-windows
       ms-vscode.hexeditor
       alefragnani.bookmarks
@@ -23,6 +23,7 @@
       wakatime.vscode-wakatime
       tamasfe.even-better-toml
       pflannery.vscode-versionlens
+      grapecity.gc-excelviewer
 
       ms-vscode-remote.remote-ssh
       ms-vscode-remote.remote-ssh-edit
@@ -51,7 +52,7 @@
         "markdown" = true;
       };
 
-      "remote.SSH.configFile" = "/home/${user}/.vscode/remote-ssh-config";
+      "remote.SSH.configFile" = "${config.home.homeDirectory}/.vscode/remote-ssh-config";
 
       "update.mode" = "none";
       "extensions.autoUpdate" = false;

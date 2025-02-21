@@ -9,13 +9,18 @@
     casks = [
       "mos"
       # "macfuse"
+      "rwts-pdfwriter"
       "clash-verge-rev"
-      "wezterm"
-      "visual-studio-code"
+      # "wezterm"   # installed by nix
+      # "visual-studio-code"  # installed by nix
       "qq"
       "wechat"
       "thunderbird"
       "zotero"
+      "obs"
+      "vlc"
+      "zerotier-one"
+      "tencent-meeting"
     ];
   };
 
@@ -26,6 +31,7 @@
       "homebrew/homebrew-core" = inputs.homebrew-core;
       "homebrew/homebrew-cask" = inputs.homebrew-cask;
       "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
+      "nikitabobko/homebrew-aerospace" = inputs.homebrew-aerospace;
     };
     mutableTaps = false;
     autoMigrate = true;
