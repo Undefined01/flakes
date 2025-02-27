@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  programs.vscode = {
+  programs.vscode.profiles.default = {
     extensions = with pkgs.vscode-marketplace; [
       pinage404.nix-extension-pack
       arrterian.nix-env-selector

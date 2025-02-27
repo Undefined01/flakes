@@ -19,7 +19,7 @@
   programs.fish.enable = true;
 
   # Allow sudo authentication with Touch ID
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth= true;
 
   # Select internationalisation properties.
   users = {

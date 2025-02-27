@@ -14,6 +14,7 @@
 
   programs.vscode = {
     enable = true;
+	profiles.default = {
     extensions = with (import ./extensions.nix) args; [
       smcpeak.default-keys-windows
       ms-vscode.hexeditor
@@ -62,5 +63,6 @@
       "explorer.confirmDelete" = false;
       "terminal.integrated.enableMultiLinePasteWarning" = "never";
     };
+};
   };
 }

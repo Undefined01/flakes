@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  programs.vscode = {
+  programs.vscode.profiles.default = {
     extensions = with pkgs.pkgs.vscode-marketplace; [
       xaver.clang-format
     ];

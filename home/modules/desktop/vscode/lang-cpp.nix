@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  programs.vscode = {
+  programs.vscode.profiles.default = {
     extensions = with pkgs.vscode-marketplace; [
       llvm-vs-code-extensions.vscode-clangd
       vadimcn.vscode-lldb
