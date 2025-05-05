@@ -5,6 +5,7 @@
     extensions = with pkgs.vscode-marketplace; [
       ms-python.python
       ms-python.debugpy
+      ms-toolsai.jupyter
       ms-python.vscode-pylance
       charliermarsh.ruff
     ];

@@ -1,4 +1,4 @@
-{ ... }:
+{ nixpkgs, ... }:
 
 {
   system = {
@@ -41,8 +41,9 @@
         orientation = "bottom";
         persistent-apps = [
           "/System/Applications/Launchpad.app"
-          "/System/Applications/Utilities/Terminal.app"
-          "/Applications/Visual Studio Code.app"
+          # "/System/Applications/Utilities/Terminal.app"
+          nixpkgs.wezterm
+          nixpkgs.vscode
           "/Applications/Firefox.app"
           "/System/Applications/App Store.app"
           "/System/Applications/System Settings.app"

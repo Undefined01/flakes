@@ -4,23 +4,23 @@
       defaultFonts = {
         emoji = [ "Noto Color Emoji" ];
         monospace = [
-          "Noto Sans Mono CJK SC"
-          "CaskaydiaCove Nerd Font"
+          "CaskaydiaCove Nerd Font Mono"
+          "CaskaydiaCove Mono"
+          "Cascadia Code Mono"
+          "CaskaydiaCove"
           "Cascadia Code"
+          "Noto Sans Mono CJK SC"
           "Source Code Pro"
-          "DejaVu Sans Mono"
         ];
         sansSerif = [
           "Noto Sans CJK SC"
           "Source Han Sans SC"
-          "DejaVu Sans"
-          "CaskaydiaCove Nerd Font"
+          "emoji"
         ];
         serif = [
           "Noto Serif CJK SC"
           "Source Han Serif SC"
-          "DejaVu Serif"
-          "CaskaydiaCove Nerd Font"
+          "emoji"
         ];
       };
     };

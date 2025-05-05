@@ -7,8 +7,8 @@
     ];
 
     userSettings = {
-      "[python]" = {
-        "editor.defaultFormatter" = "ms-python.black-formatter";
+      "[rust]" = {
+        "editor.defaultFormatter" = "rust-lang.rust-analyzer";
       };
       "remote.SSH.defaultExtensions" = [
         "rust-lang.rust-analyzer"
