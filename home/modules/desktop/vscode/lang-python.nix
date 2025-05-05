@@ -5,21 +5,19 @@
     extensions = with pkgs.vscode-marketplace; [
       ms-python.python
       ms-python.debugpy
-      ms-python.black-formatter
       ms-python.vscode-pylance
-      ms-python.mypy-type-checker
+      charliermarsh.ruff
     ];
 
     userSettings = {
       "[python]" = {
-        "editor.defaultFormatter" = "ms-python.black-formatter";
+        "editor.defaultFormatter" = "charliermarsh.ruff";
       };
       "remote.SSH.defaultExtensions" = [
         "ms-python.python"
         "ms-python.vscode-pylance"
 
-        "ms-python.black-formatter"
-        "ms-python.mypy-type-checker"
+        "charliermarsh.ruff"
       ];
     };
   };

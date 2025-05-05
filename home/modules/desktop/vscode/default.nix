@@ -25,6 +25,7 @@
       tamasfe.even-better-toml
       pflannery.vscode-versionlens
       grapecity.gc-excelviewer
+      tomoki1207.pdf
 
       ms-vscode-remote.remote-ssh
       ms-vscode-remote.remote-ssh-edit
