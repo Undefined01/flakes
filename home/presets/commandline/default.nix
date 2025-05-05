@@ -37,7 +37,8 @@
     zstd
     vim
 
-    python3Minimal
+    python3
+    uv
 
     gnupg
     openssl
@@ -51,6 +52,7 @@
     difftastic
 
     ntfs3g
+    zellij
   ] ++ lib.optionals isWsl [
     # win32yank
   ];

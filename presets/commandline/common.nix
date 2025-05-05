@@ -12,6 +12,7 @@
     git
     less
     python3
+    uv
     man
     gnutar
     zip
@@ -20,7 +21,6 @@
     zstd
     killall
 
-    delta
     eza
     bat
     tealdeer
@@ -29,18 +29,13 @@
     fd
     jq
     fzf
-    glances
     zoxide
-    tokei
     difftastic
 
     ntfs3g
 
     zsh
     fish
-    gnupg
-    age
-    chezmoi
   ];
 
   # environment.sessionVariables = {

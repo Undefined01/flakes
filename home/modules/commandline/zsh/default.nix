@@ -9,7 +9,7 @@
     history.share = false;
     history.ignoreDups = true;
     history.extended = true;
-    initExtra = ''
+    initContent = ''
       setopt INC_APPEND_HISTORY_TIME
     '';
   };

@@ -13,7 +13,7 @@
   ];
 
   programs.clash-verge = {
-    enable = true;
+    enable = false;
     autoStart = true;
   };
 }

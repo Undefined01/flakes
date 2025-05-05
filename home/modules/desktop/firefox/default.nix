@@ -5,7 +5,7 @@
     enable = true;
     profiles.lh = {
       isDefault = true;
-      search.default = "Bing";
+      search.default = "bing";
       search.force = true;
       extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
         immersive-translate
