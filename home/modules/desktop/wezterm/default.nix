@@ -6,7 +6,7 @@
     extraConfig = ''
       return {
         font = wezterm.font_with_fallback({
-          "JetBrainsMono Nerd Font",
+          "CaskaydiaCove Nerd Font Mono",
           "Source Han Sans CN",
 
           -- Fallback to Wezterm's built-in font if the above fonts are not available

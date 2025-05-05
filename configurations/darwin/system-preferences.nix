@@ -1,4 +1,4 @@
-{ nixpkgs, ... }:
+{ pkgs, ... }:
 
 {
   system = {
@@ -42,8 +42,8 @@
         persistent-apps = [
           "/System/Applications/Launchpad.app"
           # "/System/Applications/Utilities/Terminal.app"
-          nixpkgs.wezterm
-          nixpkgs.vscode
+          "${pkgs.wezterm}/Applications/WezTerm.app"
+          "${pkgs.vscode}/Applications/Visual Studio Code.app"
           "/Applications/Firefox.app"
           "/System/Applications/App Store.app"
           "/System/Applications/System Settings.app"
