@@ -6,8 +6,6 @@
     ../../modules/nix/nix-darwin.nix
     ../../modules/homebrew
 
-    ./system-preferences.nix
-
     ../../presets/commandline/common.nix
     ../../modules/font/fonts.nix
   ];

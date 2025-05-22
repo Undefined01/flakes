@@ -17,11 +17,10 @@ sh <(curl -L https://nixos.org/nix/install)
 nix --extra-experimental-features "nix-command flakes" shell nixpkgs#git
 git clone https://github.com/undefined01/flakes
 cd flakes
-sudo nix --extra-experimental-features 'nix-command flakes' run nix-darwin -- switch --flake .
+sudo -E nix --extra-experimental-features 'nix-command flakes' run nix-darwin -- switch --flake ".?submodules=1#darwin"
 # After installation, you can rebuild the configuration by darwin-rebuild
-darwin-rebuild switch --flake .
+darwin-rebuild switch --flake ".?submodules=1#darwin"
 ```
-
 
 You may need to set up the proxy before installation by `export {http_proxy,https_proxy,HTTP_PROXY,HTTPS_PROXY,all_proxy,ALL_PROXY}="http://172.25.64.1:7891"`.
 
@@ -30,16 +29,17 @@ Some useful commands:
 ```
 nix fmt
 
-# System-wide garbage collection
-sudo nix-collect-garbage --delete-old
-# Homemanager garbage collection
+# System-wide garbage collection, make sure your latest system build can boot successfully before removing old generations.
 nix-collect-garbage --delete-old
 
+# Setting up secrets for nix
 nix run nixpkgs#sops home/secrets/common.yaml
 bash -c 'cd home/secrets/; nix run .#agenix -- -e common.age
 
+# visualize the Nix store and its size
 nix shell nixpkgs#{bash,graphviz,nix-du} -c bash -c 'nix-du | dot -Tpng > store.png'
 
+# Build an ISO image
 nix build .#nixosConfigurations.iso.config.system.build.isoImage
 
 # Set up a temporary proxy for the Nix daemon. Note that this configuration will be lost after a reboot.

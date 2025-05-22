@@ -114,7 +114,7 @@
       };
 
       darwinConfigurations = {
-        "Han-MacBook-Air" = inputs.darwin.lib.darwinSystem {
+        darwin = inputs.darwin.lib.darwinSystem {
           system = "aarch64-darwin";
           specialArgs = specialArgs // { user = "han"; };
           modules = [

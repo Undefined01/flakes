@@ -6,6 +6,7 @@ let
 in
 {
   imports = [
+    ./presets/darwin/preferences.nix
     ./presets/commandline
     ./presets/programming
     ./modules/desktop/wezterm

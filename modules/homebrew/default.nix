@@ -5,6 +5,12 @@
   ];
 
   homebrew = {
+    # TODO: this is a workaround for https://github.com/nix-darwin/nix-darwin/pull/1341
+    # In the long run, this setting will be deprecated and removed after all the
+    # functionality it is relevant for has been adjusted to allow
+    # specifying the relevant user separately, moved under the
+    # `users.users.*` namespace, or migrated to Home Manager.
+    user = user;
     enable = true;
     casks = [
       "mos"

@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
-  system = {
+  targets.darwin = {
     defaults = {
       NSGlobalDomain = {
         # Enable two finger swipe to navigate backward or forward
@@ -12,7 +12,7 @@
 
         AppleICUForce24HourTime = true;
         AppleMeasurementUnits = "Centimeters";
-        AppleMetricUnits = 1;
+        AppleMetricUnits = true;
         AppleTemperatureUnit = "Celsius";
 
         AppleShowAllExtensions = true;
