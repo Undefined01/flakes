@@ -27,6 +27,7 @@
       "vlc"
       "zerotier-one"
       "tencent-meeting"
+      "cleanclip"
     ];
   };
 
