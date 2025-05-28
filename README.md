@@ -19,7 +19,7 @@ git clone https://github.com/undefined01/flakes
 cd flakes
 sudo -E nix --extra-experimental-features 'nix-command flakes' run nix-darwin -- switch --flake ".?submodules=1#darwin"
 # After installation, you can rebuild the configuration by darwin-rebuild
-darwin-rebuild switch --flake ".?submodules=1#darwin"
+sudo darwin-rebuild switch --flake ".?submodules=1#darwin"
 ```
 
 You may need to set up the proxy before installation by `export {http_proxy,https_proxy,HTTP_PROXY,HTTPS_PROXY,all_proxy,ALL_PROXY}="http://172.25.64.1:7891"`.
@@ -37,6 +37,7 @@ nix run nixpkgs#sops home/secrets/common.yaml
 bash -c 'cd home/secrets/; nix run .#agenix -- -e common.age
 
 # visualize the Nix store and its size
+nix run github:utdemir/nix-tree
 nix shell nixpkgs#{bash,graphviz,nix-du} -c bash -c 'nix-du | dot -Tpng > store.png'
 
 # Build an ISO image

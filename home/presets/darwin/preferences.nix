@@ -77,7 +77,7 @@
           };
           tile-type = "file-tile";
         } else item;
-        toTiles = items: lib.debug.traceValSeq (map toTile (map guessType items));
+        toTiles = items: map toTile (map guessType items);
       in {
         orientation = "bottom";
         autohide = true;
@@ -113,6 +113,11 @@
       "com.apple.finder" = {
         AppleShowAllFiles = true;
         _FXShowPosixPathInTitle = true;
+      };
+
+      # 充电提示音
+      "com.apple.PowerChime" = {
+        ChimeOnAllHardware = true;
       };
 
       "com.apple.AppleMultitouchTrackpad" = {
