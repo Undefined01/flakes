@@ -40,75 +40,78 @@
         "com.apple.trackpad.scaling" = 0.875;
       };
 
-      "com.apple.dock" = let
-        # Convert the item to dock tile
-        # Copied from https://github.com/nix-darwin/nix-darwin/blob/e2676937faf868111dcea6a4a9cf4b6549907c9d/modules/system/defaults/dock.nix#L172-L196
-        endsWith = str: suffix:
-          if (builtins.isString str) && (builtins.stringLength str) >= (builtins.stringLength suffix) then
-            (lib.substring ((builtins.stringLength str) - (builtins.stringLength suffix)) (builtins.stringLength suffix) str) == suffix
-          else
-            false;
-        guessType = item:
-          if builtins.isString item then
-            if endsWith item ".app" then { app = item; }
-            else if endsWith item "/" then { folder = item; }
-            else { file = item; }
-          else item;
-        toTile = item: if item ? app then {
-          tile-type = "file-tile";
-          tile-data = { };
-        tile-data.file-data = {
-          _CFURLString = item.app;
-          _CFURLStringType = 0;
+      "com.apple.dock" =
+        let
+          # Convert the item to dock tile
+          # Copied from https://github.com/nix-darwin/nix-darwin/blob/e2676937faf868111dcea6a4a9cf4b6549907c9d/modules/system/defaults/dock.nix#L172-L196
+          endsWith = str: suffix:
+            if (builtins.isString str) && (builtins.stringLength str) >= (builtins.stringLength suffix) then
+              (lib.substring ((builtins.stringLength str) - (builtins.stringLength suffix)) (builtins.stringLength suffix) str) == suffix
+            else
+              false;
+          guessType = item:
+            if builtins.isString item then
+              if endsWith item ".app" then { app = item; }
+              else if endsWith item "/" then { folder = item; }
+              else { file = item; }
+            else item;
+          toTile = item:
+            if item ? app then {
+              tile-type = "file-tile";
+              tile-data = { };
+              tile-data.file-data = {
+                _CFURLString = item.app;
+                _CFURLStringType = 0;
+              };
+            } else if item ? spacer then {
+              tile-data = { };
+              tile-type = if item.spacer.small then "small-spacer-tile" else "spacer-tile";
+            } else if item ? folder then {
+              tile-data.file-data = {
+                _CFURLString = "file://" + item.folder;
+                _CFURLStringType = 15;
+              };
+              tile-type = "directory-tile";
+            } else if item ? file then {
+              tile-data.file-data = {
+                _CFURLString = "file://" + item.file;
+                _CFURLStringType = 15;
+              };
+              tile-type = "file-tile";
+            } else item;
+          toTiles = items: map toTile (map guessType items);
+        in
+        {
+          orientation = "bottom";
+          autohide = true;
+          autohide-delay = 0;
+
+          show-recents = true;
+
+          persistent-apps = toTiles [
+            "/System/Applications/Launchpad.app"
+            # "/System/Applications/Utilities/Terminal.app"
+            "${pkgs.wezterm}/Applications/WezTerm.app"
+            "${pkgs.vscode}/Applications/Visual Studio Code.app"
+            "/Applications/Firefox.app"
+            "/System/Applications/App Store.app"
+            "/System/Applications/System Settings.app"
+          ];
+          persistent-others = toTiles [
+            "/Users/${user}/Documents/"
+            "/Users/${user}/Downloads/"
+          ];
+          tilesize = 48;
+
+          # Mission control
+          # wvous-tl-corner = 2;
+          # Application Windows
+          # wvous-tr-corner = 3;
+          # Launchpad
+          # wvous-bl-corner = 11;
+          # Desktop
+          # wvous-br-corner = 4;
         };
-        } else if item ? spacer then {
-          tile-data = { };
-          tile-type = if item.spacer.small then "small-spacer-tile" else "spacer-tile";
-        } else if item ? folder then {
-          tile-data.file-data = {
-            _CFURLString = "file://" + item.folder;
-            _CFURLStringType = 15;
-          };
-          tile-type = "directory-tile";
-        } else if item ? file then {
-          tile-data.file-data = {
-            _CFURLString = "file://" + item.file;
-            _CFURLStringType = 15;
-          };
-          tile-type = "file-tile";
-        } else item;
-        toTiles = items: map toTile (map guessType items);
-      in {
-        orientation = "bottom";
-        autohide = true;
-        autohide-delay = 0;
-        
-        show-recents = true;
-
-        persistent-apps = toTiles [
-          "/System/Applications/Launchpad.app"
-          # "/System/Applications/Utilities/Terminal.app"
-          "${pkgs.wezterm}/Applications/WezTerm.app"
-          "${pkgs.vscode}/Applications/Visual Studio Code.app"
-          "/Applications/Firefox.app"
-          "/System/Applications/App Store.app"
-          "/System/Applications/System Settings.app"
-        ];
-        persistent-others = toTiles [
-          "/Users/${user}/Documents/"
-          "/Users/${user}/Downloads/"
-        ];
-        tilesize = 48;
-
-        # Mission control
-        # wvous-tl-corner = 2;
-        # Application Windows
-        # wvous-tr-corner = 3;
-        # Launchpad
-        # wvous-bl-corner = 11;
-        # Desktop
-        # wvous-br-corner = 4;
-      };
 
       "com.apple.finder" = {
         AppleShowAllFiles = true;

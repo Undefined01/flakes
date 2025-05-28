@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  programs.vscode.profiles.default= {
+  programs.vscode.profiles.default = {
     extensions = with pkgs.vscode-marketplace; [
       vscjava.vscode-java-pack
       redhat.java

@@ -27,7 +27,7 @@ You may need to set up the proxy before installation by `export {http_proxy,http
 Some useful commands:
 
 ```
-nix fmt
+nix fmt .
 
 # System-wide garbage collection, make sure your latest system build can boot successfully before removing old generations.
 nix-collect-garbage --delete-old

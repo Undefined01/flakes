@@ -14,6 +14,7 @@
       "[python]" = {
         "editor.defaultFormatter" = "charliermarsh.ruff";
       };
+      "python.analysis.typeCheckingMode" = "standard";
       "remote.SSH.defaultExtensions" = [
         "ms-python.python"
         "ms-python.vscode-pylance"
