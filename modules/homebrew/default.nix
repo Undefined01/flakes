@@ -19,7 +19,7 @@
       "clash-verge-rev"
       # "wezterm"   # installed by nix
       # "visual-studio-code"  # installed by nix
-      "sogouinput"
+      "sogou-input"
       "qq"
       "wechat"
       "thunderbird"
