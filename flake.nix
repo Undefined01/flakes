@@ -47,6 +47,10 @@
         url = "github:nikitabobko/homebrew-aerospace";
         flake = false;
       };
+      homebrew-sogou-input = {
+        url = "github:recronin/homebrew-sogou-input";
+        flake = false;
+      };
 
       # nix for wsl
       nixos-wsl = {

@@ -19,6 +19,7 @@
       "clash-verge-rev"
       # "wezterm"   # installed by nix
       # "visual-studio-code"  # installed by nix
+      "sogouinput"
       "qq"
       "wechat"
       "thunderbird"
@@ -39,6 +40,7 @@
       "homebrew/homebrew-cask" = inputs.homebrew-cask;
       "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
       "nikitabobko/homebrew-aerospace" = inputs.homebrew-aerospace;
+      "recronin/homebrew-sogou-input" = inputs.homebrew-sogou-input;
     };
     mutableTaps = false;
     autoMigrate = true;

@@ -177,6 +177,22 @@
         "type": "github"
       }
     },
+    "homebrew-sogou-input": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1747984789,
+        "narHash": "sha256-UAlg57BO45yVarXvtRam6JJr8HqYS4e8micRMaJ8PgI=",
+        "owner": "recronin",
+        "repo": "homebrew-sogou-input",
+        "rev": "55b274409c49a915ce1116b640db4c3582a0c56c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "recronin",
+        "repo": "homebrew-sogou-input",
+        "type": "github"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -377,6 +393,7 @@
         "homebrew-bundle": "homebrew-bundle",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
+        "homebrew-sogou-input": "homebrew-sogou-input",
         "nix-homebrew": "nix-homebrew",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixos-hardware": "nixos-hardware",

@@ -57,6 +57,7 @@
         "remote.SSH.configFile" = "${config.home.homeDirectory}/.vscode/remote-ssh-config";
         "settingsSync.ignoredSettings" = [
           "remote.SSH.configFile"
+          "remote.SSH.remotePlatform"
         ];
 
         "update.mode" = "none";
