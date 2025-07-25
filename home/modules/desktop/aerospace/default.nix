@@ -1,0 +1,5 @@
+{
+  imports = [
+    ./preferences-fix.nix
+  ];
+}

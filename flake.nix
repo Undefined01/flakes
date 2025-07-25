@@ -11,7 +11,10 @@
       nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
       nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
       nixos-hardware.url = "github:nixos/nixos-hardware";
-      nur.url = "github:nix-community/NUR";
+      nur = {
+        url = "github:nix-community/NUR";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
       home-manager = {
         # url = "github:nix-community/home-manager/release-24.05";
         url = "github:nix-community/home-manager/master";
@@ -47,10 +50,6 @@
         url = "github:nikitabobko/homebrew-aerospace";
         flake = false;
       };
-      homebrew-sogou-input = {
-        url = "github:recronin/homebrew-sogou-input";
-        flake = false;
-      };
 
       # nix for wsl
       nixos-wsl = {
@@ -64,7 +63,6 @@
       user = "lh";
       specialArgs = {
         inherit self inputs user;
-        inherit (self) outputs;
       };
 
       forAllSystems = nixpkgs.lib.genAttrs [
@@ -124,11 +122,38 @@
           modules = [
             ./configurations/darwin
             ./modules/home-manager/darwin
+            ({
+              home-manager.users.${user} = import ./home/darwin.nix;
+            })
+          ];
+        };
+
+        darwin-a = inputs.darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          specialArgs = specialArgs;
+          modules = [
+            ./configurations/darwin/darwin-a.nix
+            ./modules/home-manager/darwin
+            ({
+              home-manager.users.${user} = import ./home/darwin-a.nix;
+            })
           ];
         };
       };
 
       # Expose the package set, including overlays, for convenience.
-      darwinPackages = self.darwinConfigurations."Han-MacBook-Air".pkgs;
+      darwinPackages = self.darwinConfigurations.darwin.pkgs;
+
+      homeConfigurations.lh = inputs.home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+
+        # Specify your home configuration modules here, for example,
+        # the path to your home.nix.
+        modules = [ ./home ];
+
+        # Optionally use extraSpecialArgs
+        # to pass through arguments to home.nix
+        extraSpecialArgs = specialArgs;
+      };
     };
 }

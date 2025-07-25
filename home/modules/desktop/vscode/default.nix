@@ -1,4 +1,4 @@
-{ pkgs, config, ... }@args:
+{ pkgs, lib, config, ... }@args:
 
 {
   imports = [
@@ -20,7 +20,7 @@
         ms-vscode.hexeditor
         alefragnani.bookmarks
         usernamehw.errorlens
-        donjayamanne.githistory
+        eamodio.gitlens
         wakatime.vscode-wakatime
         tamasfe.even-better-toml
         pflannery.vscode-versionlens
@@ -31,13 +31,18 @@
         ms-vscode-remote.remote-ssh-edit
         ms-vscode.remote-explorer
         ms-vscode.remote-server
+        ms-kubernetes-tools.vscode-kubernetes-tools
 
         github.copilot
         github.copilot-chat
       ];
 
-      userSettings = {
-        editor = {
+      userSettings =
+        let
+          addPrefix = prefix: attr:
+            lib.attrsets.mapAttrs' (name: value: { name = "${prefix}.${name}"; value = value; }) attr;
+        in
+        (addPrefix "editor" {
           fontFamily = "'CaskaydiaCove Nerd Font', 'Cascadia Code', Consolas, 'Courier New', monospace";
           fontLigatures = true;
 
@@ -46,28 +51,27 @@
           formatOnType = false;
 
           mouseWheelZoom = true;
+        }) // {
+          "github.copilot.enable" = {
+            "*" = true;
+            "plaintext" = true;
+            "markdown" = true;
+          };
+
+          "remote.SSH.configFile" = "${config.home.homeDirectory}/.vscode/remote-ssh-config";
+          "settingsSync.ignoredSettings" = [
+            "remote.SSH.configFile"
+            "remote.SSH.remotePlatform"
+          ];
+
+          "update.mode" = "none";
+          "extensions.autoUpdate" = false;
+
+          "git.confirmSync" = false;
+          "explorer.confirmDragAndDrop" = false;
+          "explorer.confirmDelete" = false;
+          "terminal.integrated.enableMultiLinePasteWarning" = "never";
         };
-
-        "github.copilot.enable" = {
-          "*" = true;
-          "plaintext" = true;
-          "markdown" = true;
-        };
-
-        "remote.SSH.configFile" = "${config.home.homeDirectory}/.vscode/remote-ssh-config";
-        "settingsSync.ignoredSettings" = [
-          "remote.SSH.configFile"
-          "remote.SSH.remotePlatform"
-        ];
-
-        "update.mode" = "none";
-        "extensions.autoUpdate" = false;
-
-        "git.confirmSync" = false;
-        "explorer.confirmDragAndDrop" = false;
-        "explorer.confirmDelete" = false;
-        "terminal.integrated.enableMultiLinePasteWarning" = "never";
-      };
     };
   };
 }

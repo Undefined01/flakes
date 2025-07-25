@@ -1,4 +1,4 @@
-{ config, pkgs, lib, user, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   targets.darwin = {
@@ -94,23 +94,20 @@
             "${pkgs.wezterm}/Applications/WezTerm.app"
             "${pkgs.vscode}/Applications/Visual Studio Code.app"
             "/Applications/Firefox.app"
-            "/System/Applications/App Store.app"
             "/System/Applications/System Settings.app"
           ];
           persistent-others = toTiles [
-            "/Users/${user}/Documents/"
-            "/Users/${user}/Downloads/"
+            "${config.home.homeDirectory}/Documents/"
+            "${config.home.homeDirectory}/Downloads/"
           ];
           tilesize = 48;
 
-          # Mission control
-          # wvous-tl-corner = 2;
-          # Application Windows
-          # wvous-tr-corner = 3;
-          # Launchpad
-          # wvous-bl-corner = 11;
-          # Desktop
-          # wvous-br-corner = 4;
+          # Disable hot corners action
+          # Full list of actions can be found at https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.dock.wvous-bl-corner
+          wvous-tl-corner = 1;
+          wvous-tr-corner = 1;
+          wvous-bl-corner = 1;
+          wvous-br-corner = 1;
         };
 
       "com.apple.finder" = {
@@ -144,6 +141,24 @@
         TrackpadFourFingerHorizSwipeGesture = 2;
         # Enable four finger swipe for app expose
         TrackpadFourFingerVertSwipeGesture = 2;
+      };
+
+      "com.apple.Siri" = {
+        StatusMenuVisible = 0;
+        VoiceTriggerUserEnabled = 0;
+      };
+      "com.apple.WindowManager" = {
+        AppWindowGroupingBehavior = 1;
+        AutoHide = 0;
+        EnableStandardClickToShowDesktop = 0;
+      };
+      "com.apple.menuextra.clock" = {
+        FlashDateSeparators = false;
+        IsAnalog = false;
+        ShowAMPM = false;
+        ShowDate = 0;
+        ShowDayOfWeek = true;
+        ShowSeconds = false;
       };
     };
   };

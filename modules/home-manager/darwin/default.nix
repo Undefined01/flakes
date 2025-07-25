@@ -13,7 +13,5 @@ in
     extraSpecialArgs = {
       inherit inputs outputs user isWsl;
     };
-
-    users.${user} = import ../../../home/darwin.nix;
   };
 }

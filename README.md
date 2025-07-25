@@ -4,8 +4,9 @@ You can switch to this configuration in a fresh NixOS by:
 ``` bash
 cd /tmp
 nix --extra-experimental-features "nix-command flakes" shell nixpkgs#git
-git clone https://github.com/undefined01/flakes
+git clone --recursive https://github.com/undefined01/flakes
 cd flakes
+git submodule update --init --recursive
 sudo -E nixos-rebuild switch --option substituters "https://mirrors.ustc.edu.cn/nix-channels/store https://nix-community.cachix.org https://cache.nixos.org/" --flake ".?submodules=1#wsl"
 sudo -E nixos-install --no-root-password 
 ```
@@ -15,10 +16,11 @@ You can install nix and switch to this configuration in darwin by:
 cd /tmp
 sh <(curl -L https://nixos.org/nix/install)
 nix --extra-experimental-features "nix-command flakes" shell nixpkgs#git
-git clone https://github.com/undefined01/flakes
+git clone --recursive https://github.com/undefined01/flakes
 cd flakes
 sudo -E nix --extra-experimental-features 'nix-command flakes' run nix-darwin -- switch --flake ".?submodules=1#darwin"
 # After installation, you can rebuild the configuration by darwin-rebuild
+git submodule update --init --recursive
 sudo darwin-rebuild switch --flake ".?submodules=1#darwin"
 ```
 

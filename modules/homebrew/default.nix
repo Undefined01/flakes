@@ -16,17 +16,17 @@
       "mos"
       # "macfuse"
       "rwts-pdfwriter"
-      "clash-verge-rev"
+      # "clash-verge-rev"
       # "wezterm"   # installed by nix
       # "visual-studio-code"  # installed by nix
-      "sogou-input"
+      # "sogou-input" # no longer available in homebrew 
       "qq"
       "wechat"
       "thunderbird"
       "zotero"
       "obs"
       "vlc"
-      "zerotier-one"
+      # "zerotier-one"
       "tencent-meeting"
       "cleanclip"
     ];
@@ -40,7 +40,7 @@
       "homebrew/homebrew-cask" = inputs.homebrew-cask;
       "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
       "nikitabobko/homebrew-aerospace" = inputs.homebrew-aerospace;
-      "recronin/homebrew-sogou-input" = inputs.homebrew-sogou-input;
+      # "recronin/homebrew-sogou-input" = inputs.homebrew-sogou-input;  # no longer available in homebrew 
     };
     mutableTaps = false;
     autoMigrate = true;

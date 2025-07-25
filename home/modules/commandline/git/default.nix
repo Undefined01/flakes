@@ -1,4 +1,4 @@
-{ config, user, ... }:
+{ config, ... }:
 
 {
   programs.git = {
@@ -17,12 +17,15 @@
       enable = true;
     };
 
+    ignores = [ ".cache" "compile_commands.json" ];
+
     extraConfig = {
       init.defaultBranch = "main";
       core.autocrlf = "input";
       pull.rebase = false;
       push.autoSetupRemote = true;
       merge.conflictStyle = "zdiff3";
+      rebase.autostash = true;
       log.date = "iso";
       column.ui = "auto";
       branch.sort = "committerdate";

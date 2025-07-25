@@ -1,4 +1,4 @@
-{ pkgs, isWsl, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -18,7 +18,9 @@
     ../../modules/commandline/gitui
     ../../modules/commandline/tealdeer
     ../../modules/commandline/atuin
+    ../../modules/commandline/yazi
 
+    ../../modules/commandline/uv
     ../../modules/commandline/direnv
     ../../modules/commandline/neovim
     ../../modules/commandline/rclone
@@ -36,9 +38,6 @@
     zstd
     vim
 
-    python3
-    uv
-
     gnupg
     openssl
     age
@@ -52,7 +51,5 @@
 
     ntfs3g
     zellij
-  ] ++ lib.optionals isWsl [
-    # win32yank
   ];
 }

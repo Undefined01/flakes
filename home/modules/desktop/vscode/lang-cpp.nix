@@ -4,7 +4,7 @@
   programs.vscode.profiles.default = {
     extensions = with pkgs.vscode-marketplace; [
       llvm-vs-code-extensions.vscode-clangd
-      vadimcn.vscode-lldb
+      # vadimcn.vscode-lldb
     ];
 
     userSettings = {

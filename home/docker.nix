@@ -2,6 +2,5 @@
   imports = [
     ./common.nix
     ./presets/commandline
-    ./presets/desktop
   ];
 }
