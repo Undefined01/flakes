@@ -44,15 +44,10 @@
         let
           # Convert the item to dock tile
           # Copied from https://github.com/nix-darwin/nix-darwin/blob/e2676937faf868111dcea6a4a9cf4b6549907c9d/modules/system/defaults/dock.nix#L172-L196
-          endsWith = str: suffix:
-            if (builtins.isString str) && (builtins.stringLength str) >= (builtins.stringLength suffix) then
-              (lib.substring ((builtins.stringLength str) - (builtins.stringLength suffix)) (builtins.stringLength suffix) str) == suffix
-            else
-              false;
           guessType = item:
             if builtins.isString item then
-              if endsWith item ".app" then { app = item; }
-              else if endsWith item "/" then { folder = item; }
+              if lib.strings.hasSuffix ".app" item then { app = item; }
+              else if lib.strings.hasSuffix "/" item then { folder = item; }
               else { file = item; }
             else item;
           toTile = item:
@@ -85,8 +80,10 @@
           orientation = "bottom";
           autohide = true;
           autohide-delay = 0;
+          minimize-to-application = false;
+          magnification = true;
 
-          show-recents = true;
+          show-recents = false;
 
           persistent-apps = toTiles [
             "/System/Applications/Launchpad.app"
@@ -95,6 +92,8 @@
             "${pkgs.vscode}/Applications/Visual Studio Code.app"
             "/Applications/Firefox.app"
             "/System/Applications/System Settings.app"
+
+            { spacer.small = true; }
           ];
           persistent-others = toTiles [
             "${config.home.homeDirectory}/Documents/"

@@ -11,9 +11,10 @@
     kubectl
   ];
 
-  programs.vscode = {
-    profiles.default.userSettings = {
-      "aoneCopilot.userToken" = "";
-    };
-  };
+  customize.git.signing.enable = false;
+  customize.vscode.extensions.exclude = [
+    "wakatime.vscode-wakatime"
+    "github.copilot"
+    "github.copilot-chat"
+  ];
 }
