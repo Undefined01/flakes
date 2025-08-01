@@ -2,7 +2,7 @@
 
 let
   inherit (lib) types;
-  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.options) mkOption;
   cfg = config.customize.vscode;
 
   marketplace = (import ./extensions.nix) args;
@@ -33,10 +33,15 @@ in
   options.customize.vscode = {
     extensions = {
       presets = {
-        all = mkEnableOption "all the extension presets unless specially specified";
+        all = mkOption {
+          type = types.bool;
+          default = true;
+          example = false;
+          description = "Whether to enable all the extension presets except specially specified.";
+        };
       };
       include = mkOption {
-        type = lib.types.listOf lib.types.package;
+        type = types.listOf types.package;
         default = [ ];
         description = ''
           Add some extensions
@@ -46,7 +51,7 @@ in
         '';
       };
       exclude = mkOption {
-        type = lib.types.listOf lib.types.str;
+        type = types.listOf types.str;
         default = [ ];
         description = ''
           Exclude some extensions

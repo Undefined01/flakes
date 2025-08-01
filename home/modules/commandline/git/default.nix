@@ -1,14 +1,20 @@
 { config, lib, ... }:
 
 let
+  inherit (lib) types;
   inherit (lib.attrsets) optionalAttrs;
-  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.options) mkOption;
   cfg = config.customize.git;
 in
 {
   options.customize.git = {
     signing = {
-      enable = mkEnableOption "Enable commit signing";
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        example = false;
+        description = "Whether to enable commit signing.";
+      };
     };
   };
 
