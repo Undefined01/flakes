@@ -6,9 +6,9 @@
         monospace = [
           "Cascadia Code NF"
           "Cascadia Code"
-          "Monaspace Neon"
           "CaskaydiaCove Nerd Font"
           "CaskaydiaCove"
+          "Monaspace Neon"
           "Noto Sans Mono CJK SC"
           "Source Code Pro"
           "Symbols Nerd Font"
