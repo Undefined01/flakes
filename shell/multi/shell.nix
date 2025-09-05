@@ -3,6 +3,7 @@
 pkgs.mkShell {
   buildInputs = with pkgs; [
     gcc
+    gdb
     gnumake
     cmake
     rustc
