@@ -116,9 +116,13 @@
       };
 
       darwinConfigurations = {
-        darwin = inputs.darwin.lib.darwinSystem {
+        darwin = 
+        let
+          user = "han";
+        in 
+        inputs.darwin.lib.darwinSystem {
           system = "aarch64-darwin";
-          specialArgs = specialArgs // { user = "han"; };
+          specialArgs = specialArgs // { inherit user; };
           modules = [
             ./configurations/darwin
             ./modules/home-manager/darwin

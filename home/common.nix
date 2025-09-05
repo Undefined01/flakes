@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, pkgs, user, ... }:
 
 {
   nixpkgs.overlays = builtins.attrValues ((import ../overlays { inherit inputs; }) // (import ./overlays { inherit inputs; }));
@@ -20,6 +20,8 @@
   home.sessionVariables = {
     PAGER = "less -FirSwX";
   };
+
+  # home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${user}" else "/home/${user}";
 
   # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "23.05";
