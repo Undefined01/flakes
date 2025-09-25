@@ -38,6 +38,10 @@
         "com.apple.swipescrolldirection" = true;
         "com.apple.trackpad.forceClick" = true;
         "com.apple.trackpad.scaling" = 0.875;
+
+        # Use fn keys as standard function keys
+        "com.apple.keyboard.fnState" = 1;
+
       };
 
       "com.apple.dock" =

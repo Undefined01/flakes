@@ -97,7 +97,7 @@ in
               lib.attrsets.mapAttrs' (name: value: { name = "${prefix}.${name}"; value = value; }) attr;
           in
           (addPrefix "editor" {
-            fontFamily = "'Cascadia Code NF', 'Cascadia Code', Consolas, 'Courier New', monospace";
+            fontFamily = "'Cascadia Code NF', 'Cascadia Code', 'CaskaydiaCove Nerd Font', 'HarmonyOS Sans', 'Noto Sans CJK SC', 'Source Han Sans SC', Consolas, 'Courier New', monospace";
             # customized for Cascadia Code NF, see https://github.com/microsoft/cascadia-code?tab=readme-ov-file#font-features
             fontLigatures = true;
             # customized for Monaspace Neon, see http://monaspace.githubnext.com/#code-ligatures
@@ -114,6 +114,7 @@ in
               "plaintext" = true;
               "markdown" = true;
             };
+            "github.copilot.nextEditSuggestions.enabled" = true;
 
             "remote.SSH.configFile" = "${config.home.homeDirectory}/.vscode/remote-ssh-config";
             "settingsSync.ignoredSettings" = [
