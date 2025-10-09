@@ -15,13 +15,16 @@
     # ../../modules/desktop/wpsoffice
     ../../modules/desktop/firefox
     ../../modules/desktop/thunderbird
+
+    ../../modules/desktop/zotero
+    ../../modules/desktop/obsidian
+    ../../modules/desktop/obs
   ];
 
   home.packages = with pkgs; [
     polkit # for pkexec, used by clash-verge-rev
 
     localsend
-    obs-studio
     qq
     # nur.repos.novel2430.wechat-universal-bwrap
   ];

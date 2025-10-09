@@ -22,9 +22,9 @@
       # "sogou-input" # no longer available in homebrew 
       "qq"
       "wechat"
-      "thunderbird"
-      "zotero"
-      "obs"
+      # "thunderbird" # installed by nix
+      "zotero" # installed by nix
+      "obs" # installed by nix
       "vlc"
       # "zerotier-one"
       "tencent-meeting"

@@ -116,21 +116,21 @@
       };
 
       darwinConfigurations = {
-        darwin = 
-        let
-          user = "han";
-        in 
-        inputs.darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          specialArgs = specialArgs // { inherit user; };
-          modules = [
-            ./configurations/darwin
-            ./modules/home-manager/darwin
-            ({
-              home-manager.users.${user} = import ./home/darwin.nix;
-            })
-          ];
-        };
+        darwin =
+          let
+            user = "han";
+          in
+          inputs.darwin.lib.darwinSystem {
+            system = "aarch64-darwin";
+            specialArgs = specialArgs // { inherit user; };
+            modules = [
+              ./configurations/darwin
+              ./modules/home-manager/darwin
+              ({
+                home-manager.users.${user} = import ./home/darwin.nix;
+              })
+            ];
+          };
 
         darwin-a = inputs.darwin.lib.darwinSystem {
           system = "aarch64-darwin";
