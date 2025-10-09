@@ -1,4 +1,4 @@
-{ pkgs, inputs, user, ... }:
+{ pkgs, inputs, user, config, ... }:
 {
   imports = [
     inputs.nix-homebrew.darwinModules.nix-homebrew
@@ -30,6 +30,7 @@
       "tencent-meeting"
       "cleanclip"
     ];
+    taps = builtins.attrNames config.nix-homebrew.taps;
   };
 
   nix-homebrew = {

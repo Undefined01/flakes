@@ -8,7 +8,7 @@
   inputs =
     {
       # nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
-      nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+      nixpkgs.url = "github:nixos/nixpkgs/8068f3e8514b3a41be0f0d0a96783270bf38f98f";
       nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
       nixos-hardware.url = "github:nixos/nixos-hardware";
       nur = {
