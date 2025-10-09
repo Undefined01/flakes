@@ -1,3 +1,4 @@
+# Installation
 
 You can switch to this configuration in a fresh NixOS by:
 
@@ -26,9 +27,14 @@ sudo darwin-rebuild switch --flake ".?submodules=1#darwin"
 
 You may need to set up the proxy before installation by `export {http_proxy,https_proxy,HTTP_PROXY,HTTPS_PROXY,all_proxy,ALL_PROXY}="http://172.25.64.1:7891"`.
 
-Some useful commands:
+# Known Issues
+
+- Immersive Translate extension may not work as expected.
+
+# Useful Commands
 
 ```
+# Formatting code
 nix fmt .
 
 # System-wide garbage collection, make sure your latest system build can boot successfully before removing old generations.
