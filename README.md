@@ -1,6 +1,7 @@
 # Installation
 
 1. Install Nix package manager
+   
    a. For NixOS or WSL-NixOS
 
       They are included in the system. No need to install seperately.
@@ -11,56 +12,52 @@
      sh <(curl -L https://nixos.org/nix/install)
      ```
 
-2. Clone this repo
+3. Clone this repo
 
-    If git is not installed, you can use git temporarily in the nix shell `nix --extra-experimental-features "nix-command flakes" shell nixpkgs#git`.
+   If git is not installed, you can use git temporarily in the nix shell `nix --extra-experimental-features "nix-command flakes" shell nixpkgs#git`.
 
-    ``` bash
-    git clone --recursive https://github.com/undefined01/flakes
-    cd flakes
-    git submodule update --init --recursive
-    ```
+   ``` bash
+   git clone --recursive https://github.com/undefined01/flakes
+   cd flakes
+   git submodule update --init --recursive
+   ```
 
-3. Switch to this configuration
+4. Switch to this configuration
 
    a. For NixOS or WSL-NixOS, the nixosConfiguration is applied.
 
-       ```bash
-       sudo nixos-rebuild switch --option substituters "https://mirrors.ustc.edu.cn/nix-channels/store https://nix-community.cachix.org https://cache.nixos.org/" --flake ".?submodules=1#wsl"
-       ```
+      ```bash
+      sudo nixos-rebuild switch --option substituters "https://mirrors.ustc.edu.cn/nix-channels/store https://nix-community.cachix.org https://cache.nixos.org/" --flake ".?submodules=1#wsl"
+      ```
     
-       You can select the profile to switch to by changing the name after the hashtag, e.g. `.?submodules=1#work`.
+      You can select the profile to switch to by changing the name after the hashtag, e.g. `.?submodules=1#work`.
 
    b. For other Linux distribution, the homeConfiguration is applied.
 
-       ```bash
-       sudo nix --extra-experimental-features 'nix-command flakes' run home-manager/master -- switch --flake ".?submodules=1#lh"
-       ```
+      ```bash
+      sudo nix --extra-experimental-features 'nix-command flakes' run home-manager/master -- switch --flake ".?submodules=1#lh"
+      ```
 
-       nix cannot change the system-wide configurations for non-NixOS distributions. You have to change the nix configuration manually. It is usually placed at `/etc/nix/nix.conf`.
+      nix cannot change the system-wide configurations for non-NixOS distributions. You have to change the nix configuration manually. It is usually placed at `/etc/nix/nix.conf`.
 
-       ```
-       experimental-features = nix-command flakes
-       substituters = https://mirrors.ustc.edu.cn/nix-channels/store https://cache.nixos.org/
-       ```
+      ```
+      experimental-features = nix-command flakes
+      substituters = https://mirrors.ustc.edu.cn/nix-channels/store https://cache.nixos.org/
+      ```
 
-       If your nix command are missing, try `. ~/.nix-profile/etc/profile.d/nix.sh` to recover the access to nix command.
+      If your nix command are missing, try `. ~/.nix-profile/etc/profile.d/nix.sh` to recover the access to nix command.
 
    c. For macOS, the darwinConfiguration is applied.
 
-       ```bash
-       sudo nix --extra-experimental-features 'nix-command flakes' run nix-darwin -- switch --flake ".?submodules=1#darwin"
-       ```
+      ```bash
+      sudo nix --extra-experimental-features 'nix-command flakes' run nix-darwin -- switch --flake ".?submodules=1#darwin"
+      ```
 
-       After installation, you can rebuild the configuration by darwin-rebuild
+      After installation, you can rebuild the configuration by darwin-rebuild
 
-       ```bash
-       sudo darwin-rebuild switch --flake ".?submodules=1#darwin"
-       ```
-
-You may need to set up the proxy before installation by `export {http_proxy,https_proxy,HTTP_PROXY,HTTPS_PROXY,all_proxy,ALL_PROXY}="http://172.25.64.1:7891"`.
-
-You may need to update submodules by `git submodule update --init --recursive`.
+      ```bash
+      sudo darwin-rebuild switch --flake ".?submodules=1#darwin"
+      ```
 
 # Known Issues
 
@@ -69,6 +66,12 @@ You may need to update submodules by `git submodule update --init --recursive`.
 # Useful Commands
 
 ```
+# set up the proxy
+export {http_proxy,https_proxy,HTTP_PROXY,HTTPS_PROXY,all_proxy,ALL_PROXY}="http://172.25.64.1:7891"
+
+# update submodules
+git submodule update --init --recursive
+
 # Formatting code
 nix fmt .
 
