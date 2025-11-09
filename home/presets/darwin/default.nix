@@ -13,4 +13,9 @@
     # ../../modules/desktop/obsidian
     # ../../modules/desktop/obs
   ];
+
+  home.packages = with pkgs; [
+    raycast
+    keka
+  ];
 }

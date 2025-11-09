@@ -14,8 +14,8 @@
     enable = true;
     casks = [
       "mos"
-      # "macfuse"
       "rwts-pdfwriter"
+      "stats"
       # "clash-verge-rev"
       # "wezterm"   # installed by nix
       # "visual-studio-code"  # installed by nix

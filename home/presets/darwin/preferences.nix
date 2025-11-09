@@ -85,12 +85,11 @@
           autohide = true;
           autohide-delay = 0;
           minimize-to-application = false;
-          magnification = true;
+          magnification = false;
 
           show-recents = false;
 
           persistent-apps = toTiles [
-            "/System/Applications/Launchpad.app"
             # "/System/Applications/Utilities/Terminal.app"
             "${pkgs.wezterm}/Applications/WezTerm.app"
             "${pkgs.vscode}/Applications/Visual Studio Code.app"
