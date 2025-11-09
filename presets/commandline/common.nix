@@ -24,7 +24,7 @@
     eza
     bat
     tealdeer
-    du-dust
+    dust
     ripgrep
     fd
     jq

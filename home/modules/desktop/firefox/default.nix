@@ -8,7 +8,7 @@
       search.default = "bing";
       search.force = true;
       extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
-        # immersive-translate
+        immersive-translate
         adblocker-ultimate
         tampermonkey
         bitwarden

@@ -42,7 +42,7 @@
     openssl
     age
 
-    du-dust
+    dust
     ripgrep
     jq
     sd

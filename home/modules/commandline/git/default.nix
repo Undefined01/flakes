@@ -21,23 +21,20 @@ in
   config = {
     programs.git = {
       enable = true;
-      userName = "Undefined01";
-      userEmail = "amoscr@163.com";
-
-      aliases = {
-        graph = "log --all --decorate --oneline --graph";
-        lg = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all";
-        lg2 = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'";
-        root = "rev-parse --show-toplevel";
-      };
-
-      difftastic = {
-        enable = true;
-      };
 
       ignores = [ ".cache" "compile_commands.json" ];
 
-      extraConfig = {
+      settings = {
+        user.name = "Undefined01";
+        user.email = "amoscr@163.com";
+
+        alias = {
+          graph = "log --all --decorate --oneline --graph";
+          lg = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all";
+          lg2 = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'";
+          root = "rev-parse --show-toplevel";
+        };
+
         init.defaultBranch = "main";
         core.autocrlf = "input";
         pull.rebase = false;
@@ -54,6 +51,11 @@ in
       };
     };
 
+
+    programs.difftastic = {
+      enable = true;
+      git.enable = true;
+    };
     programs.gpg.enable = true;
   };
 }
