@@ -63,7 +63,7 @@
 
 - Immersive Translate extension for Firefox is currently disabled due to security issues.
 
-- Gitui build failed because the deprecation of [sha1-asm](https://github.com/RustCrypto/asm-hashes) ![](https://img.shields.io/github/issues/detail/state/NixOS/nixpkgs/450861)
+- Gitui build failed due to the deprecation of [sha1-asm](https://github.com/RustCrypto/asm-hashes) ![](https://img.shields.io/github/issues/detail/state/NixOS/nixpkgs/450861)
 
     Temporary workaround: [use pre-built binaries](./home/overlays/default.nix) from the GitHub releases page.
 

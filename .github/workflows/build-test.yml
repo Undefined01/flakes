@@ -67,6 +67,10 @@ jobs:
   home-manager-configuration:
     name: Home Manager Configuration
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        config: [lh]
 
     steps:
     - name: Checkout repository
@@ -85,7 +89,7 @@ jobs:
 
     - name: Build Home Manager configuration
       run: |
-        nix build --no-link --print-build-logs .#homeConfigurations.lh.activationPackage
+        nix build --no-link --print-build-logs .#homeConfigurations.${{ matrix.config }}.activationPackage
 
   check-flake:
     name: Check Flake
@@ -103,7 +107,7 @@ jobs:
 
     - name: Check flake
       run: |
-        nix flake check --no-build
+        nix flake check --no-build --all-systems
 
     - name: Show flake info
       run: |

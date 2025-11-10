@@ -1,4 +1,4 @@
-{ config, inputs, pkgs, user, ... }:
+{ config, inputs, pkgs, lib, user, ... }:
 
 {
   # Configure network proxy if necessary
@@ -23,7 +23,7 @@
   users = {
     mutableUsers = false;
     groups.${user} = { };
-    users.root.initialPassword = "${user}";
+    users.root.initialPassword = lib.mkDefault "${user}";
     users.${user} = {
       isNormalUser = true;
       group = "${user}";

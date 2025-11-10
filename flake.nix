@@ -93,6 +93,9 @@
           modules = [
             ./configurations/work
             ./modules/home-manager/nixos
+            ({
+              home-manager.users.${user} = import ./home/default.nix;
+            })
           ];
         };
 
@@ -102,6 +105,9 @@
           modules = [
             ./configurations/wsl
             ./modules/home-manager/nixos
+            ({
+              home-manager.users.${user} = import ./home/wsl.nix;
+            })
           ];
         };
 
@@ -111,6 +117,9 @@
           modules = [
             ./configurations/iso
             ./modules/home-manager/nixos
+            ({
+              home-manager.users.${user} = import ./home/default.nix;
+            })
           ];
         };
       };
