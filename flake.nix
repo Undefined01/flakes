@@ -58,21 +58,47 @@
       };
     };
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, lib, ... }@inputs:
     let
       user = "lh";
+      authorizedKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDcTQOKYRyLoviozP5Ba6k8N+1Sn7LZ1wECHiPa2FF1V amoscr@163.com" ];
+
+      overlays = import ./overlays { inherit inputs; };
       specialArgs = {
-        inherit self inputs user;
+        inherit self inputs user authorizedKeys;
       };
 
-      forAllSystems = nixpkgs.lib.genAttrs [
+      forAllSystems = lib.genAttrs [
         "aarch64-linux"
         "i686-linux"
         "x86_64-linux"
         "aarch64-darwin"
         "x86_64-darwin"
       ];
-      overlays = import ./overlays { inherit inputs; };
+
+      defineNixOS = { systemArch, system, home, user ? null }:
+        let
+          isDarwin = lib.strings.hasPostfix systemArch "-darwin";
+          systemDefineFunc =
+            if isDarwin then
+              inputs.darwin.lib.darwinSystem
+            else
+              lib.nixosSystem;
+          homeManagerModule =
+            if isDarwin then
+              inputs.home-manager.darwinModules.home-manager
+            else
+              inputs.home-manager.nixosModules.home-manager;
+        in
+        systemDefineFunc {
+          system = systemArch;
+          specialArgs = specialArgs // lib.optionalAttr (user != null) { inherit user; };
+          modules = [
+            ./system/top/${system}
+            homeManagerModule
+            (import ./system/modules/home-manager/moduleBuilder.nix ./home/top/${home})
+          ];
+        };
     in
     {
       formatter = forAllSystems (system:
@@ -87,70 +113,37 @@
       overlays = overlays;
 
       nixosConfigurations = {
-        work = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          inherit specialArgs;
-          modules = [
-            ./configurations/work
-            ./modules/home-manager/nixos
-            ({
-              home-manager.users.${user} = import ./home/default.nix;
-            })
-          ];
+        work = defineNixOS {
+          systemArch = "x86_64-linux";
+          system = "work";
+          home = "work";
         };
 
-        wsl = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          inherit specialArgs;
-          modules = [
-            ./configurations/wsl
-            ./modules/home-manager/nixos
-            ({
-              home-manager.users.${user} = import ./home/wsl.nix;
-            })
-          ];
+        wsl = defineNixOS {
+          systemArch = "x86_64-linux";
+          system = "wsl";
+          home = "commandline";
         };
 
-        iso = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          inherit specialArgs;
-          modules = [
-            ./configurations/iso
-            ./modules/home-manager/nixos
-            ({
-              home-manager.users.${user} = import ./home/default.nix;
-            })
-          ];
+        iso = defineNixOS {
+          systemArch = "x86_64-linux";
+          system = "work";
+          home = "commandline";
         };
       };
 
       darwinConfigurations = {
-        darwin =
-          let
-            user = "han";
-          in
-          inputs.darwin.lib.darwinSystem {
-            system = "aarch64-darwin";
-            specialArgs = specialArgs // { inherit user; };
-            modules = [
-              ./configurations/darwin
-              ./modules/home-manager/darwin
-              ({
-                home-manager.users.${user} = import ./home/darwin.nix;
-              })
-            ];
-          };
+        darwin = defineNixOS {
+          systemArch = "aarch64-darwin";
+          system = "darwin";
+          home = "darwin";
+          user = "han";
+        };
 
-        darwin-a = inputs.darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          specialArgs = specialArgs;
-          modules = [
-            ./configurations/darwin/darwin-a.nix
-            ./modules/home-manager/darwin
-            ({
-              home-manager.users.${user} = import ./home/darwin-a.nix;
-            })
-          ];
+        darwin-a = defineNixOS {
+          systemArch = "aarch64-darwin";
+          system = "darwin-a";
+          home = "darwin-a";
         };
       };
 

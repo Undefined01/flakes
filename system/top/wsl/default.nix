@@ -4,10 +4,7 @@
   imports = [
     inputs.nixos-wsl.nixosModules.wsl
 
-    ../shared/nixos
-
-    ../../modules/nix
-    ../../modules/commandline/podman
+    ../../presets/commandline
   ];
 
   wsl.enable = true;

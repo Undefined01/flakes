@@ -11,9 +11,6 @@
     inputs.nixos-hardware.nixosModules.common-hidpi
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     ./hardware-configuration.nix
-    ../shared/nixos
-
-    ../../modules/nix
 
     ../../presets/desktop
   ];

@@ -2,6 +2,8 @@
 
 {
   console = {
+    keyMap = "us";
+    # font = "Lat2-Terminus16";
     colors = [
       # OneDark
       "1e2127"
