@@ -140,20 +140,17 @@
 
         darwin-a = defineNixOS {
           systemArch = "aarch64-darwin";
-          system = "darwin-a";
-          home = "darwin-a";
+          system = "darwin/darwin-a.nix";
+          home = "darwin/darwin-a.nix";
         };
       };
-
-      # Expose the package set, including overlays, for convenience.
-      darwinPackages = self.darwinConfigurations.darwin.pkgs;
 
       homeConfigurations.lh = inputs.home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
 
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.
-        modules = [ ./home ];
+        modules = [ ./home/top/docker/default.nix ];
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
