@@ -30,8 +30,12 @@ jobs:
       uses: cachix/cachix-action@v14
       with:
         name: nix-community
+
+    - name: Setup Cachix
+      uses: cachix/cachix-action@v14
+      with:
+        name: undefined01
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-        skipPush: true
 
     - name: Build NixOS configuration - ${{ matrix.config }}
       run: |
@@ -60,6 +64,12 @@ jobs:
       with:
         name: nix-community
 
+    - name: Setup Cachix
+      uses: cachix/cachix-action@v14
+      with:
+        name: undefined01
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+
     - name: Build Darwin configuration - ${{ matrix.config }}
       run: |
         nix build --no-link --print-build-logs .#darwinConfigurations.${{ matrix.config }}.system
@@ -86,6 +96,12 @@ jobs:
       uses: cachix/cachix-action@v15
       with:
         name: nix-community
+
+    - name: Setup Cachix
+      uses: cachix/cachix-action@v14
+      with:
+        name: undefined01
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
     - name: Build Home Manager configuration
       run: |
