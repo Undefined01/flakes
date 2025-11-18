@@ -129,6 +129,7 @@ in
             "explorer.confirmDragAndDrop" = false;
             "explorer.confirmDelete" = false;
             "terminal.integrated.enableMultiLinePasteWarning" = "never";
+            "diffEditor.ignoreTrimWhitespace" = false;
           };
       };
     };

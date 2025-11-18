@@ -11,10 +11,6 @@
         serverAliveInterval = 15;
         serverAliveCountMax = 120;
       };
-      h5 = {
-        hostname = "107.172.5.176";
-        user = "lh";
-      };
       github = {
         hostname = "github.com";
         user = "git";
@@ -25,4 +21,8 @@
       };
     };
   };
+
+  home.packages = with pkgs; [
+    sshfs
+  ];
 }
