@@ -45,7 +45,7 @@
       substituters = https://mirrors.ustc.edu.cn/nix-channels/store https://cache.nixos.org/
       ```
 
-      If your nix command are missing, try `. ~/.nix-profile/etc/profile.d/nix.sh` to recover the access to nix command.
+      If your nix command are missing after incomplete rebuild, try `. ~/.nix-profile/etc/profile.d/nix.sh` to recover the access to nix command.
 
    c. For macOS, the darwinConfiguration is applied.
 

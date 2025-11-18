@@ -2,6 +2,8 @@
 
 {
   imports = [
+    ../../modules/misc
+
     ../../modules/commandline/git
     ../../modules/commandline/ssh
     ../../modules/commandline/bash

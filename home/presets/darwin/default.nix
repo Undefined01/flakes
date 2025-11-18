@@ -2,7 +2,10 @@
 
 {
   imports = [
+    ../../modules/misc
+
     ./preferences.nix
+
     ../../modules/desktop/aerospace
     ../../modules/desktop/wezterm
     ../../modules/desktop/vscode
