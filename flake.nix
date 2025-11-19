@@ -140,7 +140,7 @@
 
         darwin-a = defineNixOS {
           systemArch = "aarch64-darwin";
-          system = "darwin/darwin-a.nix";
+          system = "darwin";
           home = "darwin/darwin-a.nix";
         };
       };

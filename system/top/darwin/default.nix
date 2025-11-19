@@ -2,29 +2,14 @@
 
 {
   imports = [
-    ../../modules/base/nix
-    ../../modules/homebrew
-
     ../../presets/minimal
+    ../../modules/homebrew
     ../../modules/base/font/fonts.nix
   ];
-
-  time.timeZone = "Asia/Shanghai";
 
   # nix integration for zsh and fish
   programs.zsh.enable = true;
   programs.fish.enable = true;
-
-  # Select internationalisation properties.
-  users = {
-    groups.${user} = { };
-    users.${user} = {
-      home = "/Users/${user}";
-      openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDcTQOKYRyLoviozP5Ba6k8N+1Sn7LZ1wECHiPa2FF1V amoscr@163.com"
-      ];
-    };
-  };
 
   system = {
     stateVersion = 5;

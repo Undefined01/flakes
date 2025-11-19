@@ -9,7 +9,9 @@
           default = true;
         }
       ];
+      python-downloads = "manual";
       # python-install-mirror = "https://github.com/astral-sh/python-build-standalone/releases/download";
+      # or export UV_PYTHON_INSTALL_MIRROR="https://github.com/astral-sh/python-build-standalone/releases/download"
       python-install-mirror = "https://hub.gitmirror.com/https://github.com/astral-sh/python-build-standalone/releases/download";
     };
   };
