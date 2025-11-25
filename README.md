@@ -24,10 +24,20 @@
 
 4. Switch to this configuration
 
+   To temporarily enable flakes and third-party substituters, ensure you are a trusted user of nix (root in clean setup) and export the following environment variable in your shell:
+
+   ```bash
+   export NIX_CONFIG="
+   experimental-features = nix-command flakes
+   extra-substituters = https://mirrors.ustc.edu.cn/nix-channels/store https://cache.nixos.org/ https://nix-community.cachix.org https://undefined01.cachix.org
+   trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= undefined01.cachix.org-1:9ZQ59dYp2cR8S5p87DaKqjtIyjZ1qMHmM2JtzpQl1dU=
+   "
+   ```
+
    a. For NixOS or WSL-NixOS, the nixosConfiguration is applied.
 
       ```bash
-      sudo nixos-rebuild switch --option substituters "https://mirrors.ustc.edu.cn/nix-channels/store https://nix-community.cachix.org https://cache.nixos.org/" --flake ".?submodules=1#wsl"
+      sudo -E nixos-rebuild switch --flake ".?submodules=1#wsl"
       ```
     
       You can select the profile to switch to by changing the name after the hashtag, e.g. `.?submodules=1#work`.
@@ -35,13 +45,14 @@
    b. For other Linux distribution, the homeConfiguration is applied.
 
       ```bash
-      sudo nix --extra-experimental-features 'nix-command flakes' run home-manager/master -- switch --flake ".?submodules=1#lh"
+      sudo -E nix --extra-experimental-features 'nix-command flakes' run home-manager/master -- switch --flake ".?submodules=1#lh"
       ```
 
-      nix cannot change the system-wide configurations for non-NixOS distributions. You have to change the nix configuration manually. It is usually placed at `/etc/nix/nix.conf`.
+      nix cannot change the system-wide configurations for non-NixOS distributions. You have to edit the nix configuration manually. It is usually placed at `/etc/nix/nix.conf`.
 
       ```
       experimental-features = nix-command flakes
+      trusted-users = root lh
       substituters = https://mirrors.ustc.edu.cn/nix-channels/store https://cache.nixos.org/
       ```
 
@@ -50,7 +61,7 @@
    c. For macOS, the darwinConfiguration is applied.
 
       ```bash
-      sudo nix --extra-experimental-features 'nix-command flakes' run nix-darwin -- switch --flake ".?submodules=1#darwin"
+      sudo -E nix --extra-experimental-features 'nix-command flakes' run nix-darwin -- switch --flake ".?submodules=1#darwin"
       ```
 
       After installation, you can rebuild the configuration by darwin-rebuild

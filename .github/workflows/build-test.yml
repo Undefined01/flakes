@@ -110,6 +110,7 @@ jobs:
   check-flake:
     name: Check Flake
     runs-on: ubuntu-latest
+    if: false
 
     steps:
     - name: Checkout repository

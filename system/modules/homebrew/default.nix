@@ -23,12 +23,10 @@
       "qq"
       "wechat"
       # "thunderbird" # installed by nix
-      "zotero" # installed by nix
-      "obs" # installed by nix
-      "vlc"
+      # "zotero" # installed by nix
+      "obs"
       # "zerotier-one"
       "tencent-meeting"
-      "cleanclip"
     ];
     taps = builtins.attrNames config.nix-homebrew.taps;
   };
