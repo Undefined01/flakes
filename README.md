@@ -37,7 +37,7 @@
    a. For NixOS or WSL-NixOS, the nixosConfiguration is applied.
 
       ```bash
-      sudo nixos-rebuild switch --flake ".?submodules=1#wsl"
+      sudo -E nixos-rebuild switch --flake ".?submodules=1#wsl"
       ```
     
       You can select the profile to switch to by changing the name after the hashtag, e.g. `.?submodules=1#work`.
@@ -45,7 +45,7 @@
    b. For other Linux distribution, the homeConfiguration is applied.
 
       ```bash
-      sudo nix --extra-experimental-features 'nix-command flakes' run home-manager/master -- switch --flake ".?submodules=1#lh"
+      sudo -E nix --extra-experimental-features 'nix-command flakes' run home-manager/master -- switch --flake ".?submodules=1#lh"
       ```
 
       nix cannot change the system-wide configurations for non-NixOS distributions. You have to edit the nix configuration manually. It is usually placed at `/etc/nix/nix.conf`.
@@ -61,7 +61,7 @@
    c. For macOS, the darwinConfiguration is applied.
 
       ```bash
-      sudo nix --extra-experimental-features 'nix-command flakes' run nix-darwin -- switch --flake ".?submodules=1#darwin"
+      sudo -E nix --extra-experimental-features 'nix-command flakes' run nix-darwin -- switch --flake ".?submodules=1#darwin"
       ```
 
       After installation, you can rebuild the configuration by darwin-rebuild
