@@ -7,7 +7,7 @@ in
   vscode-marketplace = inputs.nix-vscode-extensions.overlays.default;
   nur = inputs.nur.overlays.default;
 
-  myPackages = final: prev: import ../pkgs { pkgs = final; };
+  myPackages = final: prev: import ../pkgs { inherit final prev; pkgs = final; };
 
   modifications = final: prev: {
     gitui = final.gitui-bin;

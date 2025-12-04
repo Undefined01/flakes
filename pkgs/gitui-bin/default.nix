@@ -1,10 +1,11 @@
 { stdenv
 , stdenvNoCC
 , fetchurl
-, gitui
 , gnutar
 , gzip
 , lib
+, prev
+, ...
 }:
 
 let
@@ -36,5 +37,5 @@ then
       maintainers = [ ];
     };
   }
-else gitui
+else prev.gitui
 

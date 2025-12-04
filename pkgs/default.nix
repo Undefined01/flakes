@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, prev ? pkgs, final ? pkgs }:
 
 let
   # Copy from pkgs.lib to prevent infinite recursion on pkgs
@@ -8,7 +8,7 @@ let
     filterAttrs (k: v: v == "directory") (builtins.readDir ./.);
   genPackage = name: {
     inherit name;
-    value = pkgs.callPackage (./. + "/${name}") { };
+    value = pkgs.callPackage (./. + "/${name}") { inherit final prev; };
   };
   names = builtins.attrNames dirContents;
 in
