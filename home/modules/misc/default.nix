@@ -1,7 +1,7 @@
 { inputs, pkgs, user, ... }:
 
 {
-  nixpkgs.overlays = builtins.attrValues (import ../../overlays { inherit inputs; });
+  nixpkgs.overlays = builtins.attrValues (import ../../../overlays { inherit inputs; });
   nixpkgs.config.allowUnfree = true;
 
   nix = {
