@@ -4,15 +4,13 @@ let
   override_package = pkgs: package: package.override (builtins.intersectAttrs package.override.__functionArgs pkgs);
 in
 {
-    vscode-marketplace = inputs.nix-vscode-extensions.overlays.default;
-    nur = inputs.nur.overlays.default;
+  vscode-marketplace = inputs.nix-vscode-extensions.overlays.default;
+  nur = inputs.nur.overlays.default;
 
-  addons = final: prev: {
-    pkgs = import ../pkgs { pkgs = final; };
-  };
+  myPackages = final: prev: import ../pkgs { pkgs = final; };
 
   modifications = final: prev: {
-  gitui = final.gitui-bin;
+    gitui = final.gitui-bin;
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will

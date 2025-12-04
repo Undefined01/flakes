@@ -1,6 +1,10 @@
-{
-stdenv,
-gitui
+{ stdenv
+, stdenvNoCC
+, fetchurl
+, gitui
+, gnutar
+, gzip
+, lib
 }:
 
 let
@@ -12,25 +16,25 @@ in
 if stdenv.isDarwin && stdenv.hostPlatform.system == "aarch64-darwin"
 then
   stdenvNoCC.mkDerivation
-    {
-      inherit pname version;
-      src = prev.fetchurl { url = tarballUrl; inherit sha256; };
+  {
+    inherit pname version;
+    src = fetchurl { url = tarballUrl; inherit sha256; };
 
-      nativeBuildInputs = [ prev.gnutar prev.gzip ];
-      unpackPhase = "true";
-      installPhase = ''
-        mkdir -p $out/bin
-        ${prev.gnutar}/bin/tar -xzf $src
-        install -m755 gitui $out/bin/gitui
-      '';
+    nativeBuildInputs = [ gnutar gzip ];
+    unpackPhase = "true";
+    installPhase = ''
+      mkdir -p $out/bin
+      ${gnutar}/bin/tar -xzf $src
+      install -m755 gitui $out/bin/gitui
+    '';
 
-      meta = with prev.lib; {
-        description = "Blazing fast terminal-ui for git written in Rust (binary package for Apple Silicon)";
-        homepage = "https://github.com/gitui-org/gitui";
-        license = licenses.mit;
-        platforms = [ "aarch64-darwin" ];
-        maintainers = [ ];
-      };
-    }
-else gitui;
+    meta = with lib; {
+      description = "Blazing fast terminal-ui for git written in Rust (binary package for Apple Silicon)";
+      homepage = "https://github.com/gitui-org/gitui";
+      license = licenses.mit;
+      platforms = [ "aarch64-darwin" ];
+      maintainers = [ ];
+    };
+  }
+else gitui
 
