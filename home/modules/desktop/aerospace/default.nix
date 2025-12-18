@@ -31,7 +31,7 @@ in
 
   programs.aerospace = {
     enable = true;
-    launchd.enable = true;
+    launchd.enable = false;
     settings = {
       default-root-container-layout = "accordion";
       default-root-container-orientation = "auto";
@@ -49,18 +49,24 @@ in
 
         # See: https://nikitabobko.github.io/AeroSpace/commands#mode
         alt-shift-semicolon = "mode service";
-      }
-      // (lib.listToAttrs (
-        lib.imap0 (i: key: {
-          name = "alt-${key}";
-          value = "workspace ${key}";
-        }) keys
-      ))
-      // (lib.listToAttrs (
-        lib.imap0 (i: key: {
-          name = "alt-shift-${key}";
-          value = "move-node-to-workspace ${key}";
-        }) keys
+      } // (lib.listToAttrs (
+        lib.imap0
+          (
+            i: key: {
+              name = "alt-${key}";
+              value = "workspace ${key}";
+            }
+          )
+          keys
+      )) // (lib.listToAttrs (
+        lib.imap0
+          (
+            i: key: {
+              name = "alt-shift-${key}";
+              value = "move-node-to-workspace ${key}";
+            }
+          )
+          keys
       ));
 
       mode.service.binding = {
