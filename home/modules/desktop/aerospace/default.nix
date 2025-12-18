@@ -32,7 +32,7 @@ in
   programs.aerospace = {
     enable = true;
     launchd.enable = true;
-    userSettings = {
+    settings = {
       default-root-container-layout = "accordion";
       default-root-container-orientation = "auto";
       automatically-unhide-macos-hidden-apps = true;

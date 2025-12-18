@@ -38,7 +38,7 @@
       "homebrew/homebrew-core" = inputs.homebrew-core;
       "homebrew/homebrew-cask" = inputs.homebrew-cask;
       "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
-      "nikitabobko/homebrew-aerospace" = inputs.homebrew-aerospace;
+      # "nikitabobko/homebrew-aerospace" = inputs.homebrew-aerospace;   # Aerospace is installed by nix
       # "recronin/homebrew-sogou-input" = inputs.homebrew-sogou-input;  # no longer available in homebrew 
     };
     mutableTaps = false;
