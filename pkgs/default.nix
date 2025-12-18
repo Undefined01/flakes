@@ -1,4 +1,4 @@
-{ pkgs, prev ? pkgs, final ? pkgs }:
+{ pkgs, final ? pkgs, prev ? pkgs }:
 
 let
   # Copy from pkgs.lib to prevent infinite recursion on pkgs

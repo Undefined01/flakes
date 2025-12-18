@@ -10,7 +10,10 @@ in
   myPackages = final: prev: import ../pkgs { inherit final prev; pkgs = final; };
 
   modifications = final: prev: {
-    gitui = final.gitui-bin;
+    gitui =
+      if prev.stdenv.isDarwin && prev.stdenv.hostPlatform.system == "aarch64-darwin"
+      then final.gitui-bin
+      else prev.gitui;
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
