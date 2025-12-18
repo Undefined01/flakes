@@ -6,9 +6,10 @@ let
 
   dirContents =
     filterAttrs (k: v: v == "directory") (builtins.readDir ./.);
+  callPackage = pkgs.lib.callPackageWith (pkgs // { inherit final prev; });
   genPackage = name: {
     inherit name;
-    value = pkgs.callPackage (./. + "/${name}") { inherit final prev; };
+    value = callPackage (./. + "/${name}") { };
   };
   names = builtins.attrNames dirContents;
 in

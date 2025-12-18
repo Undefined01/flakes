@@ -2,11 +2,11 @@
 
 1. Install Nix package manager
    
-   a. For NixOS or WSL-NixOS
+   1. For NixOS or WSL-NixOS
 
       They are included in the system. No need to install seperately.
 
-   b. For other Linux distribution and macOS
+   2. For other Linux distribution and macOS
 
      ```bash
      sh <(curl -L https://nixos.org/nix/install)
@@ -14,7 +14,7 @@
 
 3. Clone this repo
 
-   If git is not installed, you can use git temporarily in the nix shell `nix --extra-experimental-features "nix-command flakes" shell nixpkgs#git`.
+   If git is not installed, you can have git available in a nix shell with `nix --extra-experimental-features "nix-command flakes" shell nixpkgs#git`.
 
    ``` bash
    git clone --recursive https://github.com/undefined01/flakes
@@ -34,7 +34,7 @@
    "
    ```
 
-   a. For NixOS or WSL-NixOS, the nixosConfiguration is applied.
+   1. For NixOS or WSL-NixOS, the nixosConfiguration is applied.
 
       ```bash
       sudo -E nixos-rebuild switch --flake ".?submodules=1#wsl"
@@ -42,10 +42,10 @@
     
       You can select the profile to switch to by changing the name after the hashtag, e.g. `.?submodules=1#work`.
 
-   b. For other Linux distribution, the homeConfiguration is applied.
+   2. For other Linux distribution, the homeConfiguration is applied.
 
       ```bash
-      sudo -E nix --extra-experimental-features 'nix-command flakes' run home-manager/master -- switch --flake ".?submodules=1#lh"
+      sudo -E nix run home-manager -- switch --flake ".?submodules=1#lh"
       ```
 
       nix cannot change the system-wide configurations for non-NixOS distributions. You have to edit the nix configuration manually. It is usually placed at `/etc/nix/nix.conf`.
@@ -58,10 +58,10 @@
 
       If your nix command are missing after incomplete rebuild, try `. ~/.nix-profile/etc/profile.d/nix.sh` to recover the access to nix command.
 
-   c. For macOS, the darwinConfiguration is applied.
+   3. For macOS, the darwinConfiguration is applied.
 
       ```bash
-      sudo -E nix --extra-experimental-features 'nix-command flakes' run nix-darwin -- switch --flake ".?submodules=1#darwin"
+      sudo -E nix run nix-darwin -- switch --flake ".?submodules=1#darwin"
       ```
 
       After installation, you can rebuild the configuration by darwin-rebuild
@@ -69,6 +69,8 @@
       ```bash
       sudo darwin-rebuild switch --flake ".?submodules=1#darwin"
       ```
+
+      You may also need to run `killall Dock` to restart the Dock to apply the modification of system preference.
 
 # Known Issues
 
