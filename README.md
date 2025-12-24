@@ -12,6 +12,20 @@
      sh <(curl -L https://nixos.org/nix/install)
      ```
 
+     Or using the installer from DeterminateSystems:
+
+     ```bash
+     curl -fsSL https://install.determinate.systems/nix | sh -s -- install --prefer-upstream-nix
+     ```
+
+     If you change your mind, you can uninstall nix by
+
+     ```
+     /nix/nix-installer uninstall
+     ```
+
+     Or uninstall it manually following [the instructions in nix manual](https://nix.dev/manual/nix/2.33/installation/uninstall.html).
+
 3. Clone this repo
 
    If git is not installed, you can use git temporarily in the nix shell `nix --extra-experimental-features "nix-command flakes" shell nixpkgs#git`.
@@ -41,6 +55,12 @@
       ```
     
       You can select the profile to switch to by changing the name after the hashtag, e.g. `.?submodules=1#work`.
+
+      You may need to generate a hardware configuration with:
+      ```
+      sudo -E nix shell nixpkgs#nixos-install-tools --command nixos-generate-config --show-hardware-config > hardware-configuration.nix
+      sudo -E nix run nixpkgs#nixos-facter > facter.json
+      ```
 
    b. For other Linux distribution, the homeConfiguration is applied.
 
@@ -79,6 +99,16 @@
     Temporary workaround: [use pre-built binaries](./pkgs/gitui-bin/default.nix) from the GitHub releases page.
 
 # Useful Commands
+
+- [NixOS Search](https://search.nixos.org/): Search NixOS packages and options
+
+- [Home Manager Search](https://home-manager-options.extranix.com/): Search Home Manager options
+
+- [Noogle](https://noogle.dev/): Search Nix API
+
+- [Nixpkgs Tracker](https://nixpkgs-tracker.ocfox.me/): Track whether a PR is merged into nixpkgs
+
+- [EmergentMind's Nix Config](https://github.com/EmergentMind/nix-config)
 
 ```
 # set up the proxy

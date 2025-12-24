@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }@args:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}@args:
 
 let
   inherit (lib) types;
@@ -7,16 +12,12 @@ let
 
   marketplace = (import ./extensions.nix) args;
   # Only extensions whose name is not in cfg.extensions.exclude are added
-  filterExtensions = extList:
-    builtins.filter
-      (
-        ext: lib.lists.all
-          (
-            excludedName: !(lib.strings.hasInfix excludedName ext.name)
-          )
-          cfg.extensions.exclude
-      )
-      extList;
+  filterExtensions =
+    extList:
+    builtins.filter (
+      ext:
+      lib.lists.all (excludedName: !(lib.strings.hasInfix excludedName ext.name)) cfg.extensions.exclude
+    ) extList;
 in
 {
   imports = [
@@ -93,8 +94,12 @@ in
 
         userSettings =
           let
-            addPrefix = prefix: attr:
-              lib.attrsets.mapAttrs' (name: value: { name = "${prefix}.${name}"; value = value; }) attr;
+            addPrefix =
+              prefix: attr:
+              lib.attrsets.mapAttrs' (name: value: {
+                name = "${prefix}.${name}";
+                value = value;
+              }) attr;
           in
           (addPrefix "editor" {
             fontFamily = "'Cascadia Code NF', 'Cascadia Code', 'CaskaydiaCove Nerd Font', 'HarmonyOS Sans', 'Noto Sans CJK SC', 'Source Han Sans SC', Consolas, 'Courier New', monospace";
@@ -108,7 +113,8 @@ in
             formatOnType = false;
 
             mouseWheelZoom = true;
-          }) // {
+          })
+          // {
             "github.copilot.enable" = {
               "*" = true;
               "plaintext" = true;

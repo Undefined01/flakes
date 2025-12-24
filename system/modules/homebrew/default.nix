@@ -1,4 +1,9 @@
-{ pkgs, inputs, user, config, ... }:
+{
+  pkgs,
+  inputs,
+  config,
+  ...
+}:
 {
   imports = [
     inputs.nix-homebrew.darwinModules.nix-homebrew
@@ -10,7 +15,7 @@
     # functionality it is relevant for has been adjusted to allow
     # specifying the relevant user separately, moved under the
     # `users.users.*` namespace, or migrated to Home Manager.
-    user = user;
+    user = config.hostSpec.primaryUser;
     enable = true;
     casks = [
       "mos"
@@ -19,7 +24,7 @@
       # "clash-verge-rev"
       # "wezterm"   # installed by nix
       # "visual-studio-code"  # installed by nix
-      # "sogou-input" # no longer available in homebrew 
+      # "sogou-input" # no longer available in homebrew
       "qq"
       "wechat"
       # "thunderbird" # installed by nix
@@ -32,14 +37,14 @@
   };
 
   nix-homebrew = {
-    inherit user;
+    user = config.hostSpec.primaryUser;
     enable = true;
     taps = {
       "homebrew/homebrew-core" = inputs.homebrew-core;
       "homebrew/homebrew-cask" = inputs.homebrew-cask;
       "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
       # "nikitabobko/homebrew-aerospace" = inputs.homebrew-aerospace;   # Aerospace is installed by nix
-      # "recronin/homebrew-sogou-input" = inputs.homebrew-sogou-input;  # no longer available in homebrew 
+      # "recronin/homebrew-sogou-input" = inputs.homebrew-sogou-input;  # no longer available in homebrew
     };
     mutableTaps = false;
     autoMigrate = true;

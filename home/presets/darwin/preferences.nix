@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   targets.darwin = {
@@ -48,36 +53,51 @@
         let
           # Convert the item to dock tile
           # Copied from https://github.com/nix-darwin/nix-darwin/blob/e2676937faf868111dcea6a4a9cf4b6549907c9d/modules/system/defaults/dock.nix#L172-L196
-          guessType = item:
+          guessType =
+            item:
             if builtins.isString item then
-              if lib.strings.hasSuffix ".app" item then { app = item; }
-              else if lib.strings.hasSuffix "/" item then { folder = item; }
-              else { file = item; }
-            else item;
-          toTile = item:
-            if item ? app then {
-              tile-type = "file-tile";
-              tile-data = { };
-              tile-data.file-data = {
-                _CFURLString = item.app;
-                _CFURLStringType = 0;
-              };
-            } else if item ? spacer then {
-              tile-data = { };
-              tile-type = if item.spacer.small then "small-spacer-tile" else "spacer-tile";
-            } else if item ? folder then {
-              tile-data.file-data = {
-                _CFURLString = "file://" + item.folder;
-                _CFURLStringType = 15;
-              };
-              tile-type = "directory-tile";
-            } else if item ? file then {
-              tile-data.file-data = {
-                _CFURLString = "file://" + item.file;
-                _CFURLStringType = 15;
-              };
-              tile-type = "file-tile";
-            } else item;
+              if lib.strings.hasSuffix ".app" item then
+                { app = item; }
+              else if lib.strings.hasSuffix "/" item then
+                { folder = item; }
+              else
+                { file = item; }
+            else
+              item;
+          toTile =
+            item:
+            if item ? app then
+              {
+                tile-type = "file-tile";
+                tile-data = { };
+                tile-data.file-data = {
+                  _CFURLString = item.app;
+                  _CFURLStringType = 0;
+                };
+              }
+            else if item ? spacer then
+              {
+                tile-data = { };
+                tile-type = if item.spacer.small then "small-spacer-tile" else "spacer-tile";
+              }
+            else if item ? folder then
+              {
+                tile-data.file-data = {
+                  _CFURLString = "file://" + item.folder;
+                  _CFURLStringType = 15;
+                };
+                tile-type = "directory-tile";
+              }
+            else if item ? file then
+              {
+                tile-data.file-data = {
+                  _CFURLString = "file://" + item.file;
+                  _CFURLStringType = 15;
+                };
+                tile-type = "file-tile";
+              }
+            else
+              item;
           toTiles = items: map toTile (map guessType items);
         in
         {

@@ -1,4 +1,6 @@
-{ pkgs ? import <nixpkgs> { system = "aarch64-darwin"; } }:
+{
+  pkgs ? import <nixpkgs> { system = "aarch64-darwin"; },
+}:
 
 pkgs.mkShell {
   buildInputs = with pkgs; [
@@ -8,4 +10,3 @@ pkgs.mkShell {
     gnumake
   ];
 }
-

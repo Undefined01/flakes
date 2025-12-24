@@ -2,18 +2,20 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-{ config, pkgs, inputs, ... }:
+{ lib, pkgs, ... }:
 
 {
   imports = [
-    inputs.nixos-hardware.nixosModules.common-pc
-    inputs.nixos-hardware.nixosModules.common-pc-ssd
-    inputs.nixos-hardware.nixosModules.common-hidpi
-    inputs.nixos-hardware.nixosModules.common-cpu-intel
     ./hardware-configuration.nix
-
-    ../../presets/desktop
+  ]
+  ++ map lib.custom.fromFlakeRoot [
+    "system/presets/desktop"
+    "system/presets/users/lh.nix"
   ];
+
+  hostSpec.users.lh.homeConfiguration = lib.custom.fromFlakeRoot "home/top/nixos/work.nix";
+
+  hardware.facter.reportPath = ./facter.json;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -40,4 +42,3 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
 }
-

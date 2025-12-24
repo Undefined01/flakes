@@ -1,7 +1,8 @@
-{ fetchurl
-, stdenvNoCC
-, lib
-, ...
+{
+  fetchurl,
+  stdenvNoCC,
+  lib,
+  ...
 }:
 
 let
@@ -12,7 +13,10 @@ let
 in
 stdenvNoCC.mkDerivation {
   inherit pname version;
-  src = fetchurl { url = tarballUrl; inherit sha256; };
+  src = fetchurl {
+    url = tarballUrl;
+    inherit sha256;
+  };
 
   unpackPhase = "true";
   installPhase = ''
@@ -29,4 +33,3 @@ stdenvNoCC.mkDerivation {
     maintainers = [ ];
   };
 }
-

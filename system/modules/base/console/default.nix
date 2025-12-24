@@ -1,7 +1,6 @@
 { lib, isLinux, ... }:
 
-lib.optionalAttrs isLinux
-{
+lib.optionalAttrs isLinux {
   console = {
     keyMap = "us";
     # font = "Lat2-Terminus16";

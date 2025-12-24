@@ -15,7 +15,7 @@
 
   # [https://wiki.nixos.org/wiki/Fish](https://wiki.nixos.org/w/index.php?title=Fish&oldid=1222)
   # Using fish as login shell may cause issues because fish is not POSIX compliant.
-  # So we keep bash as the system shell but have it exec fish when run interactively. 
+  # So we keep bash as the system shell but have it exec fish when run interactively.
   # To keep compatible with darwin, we use posix arguments for ps.
   programs.bash.initExtra = ''
     if [[ ! $(${pkgs.procps}/bin/ps -o comm= -p "$PPID") =~ (bash|zsh|fish)$ && -z "''${BASH_EXECUTION_STRING}" ]]

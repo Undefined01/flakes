@@ -1,4 +1,10 @@
-{ config, pkgs, lib, isLinux, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  isLinux,
+  ...
+}:
 
 lib.optionalAttrs isLinux {
   time.hardwareClockInLocalTime = true;

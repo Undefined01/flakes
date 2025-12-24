@@ -1,10 +1,23 @@
-{ pkgs, lib, inputs, user, ... }:
+{
+  pkgs,
+  lib,
+  inputs,
+  user,
+  ...
+}:
 
 {
   nix = {
     settings = {
-      trusted-users = [ "@admin" "@sudo" "@wheel" "${user}" ];
-      experimental-features = [ "nix-command" "flakes" ];
+      trusted-users = [
+        "@admin"
+        "@sudo"
+        "@wheel"
+      ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       substituters = [
         "https://mirrors.ustc.edu.cn/nix-channels/store"
         "https://cache.nixos.org/"
@@ -19,17 +32,23 @@
     # Collect garbage periodically
     gc =
       let
-        periodConfig = lib.optionalAttrs pkgs.stdenv.isLinux
-          {
+        periodConfig =
+          lib.optionalAttrs pkgs.stdenv.isLinux {
             dates = "daily";
-          } // lib.optionalAttrs pkgs.stdenv.isDarwin {
-          interval = { Weekday = 1; Hour = 0; Minute = 0; };
-        };
+          }
+          // lib.optionalAttrs pkgs.stdenv.isDarwin {
+            interval = {
+              Weekday = 1;
+              Hour = 0;
+              Minute = 0;
+            };
+          };
       in
       {
         automatic = true;
         options = "--delete-older-than 30d";
-      } // periodConfig;
+      }
+      // periodConfig;
 
     # Optimise nix store via hardlinking
     optimise.automatic = true;
@@ -43,12 +62,17 @@
       #   "repo" = "nixpkgs";
       #   "ref" = "nixos-unstable";
       # };
-      nur.flake = inputs.nur;
+      nur.to = {
+        "type" = "github";
+        "owner" = "nix-community";
+        "repo" = "NUR";
+        "ref" = "main";
+      };
     };
   };
 
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = builtins.attrValues (import ../../../../overlays { inherit inputs; });
+    overlays = builtins.attrValues (import (lib.custom.fromFlakeRoot "overlays") { inherit inputs; });
   };
 }

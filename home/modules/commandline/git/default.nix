@@ -22,7 +22,10 @@ in
     programs.git = {
       enable = true;
 
-      ignores = [ ".cache" "compile_commands.json" ];
+      ignores = [
+        ".cache"
+        "compile_commands.json"
+      ];
 
       settings = lib.mkMerge [
         {
@@ -53,7 +56,6 @@ in
         })
       ];
     };
-
 
     programs.difftastic = {
       enable = true;

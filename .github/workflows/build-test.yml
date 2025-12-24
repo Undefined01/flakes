@@ -1,8 +1,7 @@
 name: Build Test
 
 on:
-  push:
-    branches: [ main, master, stage ]
+  push: {}
   pull_request:
     branches: [ main, master, stage ]
   workflow_dispatch:
@@ -47,7 +46,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        config: [darwin, darwin-a]
+        config: [darwin]
 
     steps:
     - name: Checkout repository
@@ -80,7 +79,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        config: [lh]
+        config: [ docker ]
 
     steps:
     - name: Checkout repository
@@ -146,4 +145,4 @@ jobs:
 
     - name: Check formatting
       run: |
-        nix fmt -- --check .
+        nix fmt -- --ci .

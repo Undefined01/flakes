@@ -1,4 +1,9 @@
-{ inputs, pkgs, user, ... }:
+{
+  inputs,
+  pkgs,
+  user,
+  ...
+}:
 
 {
   nixpkgs.overlays = builtins.attrValues (import ../../../overlays { inherit inputs; });
@@ -23,9 +28,7 @@
 
   home.username = pkgs.lib.mkDefault user;
   home.homeDirectory = pkgs.lib.mkDefault (
-    if pkgs.stdenv.isDarwin
-    then "/Users/${user}"
-    else "/home/${user}"
+    if pkgs.stdenv.isDarwin then "/Users/${user}" else "/home/${user}"
   );
 
   # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion

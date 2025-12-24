@@ -1,4 +1,10 @@
-{ config, pkgs, lib, isDarwin, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  isDarwin,
+  ...
+}:
 
 lib.optionalAttrs isDarwin {
   # Allow sudo authentication with Touch ID
