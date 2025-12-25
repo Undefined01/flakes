@@ -21,6 +21,8 @@
   pango,
   udev,
   xorg,
+  xar,
+  cpio,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -49,13 +51,14 @@ stdenv.mkDerivation (finalAttrs: {
       };
     };
 
-  nativeBuildInputs = [
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux[
     autoPatchelfHook
-    dpkg
+    dpkg] ++ lib.optionals stdenv.hostPlatform.isDarwin [
     xar
+    cpio
   ];
 
-  buildInputs = [
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     alsa-lib
     at-spi2-atk
     cairo
@@ -82,6 +85,15 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.getLib stdenv.cc.cc)
   ];
 
+  unpackPhase = lib.optionalString stdenv.hostPlatform.isDarwin ''
+    runHook preUnpack
+
+    xar -xf $src
+    zcat *.pkg/Payload | cpio -i
+
+    runHook postUnpack
+  '';
+
   installPhase = ''
     runHook preInstall
   '' + lib.optionalString stdenv.hostPlatform.isLinux ''
@@ -92,13 +104,13 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r usr/share $out/share
     ln -s $out/opt/sparkle/sparkle $out/bin/sparkle
     '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
-    xar -xf $src
-    cp -r Applications $out/Applications
+    mkdir -p $out/Applications
+    cp -r Sparkle.app $out/Applications/
     '' + ''
     runHook postInstall
   '';
 
-  preFixup = ''
+  preFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     patchelf --add-needed libGL.so.1 $out/opt/sparkle/sparkle
   '';
 
