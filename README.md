@@ -112,6 +112,20 @@
 
 - [EmergentMind's Nix Config](https://github.com/EmergentMind/nix-config)
 
+- Debug a package:
+
+   1. Enter develop shell: `nix-shell default.nix -A package` or `nix develop .#package`
+   2. Fetch source code in a temporary directory: `cd $(mktemp -d) && runPhase unpackPhase`
+   3. Run each phase defined in [stdenv](https://github.com/NixOS/nixpkgs/blob/0b72e585e4f71181bb00a0dcf41cf534c8fe4f24/pkgs/stdenv/generic/setup.sh#L1778-L1791)
+
+      ```bash
+      runPhase configurePhase
+      runPhase buildPhase
+      runPhase checkPhase
+      runPhase installPhase
+      runPhase fixupPhase
+      ```
+
 ```
 # set up the proxy
 export {http_proxy,https_proxy,HTTP_PROXY,HTTPS_PROXY,all_proxy,ALL_PROXY}="http://172.25.64.1:7891"
