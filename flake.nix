@@ -17,6 +17,11 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
 
+      # utils
+      flake-compat = {
+        url = "github:NixOS/flake-compat";
+        flake = false;
+      };
       nix-vscode-extensions = {
         url = "github:nix-community/nix-vscode-extensions";
         inputs.nixpkgs.follows = "nixpkgs";

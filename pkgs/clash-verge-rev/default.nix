@@ -92,9 +92,6 @@ stdenv.mkDerivation {
   ''
   + ''
     # people who want to use alpha build show override mihomo themselves. The alpha core entry was removed in clash-verge.
-    ln -s ${v2ray-geoip}/share/v2ray/geoip.dat $out/lib/Clash\ Verge/resources/geoip.dat
-    ln -s ${v2ray-domain-list-community}/share/v2ray/geosite.dat $out/lib/Clash\ Verge/resources/geosite.dat
-    ln -s ${dbip-country-lite.mmdb} $out/lib/Clash\ Verge/resources/Country.mmdb
     ln -s ${v2ray-geoip}/share/v2ray/geoip.dat "$resourceDir/geoip.dat"
     ln -s ${v2ray-domain-list-community}/share/v2ray/geosite.dat "$resourceDir/geosite.dat"
     ln -s ${dbip-country-lite.mmdb} "$resourceDir/Country.mmdb"

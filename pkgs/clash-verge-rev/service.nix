@@ -24,6 +24,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --replace-fail "/tmp/verge/clash-verge-service-test.sock" "$sourceRoot/clash-verge-service-test.sock"
     substituteInPlace tests/test_start_permissions.rs \
       --replace-fail "owner_perm | group_perm | other_perm" "0o0755"
+  '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+    # set socket path for service and test respectively
+    substituteInPlace src/lib.rs \
+      --replace-fail "/tmp/verge/clash-verge-service-test.sock" "$sourceRoot/clash-verge-service-test.sock"
   '';
 
   cargoHash = "sha256-UbNN3uFu5anQV+3KMFPNnGrCDQTGb4uC9K83YghfQgY=";

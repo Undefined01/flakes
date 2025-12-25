@@ -20,6 +20,5 @@
   home.packages = with pkgs; [
     raycast
     keka
-    clash-verge-rev
   ];
 }
