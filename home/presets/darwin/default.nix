@@ -10,6 +10,7 @@
     ../../modules/desktop/wezterm
     ../../modules/desktop/vscode
     ../../modules/desktop/zotero
+    ../../modules/desktop/firefox
     ../../modules/desktop/thunderbird
 
     # Does not support aarch64-darwin yet

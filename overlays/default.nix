@@ -15,14 +15,6 @@ in
       directory = ../pkgs;
     };
 
-  modifications = final: prev: {
-    gitui =
-      if prev.stdenv.isDarwin && prev.stdenv.hostPlatform.system == "aarch64-darwin" then
-        final.gitui-bin
-      else
-        prev.gitui;
-  };
-
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
   # be accessible through 'pkgs.unstable'
   unstable-packages = final: _prev: {

@@ -113,7 +113,7 @@
             # "/System/Applications/Utilities/Terminal.app"
             "${pkgs.wezterm}/Applications/WezTerm.app"
             "${pkgs.vscode}/Applications/Visual Studio Code.app"
-            "/Applications/Firefox.app"
+            "${config.programs.firefox.package}/Applications/Firefox.app"
             "/System/Applications/System Settings.app"
 
             { spacer.small = true; }

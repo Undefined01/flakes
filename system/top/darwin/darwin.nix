@@ -10,10 +10,10 @@
     "system/presets/minimal"
     "system/modules/homebrew"
     "system/modules/base/font/fonts.nix"
-    "system/presets/users/lh.nix"
+    "system/presets/users/han.nix"
   ];
 
-  hostSpec.users.lh.homeConfiguration = lib.custom.fromFlakeRoot "home/top/darwin/darwin.nix";
+  hostSpec.users.han.homeConfiguration = lib.custom.fromFlakeRoot "home/top/darwin/darwin.nix";
 
   # nix integration for zsh and fish
   programs.zsh.enable = true;
