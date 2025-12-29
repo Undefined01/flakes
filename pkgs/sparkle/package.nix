@@ -21,8 +21,8 @@
   pango,
   udev,
   xorg,
-  xar,
-  cpio,
+  p7zip,
+  libarchive,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -51,12 +51,15 @@ stdenv.mkDerivation (finalAttrs: {
       };
     };
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux[
-    autoPatchelfHook
-    dpkg] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    xar
-    cpio
-  ];
+  nativeBuildInputs =
+    lib.optionals stdenv.hostPlatform.isLinux [
+      autoPatchelfHook
+      dpkg
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      libarchive
+      p7zip
+    ];
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     alsa-lib
@@ -88,25 +91,28 @@ stdenv.mkDerivation (finalAttrs: {
   unpackPhase = lib.optionalString stdenv.hostPlatform.isDarwin ''
     runHook preUnpack
 
-    xar -xf $src
-    zcat *.pkg/Payload | cpio -i
+    7z x $src
+    bsdtar -xf Payload~
 
     runHook postUnpack
   '';
 
   installPhase = ''
     runHook preInstall
-  '' + lib.optionalString stdenv.hostPlatform.isLinux ''
+  ''
+  + lib.optionalString stdenv.hostPlatform.isLinux ''
     mkdir -p $out/bin
     cp -r opt $out/opt
     substituteInPlace usr/share/applications/sparkle.desktop \
       --replace-fail "/opt/sparkle/sparkle" "sparkle"
     cp -r usr/share $out/share
     ln -s $out/opt/sparkle/sparkle $out/bin/sparkle
-    '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+  ''
+  + lib.optionalString stdenv.hostPlatform.isDarwin ''
     mkdir -p $out/Applications
     cp -r Sparkle.app $out/Applications/
-    '' + ''
+  ''
+  + ''
     runHook postInstall
   '';
 

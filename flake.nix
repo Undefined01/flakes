@@ -1,70 +1,25 @@
 {
   description = "Undefined01's everything about Nix, e.g., NixOS Configuration, customized packages, etc.";
 
-  inputs =
-    {
-      # nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
-      nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-      nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-      nixos-hardware.url = "github:nixos/nixos-hardware";
-      nur = {
-        url = "github:nix-community/NUR";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
-      home-manager = {
-        # url = "github:nix-community/home-manager/release-24.05";
-        url = "github:nix-community/home-manager/master";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
-
-      # utils
-      flake-compat = {
-        url = "github:NixOS/flake-compat";
-        flake = false;
-      };
-      nix-vscode-extensions = {
-        url = "github:nix-community/nix-vscode-extensions";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
-
-      # nix for darwin
-      darwin = {
-        url = "github:LnL7/nix-darwin";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
-      nix-homebrew = {
-        url = "github:zhaofengli-wip/nix-homebrew";
-      };
-      homebrew-bundle = {
-        url = "github:homebrew/homebrew-bundle";
-        flake = false;
-      };
-      homebrew-core = {
-        url = "github:homebrew/homebrew-core";
-        flake = false;
-      };
-      homebrew-cask = {
-        url = "github:homebrew/homebrew-cask";
-        flake = false;
-      };
-      # homebrew-aerospace = {
-      #   url = "github:nikitabobko/homebrew-aerospace";
-      #   flake = false;
-      # };
-
-      # nix for wsl
-      nixos-wsl = {
-        url = "github:nix-community/NixOS-WSL";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
-    };
-
+  inputs = {
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       # url = "github:nix-community/home-manager/release-24.05";
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # utils
+    flake-compat = {
+      url = "github:NixOS/flake-compat";
+      flake = false;
+    };
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
       inputs.nixpkgs.follows = "nixpkgs";
