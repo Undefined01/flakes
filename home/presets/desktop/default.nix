@@ -27,6 +27,6 @@
 
     localsend
     qq
-    # nur.repos.novel2430.wechat-universal-bwrap
+    wechat
   ];
 }

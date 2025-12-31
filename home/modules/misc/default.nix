@@ -7,7 +7,8 @@
 
 {
   nixpkgs.overlays = builtins.attrValues (import ../../../overlays { inherit inputs; });
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = import ./nixpkgs-config.nix;
+  xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
 
   nix = {
     registry = {

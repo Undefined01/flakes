@@ -22,5 +22,8 @@
     raycast
     keka
     sparkle
+
+    qq
+    wechat
   ];
 }
