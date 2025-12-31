@@ -2,7 +2,6 @@
 
 {
   fonts = {
-    fontDir.enable = lib.mkIf (pkgs.stdenv.isLinux) true;
     packages = with pkgs; [
       # noto-fonts
       noto-fonts-cjk-sans
