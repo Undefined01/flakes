@@ -15,6 +15,13 @@ in
       directory = ../pkgs;
     };
 
+  darwin =
+    final: prev:
+    prev.lib.optionalAttrs prev.stdenv.hostPlatform.isDarwin {
+      clash-verge-rev = final.darwinPkgs.clash-verge-rev;
+      sparkle = final.darwinPkgs.sparkle;
+    };
+
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
   # be accessible through 'pkgs.unstable'
   unstable-packages = final: _prev: {

@@ -38,7 +38,7 @@ jobs:
 
     - name: Build NixOS configuration - ${{ matrix.config }}
       run: |
-        nix build --no-link --print-build-logs .#nixosConfigurations.${{ matrix.config }}.config.system.build.toplevel
+        nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --max-jobs 1 --no-link --flake .#nixosConfigurations.${{ matrix.config }}.config.system.build.toplevel
 
   darwin-configurations:
     name: Darwin Configurations
@@ -71,7 +71,7 @@ jobs:
 
     - name: Build Darwin configuration - ${{ matrix.config }}
       run: |
-        nix build --no-link --print-build-logs .#darwinConfigurations.${{ matrix.config }}.system
+        nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --max-jobs 1 --no-link --flake .#darwinConfigurations.${{ matrix.config }}.system
 
   home-manager-configuration:
     name: Home Manager Configuration
@@ -104,7 +104,7 @@ jobs:
 
     - name: Build Home Manager configuration
       run: |
-        nix build --no-link --print-build-logs .#homeConfigurations.${{ matrix.config }}.activationPackage
+        nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --max-jobs 1 --no-link --flake .#homeConfigurations.${{ matrix.config }}.activationPackage
 
   check-flake:
     name: Check Flake
