@@ -3,52 +3,56 @@
 
   inputs = {
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs = {
+      url = "github:nixos/nixpkgs/nixos-unstable?shallow=1";
+    };
+    nixpkgs-unstable = {
+      url = "github:nixos/nixpkgs/nixos-unstable?shallow=1";
+    };
     home-manager = {
       # url = "github:nix-community/home-manager/release-24.05";
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager/master?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # utils
     flake-compat = {
-      url = "github:NixOS/flake-compat";
+      url = "github:NixOS/flake-compat?shallow=1";
       flake = false;
     };
     nur = {
-      url = "github:nix-community/NUR";
+      url = "github:nix-community/NUR?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-vscode-extensions = {
-      url = "github:nix-community/nix-vscode-extensions";
+      url = "github:nix-community/nix-vscode-extensions?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # nix for darwin
     darwin = {
-      url = "github:LnL7/nix-darwin";
+      url = "github:LnL7/nix-darwin?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-homebrew = {
-      url = "github:zhaofengli-wip/nix-homebrew";
+      url = "github:zhaofengli-wip/nix-homebrew?shallow=1";
     };
     homebrew-bundle = {
-      url = "github:homebrew/homebrew-bundle";
+      url = "github:homebrew/homebrew-bundle?shallow=1";
       flake = false;
     };
     homebrew-core = {
-      url = "github:homebrew/homebrew-core";
+      url = "github:homebrew/homebrew-core?shallow=1";
       flake = false;
     };
     homebrew-cask = {
-      url = "github:homebrew/homebrew-cask";
+      url = "github:homebrew/homebrew-cask?shallow=1";
       flake = false;
     };
 
     # nix for wsl
     nixos-wsl = {
-      url = "github:nix-community/NixOS-WSL";
+      url = "github:nix-community/NixOS-WSL?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

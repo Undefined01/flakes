@@ -13,6 +13,7 @@
 
     ../../modules/commandline/eza
     ../../modules/commandline/bat
+    ../../modules/commandline/ls-or-cat
     ../../modules/commandline/bottom
     ../../modules/commandline/zoxide
     ../../modules/commandline/fd
@@ -51,7 +52,6 @@
     tokei
     difftastic
 
-    ntfs3g
     zellij
   ];
 }

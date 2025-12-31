@@ -1,12 +1,14 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 
 let
-  getOrDefault = set: attr: if set ? attr then set.${attr} else default;
+  # getOrDefault = set: attr: default: if set ? attr then set.${attr} else default;
+  # ls = getOrDefault config.home.shellAliases "ls" "ls";
+  # cat = getOrDefault config.home.shellAliases "cat" "cat";
 
-  ls = getOrDefault config.home.shellAliases "ls" "ls";
-  cat = getOrDefault config.home.shellAliases "cat" "cat";
+  ls = pkgs.eza;
+  cat = pkgs.bat;
 
-  ls-or-cat = pkgs.writeScript "ls-or-cat" ''
+  ls-or-cat1 = pkgs.writeScript "ls-or-cat" ''
     #/usr/bin/env bash
 
     if [ $# -eq 0 ]; then
@@ -25,6 +27,7 @@ let
       done
     fi
   '';
+  ls-or-cat = lib.traceVal "${ls-or-cat1}";
 in
 {
   home.shellAliases = {
