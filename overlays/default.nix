@@ -15,11 +15,9 @@ in
       directory = ../pkgs;
     };
 
-  general =
-    final: prev:
-    {
-      sparkle = final.darwinPkgs.sparkle;
-    };
+  general = final: prev: {
+    sparkle = final.darwinPkgs.sparkle;
+  };
 
   darwin =
     final: prev:
