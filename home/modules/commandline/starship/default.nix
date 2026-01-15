@@ -13,7 +13,7 @@
         show_milliseconds = true;
         show_notifications = true;
         min_time_to_notify = 60 * 1000;
-        notification_timeout = 1500;
+        notification_timeout = 3 * 1000;
       };
       time = {
         disabled = false;
@@ -24,7 +24,7 @@
         disabled = false;
       };
 
-      format = builtins.replaceStrings [ "\\\n" ] [ "" ] ''
+      format = ''
         $username\
         $hostname\
         $localip\
@@ -41,6 +41,7 @@
         $git_metrics\
         $git_status\
         $hg_branch\
+        $hg_state\
         $pijul_channel\
         $docker_context\
         $package\
@@ -55,6 +56,8 @@
         $elm\
         $erlang\
         $fennel\
+        $fortran\
+        $gleam\
         $golang\
         $guix_shell\
         $haskell\
@@ -98,8 +101,10 @@
         $gcloud\
         $openstack\
         $azure\
+        $nats\
         $direnv\
         $env_var\
+        $mise\
         $crystal\
         $custom\
         $sudo\
@@ -111,6 +116,7 @@
         $line_break\
         $os\
         $container\
+        $netns\
         $shell\
         $character
       '';

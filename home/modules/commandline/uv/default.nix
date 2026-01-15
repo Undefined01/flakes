@@ -15,4 +15,8 @@
       python-install-mirror = "https://hub.gitmirror.com/https://github.com/astral-sh/python-build-standalone/releases/download";
     };
   };
+
+  home.shellAliases = {
+    python = "uv run python";
+  };
 }
