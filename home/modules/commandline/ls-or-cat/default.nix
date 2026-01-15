@@ -10,8 +10,8 @@ let
   # ls = getOrDefault config.home.shellAliases "ls" "ls";
   # cat = getOrDefault config.home.shellAliases "cat" "cat";
 
-  ls = pkgs.eza;
-  cat = pkgs.bat;
+  ls = lib.getExe pkgs.eza;
+  cat = lib.getExe pkgs.bat;
 
   ls-or-cat = builtins.toString (
     pkgs.writeScript "ls-or-cat" ''
