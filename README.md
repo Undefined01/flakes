@@ -72,6 +72,7 @@
 
 <!-- None so far. -->
 - [ ] Sparkle (a mihomo client) has been deleted. The latest release is recovered temporarily. Waiting for future update.
+- [ ] Obsidian doesn't allow empty settings yet. [![](https://img.shields.io/github/pulls/detail/state/nix-community/home-manager/8562)](https://github.com/nix-community/home-manager/pull/8562)
 
 ## Useful Commands
 

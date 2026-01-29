@@ -17,6 +17,7 @@
       experimental-features = [
         "nix-command"
         "flakes"
+        "pipe-operators"
       ];
       substituters = [
         "https://mirrors.ustc.edu.cn/nix-channels/store"

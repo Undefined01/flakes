@@ -1,7 +1,8 @@
 { pkgs, ... }:
 
 {
-  programs.obs-studio = {
-    enable = true;
-  };
+  # programs.obsidian = {
+  #   enable = true;
+  # };
+  home.packages = [ pkgs.obsidian ];
 }
