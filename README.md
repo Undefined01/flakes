@@ -83,6 +83,17 @@
     ```
     nix fmt .
     ```
+
+    Install a git-hook:
+
+    ```
+    cat >.git/hooks/pre-commit <<<EOF
+    #!/bin/bash
+    set -e
+
+    nix fmt -- --ci
+    EOF
+    ```
 - Debug a package:
     ```bash
     nix-shell default.nix -A package   # or: nix develop .#package

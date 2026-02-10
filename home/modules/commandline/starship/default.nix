@@ -140,7 +140,7 @@
   #       starship prompt --terminal-width="$COLUMNS" --status=$STARSHIP_CMD_STATUS --pipestatus="$STARSHIP_CMD_PIPESTATUS" --keymap=$STARSHIP_KEYMAP --cmd-duration=$STARSHIP_DURATION --jobs=$STARSHIP_JOBS
   #
   #       # starship module directory
-  #       # starship module status 
+  #       # starship module status
   #       # starship module cmd_duration
   #       # starship module time
   #       # starship module line_break
