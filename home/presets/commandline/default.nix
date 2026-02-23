@@ -18,7 +18,7 @@
     ../../modules/commandline/zoxide
     ../../modules/commandline/fd
     ../../modules/commandline/fzf
-    ../../modules/commandline/gitui
+    ../../modules/commandline/lazygit
     ../../modules/commandline/tealdeer
     ../../modules/commandline/atuin
     ../../modules/commandline/yazi
