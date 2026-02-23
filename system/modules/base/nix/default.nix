@@ -59,18 +59,11 @@
 
     registry = {
       nixpkgs.flake = inputs.nixpkgs;
-      unstable.flake = inputs.nixpkgs-unstable;
-      # unstable.to = {
-      #   "type" = "github";
-      #   "owner" = "NixOS";
-      #   "repo" = "nixpkgs";
-      #   "ref" = "nixos-unstable";
-      # };
-      nur.to = {
+      unstable.to = {
         "type" = "github";
-        "owner" = "nix-community";
-        "repo" = "NUR";
-        "ref" = "main";
+        "owner" = "NixOS";
+        "repo" = "nixpkgs";
+        "ref" = "nixos-unstable";
       };
     };
   };

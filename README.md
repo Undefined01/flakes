@@ -7,7 +7,8 @@
         ```bash
         curl -fsSL https://install.determinate.systems/nix | sh -s -- install --prefer-upstream-nix
         ```
-    - **Uninstall** if needed:
+
+        **Uninstall** if needed:
         ```
         /nix/nix-installer uninstall
         ```
@@ -58,7 +59,7 @@
         ```
         If the `nix` command disappears after an incomplete rebuild, try restore it with:
         ```bash
-        . ~/.nix-profile/etc/profile.d/nix.sh
+        . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
         ```
 
     - **macOS (darwinConfiguration)**:
@@ -71,8 +72,11 @@
 ## Known Issues
 
 <!-- None so far. -->
-- [ ] Sparkle (a mihomo client) has been deleted. The latest release is recovered temporarily. Waiting for future update.
+- [ ] Sparkle (a mihomo client) has been deleted. The latest release is recovered temporarily. Waiting for future update. [![](https://img.shields.io/github/pulls/detail/state/NixOS/nixpkgs/485640)](https://github.com/NixOS/nixpkgs/pull/485640)
+
+<!--
 - [ ] Obsidian doesn't allow empty settings yet. [![](https://img.shields.io/github/pulls/detail/state/nix-community/home-manager/8562)](https://github.com/nix-community/home-manager/pull/8562)
+-->
 
 ## Useful Commands
 
