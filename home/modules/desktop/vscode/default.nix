@@ -136,6 +136,10 @@ in
             "explorer.confirmDelete" = false;
             "terminal.integrated.enableMultiLinePasteWarning" = "never";
             "diffEditor.ignoreTrimWhitespace" = false;
+
+            "[json]" = {
+              "editor.defaultFormatter" = "vscode.json-language-features";
+            };
           };
       };
     };
