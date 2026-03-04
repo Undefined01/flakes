@@ -6,14 +6,14 @@
 }:
 
 let
-  # getOrDefault = set: attr: default: if set ? attr then set.${attr} else default;
-  # ls = getOrDefault config.home.shellAliases "ls" "ls";
-  # cat = getOrDefault config.home.shellAliases "cat" "cat";
+  getOrDefault = set: attr: default: if set ? attr then set.${attr} else default;
+  ls = getOrDefault config.home.shellAliases "ls" "ls";
+  cat = getOrDefault config.home.shellAliases "cat" "cat";
 
-  ls = lib.getExe pkgs.eza;
-  cat = lib.getExe pkgs.bat;
+  # ls = lib.getExe pkgs.eza;
+  # cat = lib.getExe pkgs.bat;
 
-  ls-or-cat = builtins.toString (
+  ls-or-cat = 
     pkgs.writeScript "ls-or-cat" ''
       #/usr/bin/env bash
 
@@ -33,11 +33,12 @@ let
         done
       fi
     ''
-  );
+  ;
 in
 {
+  home.packages = [ ls-or-cat ];
+
   home.shellAliases = {
-    ls-or-cat = ls-or-cat;
-    l = ls-or-cat;
+    l = "ls-or-cat";
   };
 }

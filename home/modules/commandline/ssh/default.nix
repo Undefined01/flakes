@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   programs.ssh = {
@@ -22,7 +22,7 @@
     };
   };
 
-  home.packages = with pkgs; [
-    sshfs
+  home.packages = lib.mkIf pkgs.stdenv.isLinux [
+    pkgs.sshfs
   ];
 }
