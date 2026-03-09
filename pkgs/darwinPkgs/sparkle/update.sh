@@ -1,14 +1,49 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash nix curl coreutils common-updater-scripts nix-update jq
+#!nix-shell -i bash -p bash nix curl coreutils common-updater-scripts gnused gnugrep jq
 
-currentVersion=$(nix-instantiate --eval -A packages.x86_64-linux.sparkle.version | tr -d '"')
-latestVersion=$(curl ${GITHUB_TOKEN:+-u ":$GITHUB_TOKEN"} -sL https://api.github.com/repos/xishang0128/sparkle/releases/latest | jq --raw-output .tag_name)
+set -euo pipefail
+set -x
 
-echo "latest  version: $latestVersion"
-echo "current version: $currentVersion"
-
-nix-update sparkle --flake --version $latestVersion
-for arch in x86_64-linux aarch64-linux x86_64-darwin aarch64-darwin; do
-    hash=$(nix --extra-experimental-features nix-command hash convert --to sri --hash-algo sha256 $(nix-prefetch-url $(nix-instantiate --eval -E "with import ./.; packages.${arch}.sparkle.src.url" --system $arch | tr -d '"')))
-    update-source-version sparkle $latestVersion $hash --system=$arch --ignore-same-version
+repo="xishang0128/sparkle"
+nix_file="$(dirname "$0")/package.nix"
+release_json="$(curl -vfsSL "https://api.github.com/repos/${repo}/releases/latest")"
+latest_tag="$(jq -r .tag_name <<<"$release_json")"
+if [[ -z "${latest_tag}" || "${latest_tag}" == "null" ]]; then
+  echo "Failed to fetch latest release tag from GitHub"
+  exit 1
+fi
+version="${latest_tag#v}"
+linux_x86_64_asset="sparkle-linux-${version}-amd64.deb"
+linux_aarch64_asset="sparkle-linux-${version}-arm64.deb"
+darwin_x86_64_asset="sparkle-macos-${version}-x64.pkg"
+darwin_aarch64_asset="sparkle-macos-${version}-arm64.pkg"
+for asset in \
+  "$linux_x86_64_asset" \
+  "$linux_aarch64_asset" \
+  "$darwin_x86_64_asset" \
+  "$darwin_aarch64_asset"
+do
+  if ! jq -e --arg name "$asset" '.assets[] | select(.name == $name)' <<<"$release_json" >/dev/null; then
+    echo "Missing expected asset in latest release: $asset"
+    exit 1
+  fi
 done
+prefetch_sri() {
+  local url="$1"
+  nix-prefetch-url --type sha256 "$url" | xargs nix hash to-sri --type sha256
+}
+base_url="https://github.com/${repo}/releases/download/${latest_tag}"
+linux_x86_64_hash="$(prefetch_sri "${base_url}/${linux_x86_64_asset}")"
+linux_aarch64_hash="$(prefetch_sri "${base_url}/${linux_aarch64_asset}")"
+darwin_x86_64_hash="$(prefetch_sri "${base_url}/${darwin_x86_64_asset}")"
+darwin_aarch64_hash="$(prefetch_sri "${base_url}/${darwin_aarch64_asset}")"
+echo "Updating sparkle to ${version}"
+sed -i -E \
+  -e "s/version = \".*\";/version = \"${version}\";/" \
+  -e "/x86_64-linux = /s|sha256-[^\"]+|${linux_x86_64_hash}|" \
+  -e "/aarch64-linux = /s|sha256-[^\"]+|${linux_aarch64_hash}|" \
+  -e "/x86_64-darwin = /s|sha256-[^\"]+|${darwin_x86_64_hash}|" \
+  -e "/aarch64-darwin = /s|sha256-[^\"]+|${darwin_aarch64_hash}|" \
+  "$nix_file"
+echo "Updated ${nix_file}"
+
