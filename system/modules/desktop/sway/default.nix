@@ -4,6 +4,7 @@
   environment.systemPackages = with pkgs; [
     clipman
     pamixer
+    brightnessctl
   ];
 
   programs.sway.enable = true;
