@@ -71,11 +71,17 @@
 
 ## Known Issues
 
-<!-- None so far. -->
-- [ ] Sparkle (a mihomo client) has been deleted. The latest release is recovered temporarily. Waiting for future update. [![](https://img.shields.io/github/pulls/detail/state/NixOS/nixpkgs/485640)](https://github.com/NixOS/nixpkgs/pull/485640)
+
+- [ ] Sparkle package is refactored and only supports Linux now. Use the overridden version for darwin.
 
 <!--
-- [ ] Obsidian doesn't allow empty settings yet. [![](https://img.shields.io/github/pulls/detail/state/nix-community/home-manager/8562)](https://github.com/nix-community/home-manager/pull/8562)
+Templates:
+
+- None so far.
+
+- [ ] Sparkle (a mihomo client) has been deleted. The latest release is recovered temporarily. Waiting for future update. [![](https://img.shields.io/github/pulls/detail/state/NixOS/nixpkgs/485640)](https://github.com/NixOS/nixpkgs/pull/485640)
+
+- [x] Obsidian doesn't allow empty settings yet. [![](https://img.shields.io/github/pulls/detail/state/nix-community/home-manager/8562)](https://github.com/nix-community/home-manager/pull/8562)
 -->
 
 ## Useful Commands
@@ -99,14 +105,32 @@
     EOF
     ```
 - Debug a package:
+
+    The builder script for stdenv: https://github.com/NixOS/nixpkgs/blob/master/pkgs/stdenv/generic/setup.sh
+
     ```bash
     nix-shell default.nix -A package   # or: nix develop .#package
-    cd $(mktemp -d) && runPhase unpackPhase
+    cd $(mktemp -d)
+    
+    genericBuild
+    
+    # or run phases one by one:
+    printPhases
+    runPhase unpackPhase
+    runPhase patchPhase
     runPhase configurePhase
     runPhase buildPhase
     runPhase checkPhase
     runPhase installPhase
     runPhase fixupPhase
+    runPhase installCheckPhase
+    runPhase distPhase
+
+    # inspect the build phase script
+    function inspect() {
+        echo "${!1:-$(type $1)}"
+    }
+    inspect buildPhase
     ```
 - Set up secrets:
     ```
