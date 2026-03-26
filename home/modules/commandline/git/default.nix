@@ -37,6 +37,7 @@ in
             lg = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all";
             lg2 = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'";
             root = "rev-parse --show-toplevel";
+            difft = "-c diff.external=difft diff";
           };
 
           init.defaultBranch = "main";
@@ -59,7 +60,7 @@ in
 
     programs.difftastic = {
       enable = true;
-      git.enable = true;
+      git.enable = false;
     };
     programs.gpg.enable = true;
   };
