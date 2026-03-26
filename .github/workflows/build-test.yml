@@ -8,17 +8,42 @@ on:
 
 jobs:
   define-matrix:
-    if: false
     runs-on: ubuntu-latest
 
     outputs:
       jobs: ${{ steps.jobs.outputs.jobs }}
 
     steps:
-      - name: Define Colors
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes pipe-operators
+
+      - name: Define Configuration Matrix
         id: jobs
         run: |
-          echo 'jobs=["red", "green", "blue"]' >> "$GITHUB_OUTPUT"
+          set -euo pipefail
+
+          linux_configs="$(nix eval --json .#checks.x86_64-linux.configurations --apply 'builtins.attrNames')"
+          darwin_configs="$(nix eval --json .#checks.aarch64-darwin.configurations --apply 'builtins.attrNames')"
+
+          jobs="$(jq -cn \
+            --argjson linux "$linux_configs" \
+            --argjson darwin "$darwin_configs" \
+            '{
+              include:
+                ([ $linux[] | { runner: "ubuntu-latest", system: "x86_64-linux", config: . } ] +
+                 [ $darwin[] | { runner: "macos-latest", system: "aarch64-darwin", config: . } ])
+            }'
+          )"
+
+          echo "jobs=$jobs" >> "$GITHUB_OUTPUT"
 
   packages:
     name: Built Common Packages
@@ -66,31 +91,12 @@ jobs:
 
   configurations:
     name: Build Configurations
-    needs: packages
+    needs:
+      - define-matrix
+      - packages
     strategy:
       fail-fast: false
-      matrix:
-        include:
-        - runner: ubuntu-latest
-          prefix: nixosConfigurations
-          config: work
-          suffix: config.system.build.toplevel
-        - runner: ubuntu-latest
-          prefix: nixosConfigurations
-          config: wsl
-          suffix: config.system.build.toplevel
-        - runner: ubuntu-latest
-          prefix: nixosConfigurations
-          config: iso
-          suffix: config.system.build.toplevel
-        - runner: macos-latest
-          prefix: darwinConfigurations
-          config: darwin
-          suffix: system
-        - runner: ubuntu-latest
-          prefix: homeConfigurations
-          config: docker
-          suffix: activationPackage
+      matrix: ${{ fromJson(needs.define-matrix.outputs.jobs) }}
     runs-on: ${{ matrix.runner }}
 
     steps:
@@ -112,7 +118,7 @@ jobs:
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
         extraPullNames: nix-community
 
-    - name: Build ${{ matrix.prefix }}.${{ matrix.config }}
+    - name: Build checks.${{ matrix.system }}.configurations.${{ matrix.config }}
       run: |
         nix config show
         echo "-----------------------------------------------"
@@ -125,7 +131,7 @@ jobs:
         nix config show
         df -h
         free -h || memory_pressure
-        nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --max-jobs 1 --eval-workers 1 --no-link --flake .#${{ matrix.prefix }}.${{ matrix.config }}.${{ matrix.suffix }}
+        nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --max-jobs 1 --eval-workers 1 --no-link --flake .#checks.${{ matrix.system }}.configurations.${{ matrix.config }}
 
   check-flake:
     name: Check Flake
