@@ -10,7 +10,7 @@
     kubectl
   ];
 
-  customize.git.signing.enable = false;
+  programs.git.signing.signByDefault = false;
   customize.vscode.extensions.exclude = [
     "wakatime.vscode-wakatime"
     "github.copilot"
