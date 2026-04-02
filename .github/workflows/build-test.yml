@@ -9,6 +9,7 @@ on:
   workflow_run:
     workflows: [ Flake Update ]
     types: [ completed ]
+    branches: [ bot/* ]
   workflow_dispatch:
 
 jobs:
