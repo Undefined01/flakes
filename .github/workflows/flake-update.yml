@@ -91,4 +91,4 @@ jobs:
         uses: benc-uk/workflow-dispatch@v1
         with:
           workflow: build-test.yml
-          branch: ${{ env.TARGET_BRANCH }}
+          ref: ${{ env.TARGET_BRANCH }}
