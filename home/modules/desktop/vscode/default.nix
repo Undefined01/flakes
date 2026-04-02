@@ -140,9 +140,11 @@ in
             "[json]" = {
               "editor.defaultFormatter" = "vscode.json-language-features";
             };
-          } // (addPrefix "gitlens" {
+          }
+          // (addPrefix "gitlens" {
             "graph.layout" = "editor";
-          }) // (addPrefix "terminal.integrated" {
+          })
+          // (addPrefix "terminal.integrated" {
             accessibleViewPreserveCursorPosition = true;
             "defaultProfile.linux" = "fish";
             "defaultProfile.osx" = "fish";

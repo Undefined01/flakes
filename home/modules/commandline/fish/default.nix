@@ -10,7 +10,7 @@
   # So we keep bash as the system shell but have it exec fish when run interactively.
   # To keep compatible with darwin, we use posix arguments for ps.
   programs.bash.initExtra = ''
-    if [[ "${AUTO_ENTER_FISH:-}" != "0" && ! $(${pkgs.procps}/bin/ps -o comm= -p "$PPID") =~ (bash|zsh|fish)$ && -z "''${BASH_EXECUTION_STRING}" ]]
+    if [[ "''${AUTO_ENTER_FISH:-}" != "0" && ! $(${pkgs.procps}/bin/ps -o comm= -p "$PPID") =~ (bash|zsh|fish)$ && -z "''${BASH_EXECUTION_STRING}" ]]
     then
       declare -a SHELL_OPTION
       if [[ $- == *i* ]]; then
@@ -23,7 +23,7 @@
     fi
   '';
   programs.zsh.initContent = ''
-    if [[ "${AUTO_ENTER_FISH:-}" != "0" && ! $(${pkgs.procps}/bin/ps -o comm= -p "$PPID") =~ (bash|zsh|fish)$ && -z "''${ZSH_EXECUTION_STRING}" ]]
+    if [[ "''${AUTO_ENTER_FISH:-}" != "0" && ! $(${pkgs.procps}/bin/ps -o comm= -p "$PPID") =~ (bash|zsh|fish)$ && -z "''${ZSH_EXECUTION_STRING}" ]]
     then
       typeset -a SHELL_OPTION
       if [[ $- == *i* ]]; then
