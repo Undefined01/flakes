@@ -1,15 +1,14 @@
 name: Build Test
 
 on:
-  push:
-    branches-ignore:
-      - bot/*
+  push: {}
   pull_request:
     branches: [ main, master, stage ]
   workflow_run:
     workflows: [ Flake Update ]
     types: [ completed ]
-  workflow_dispatch:
+    branches: [ bot/* ]
+  workflow_dispatch: {}
 
 jobs:
   define-matrix:
