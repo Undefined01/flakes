@@ -87,10 +87,8 @@ jobs:
           git commit -m "bot: nix flake update"
           git push origin "HEAD:${TARGET_BRANCH}"
       
-      - name: Dispatch Build Test workflow
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-
-          gh workflow run build-test.yml --ref "${TARGET_BRANCH}"
+      - name: Invoke Build Test workflow
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: build-test.yml
+          branch: ${{ env.TARGET_BRANCH }}
