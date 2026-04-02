@@ -140,7 +140,14 @@ in
             "[json]" = {
               "editor.defaultFormatter" = "vscode.json-language-features";
             };
-          };
+          } // (addPrefix "gitlens" {
+            "graph.layout" = "editor";
+          }) // (addPrefix "terminal.integrated" {
+            accessibleViewPreserveCursorPosition = true;
+            "defaultProfile.linux" = "fish";
+            "defaultProfile.osx" = "fish";
+            "scrollback" = 100000;
+          });
       };
     };
   };

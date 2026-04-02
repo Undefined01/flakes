@@ -3,6 +3,7 @@
 {
   imports = [
     ../../modules/misc
+    ../../modules/nix-index
 
     ../../modules/commandline/git
     ../../modules/commandline/ssh
