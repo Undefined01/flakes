@@ -6,7 +6,7 @@ on:
   push:
     branches:
       - dev
-  workflow_dispatch:
+  workflow_dispatch: {}
 
 permissions:
   contents: write
@@ -85,21 +85,10 @@ jobs:
 
           git add flake.lock
           git commit -m "bot: nix flake update"
-
-      - name: Prefer PAT for push-triggered workflows
-        env:
-          BOT_PUSH_TOKEN: ${{ secrets.BOT_PUSH_TOKEN }}
-        run: |
-          set -euo pipefail
-
-          if [ -z "${BOT_PUSH_TOKEN}" ]; then
-            echo "BOT_PUSH_TOKEN is not set; using GITHUB_TOKEN"
-            exit 0
-          fi
-
-          git remote set-url origin "https://x-access-token:${BOT_PUSH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-
-      - name: Push bot/dev-lock
-        run: |
-          set -euo pipefail
           git push origin "HEAD:${TARGET_BRANCH}"
+      
+      - name: Dispatch Build Test workflow
+        run: |
+          set -euo pipefail
+
+          gh workflow run build-test.yml --ref "${TARGET_BRANCH}"
