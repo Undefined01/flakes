@@ -88,6 +88,8 @@ jobs:
           git push origin "HEAD:${TARGET_BRANCH}"
       
       - name: Dispatch Build Test workflow
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
 
