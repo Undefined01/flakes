@@ -23,6 +23,9 @@ jobs:
   update-lock:
     name: Update bot/dev-lock
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
 
     steps:
       - name: Checkout dev
@@ -73,6 +76,7 @@ jobs:
           fi
 
       - name: Update flake.lock
+        id: update-lock
         run: |
           set -euo pipefail
 
@@ -86,9 +90,11 @@ jobs:
           git add flake.lock
           git commit -m "bot: nix flake update"
           git push origin "HEAD:${TARGET_BRANCH}"
+          echo "build_test=true" >> "$GITHUB_OUTPUT"
       
       - name: Invoke Build Test workflow
         uses: benc-uk/workflow-dispatch@v1
+        if: ${{ steps.update-lock.outputs.build_test == 'true' }}
         with:
           workflow: build-test.yml
           ref: ${{ env.TARGET_BRANCH }}

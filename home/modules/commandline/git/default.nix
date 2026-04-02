@@ -1,23 +1,12 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) types;
+  inherit (lib) types mkDefault;
   inherit (lib.attrsets) optionalAttrs;
   inherit (lib.options) mkOption;
   cfg = config.customize.git;
 in
 {
-  options.customize.git = {
-    signing = {
-      enable = mkOption {
-        type = types.bool;
-        default = true;
-        example = false;
-        description = "Whether to enable commit signing.";
-      };
-    };
-  };
-
   config = {
     programs.git = {
       enable = true;
@@ -26,6 +15,12 @@ in
         ".cache"
         "compile_commands.json"
       ];
+
+      signing = {
+        signByDefault = mkDefault true;
+        format = "ssh";
+        key = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
+      };
 
       settings = lib.mkMerge [
         {
@@ -50,11 +45,6 @@ in
           column.ui = "auto";
           branch.sort = "committerdate";
         }
-        (optionalAttrs cfg.signing.enable {
-          commit.gpgSign = true;
-          gpg.format = "ssh";
-          user.signingkey = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
-        })
       ];
     };
 
