@@ -1,14 +1,20 @@
 name: Build Test
 
 on:
-  push: {}
+  push:
+    branches-ignore:
+      - bot/*
   pull_request:
     branches: [ main, master, stage ]
+  workflow_run:
+    workflows: [ Flake Update ]
+    types: [ completed ]
   workflow_dispatch:
 
 jobs:
   define-matrix:
     runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
 
     outputs:
       jobs: ${{ steps.jobs.outputs.jobs }}
@@ -47,6 +53,7 @@ jobs:
 
   packages:
     name: Built Common Packages
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     strategy:
       fail-fast: false
       matrix:
@@ -94,6 +101,7 @@ jobs:
     needs:
       - define-matrix
       - packages
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.define-matrix.outputs.jobs) }}
@@ -161,6 +169,7 @@ jobs:
   format-check:
     name: Format Check
     runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
 
     steps:
     - name: Checkout repository
