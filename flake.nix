@@ -14,6 +14,11 @@
       url = "github:nix-community/home-manager/master?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mutable-home-files = {
+      url = "github:Undefined01/mutable-home-files";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
 
     # utils
     flake-compat = {

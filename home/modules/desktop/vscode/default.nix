@@ -10,6 +10,15 @@ let
   inherit (lib.options) mkOption;
   cfg = config.customize.vscode;
 
+  configDir = config.programs.vscode.nameShort;
+  userDir =
+    if pkgs.stdenv.hostPlatform.isDarwin then
+      "${config.home.homeDirectory}/Library/Application Support/${configDir}/User"
+    else
+      "${config.xdg.configHome}/${configDir}/User";
+  configFilePath =
+    name: "${userDir}/${lib.optionalString (name != "default") "profiles/${name}/"}settings.json";
+
   marketplace = (import ./extensions.nix) args;
   # Only extensions whose name is not in cfg.extensions.exclude are added
   filterExtensions =
@@ -86,6 +95,13 @@ in
       github.copilot
       github.copilot-chat
     ];
+
+    # Replace the immutable settings.json to mutable one.
+    home.file."${configFilePath "default"}".enable = false;
+    home.mutableFile."${configFilePath "default"}" = {
+      format = "json";
+      source = config.home.file."${configFilePath "default"}".source;
+    };
 
     programs.vscode = {
       enable = true;

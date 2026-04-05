@@ -1,3 +1,22 @@
+<div align="center">
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">main</th>
+<th style="text-align: center;">dev</th>
+<th style="text-align: center;">daily</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><a href="https://github.com/Undefined01/flakes/actions/workflows/build-test.yml"><img src="https://github.com/Undefined01/flakes/actions/workflows/build-test.yml/badge.svg?branch=bot%2Fdev-lock" alt="Build Test" /></a></td>
+<td align="center"><a href="https://github.com/Undefined01/flakes/actions/workflows/build-test.yml"><img src="https://github.com/Undefined01/flakes/actions/workflows/build-test.yml/badge.svg?branch=dev" alt="Build Test" /></a></td>
+<td align="center"><a href="https://github.com/Undefined01/flakes/actions/workflows/build-test.yml"><img src="https://github.com/Undefined01/flakes/actions/workflows/build-test.yml/badge.svg?branch=bot%2Fdev-lock" alt="Build Test" /></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+
 ## Flake Setup
 
 1. Install Nix
@@ -103,6 +122,11 @@ Templates:
 
     nix fmt -- --ci
     EOF
+    ```
+- Merge the updates from daily:
+    ```
+    git fetch origin bot/dev-lock
+    git merge --squash origin/bot/dev-lock
     ```
 - Debug a package:
 

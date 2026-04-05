@@ -1,7 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   imports = [
+    inputs.mutable-home-files.homeManagerModules.default
+
     ../../modules/misc
     ../../modules/commandline/nix-index
 
@@ -28,6 +30,7 @@
     ../../modules/commandline/direnv
     ../../modules/commandline/neovim
     ../../modules/commandline/rclone
+    ../../modules/commandline/codex
   ];
 
   home.packages = with pkgs; [
