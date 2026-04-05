@@ -1,8 +1,9 @@
 name: Flake Update
 
 on:
+  # scheduled workflow will only run on the default branch (main)
   schedule:
-    - cron: '0 1 * * *'
+    - cron: "0 1 * * *"
   push:
     branches:
       - dev
