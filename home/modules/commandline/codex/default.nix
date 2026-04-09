@@ -6,8 +6,14 @@
     ownership = {
       default = "sealed";
       rules = [
-        { path = [ "projects" ]; mode = "local"; }
-        { path = [ "mcp_servers" ]; mode = "local"; }
+        {
+          path = [ "projects" ];
+          mode = "local";
+        }
+        {
+          path = [ "mcp_servers" ];
+          mode = "local";
+        }
       ];
     };
     layers = [
