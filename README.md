@@ -9,7 +9,7 @@
 </thead>
 <tbody>
 <tr>
-<td align="center"><a href="https://github.com/Undefined01/flakes/actions/workflows/build-test.yml"><img src="https://github.com/Undefined01/flakes/actions/workflows/build-test.yml/badge.svg?branch=bot%2Fdev-lock" alt="Build Test" /></a></td>
+<td align="center"><a href="https://github.com/Undefined01/flakes/actions/workflows/build-test.yml"><img src="https://github.com/Undefined01/flakes/actions/workflows/build-test.yml/badge.svg?branch=main" alt="Build Test" /></a></td>
 <td align="center"><a href="https://github.com/Undefined01/flakes/actions/workflows/build-test.yml"><img src="https://github.com/Undefined01/flakes/actions/workflows/build-test.yml/badge.svg?branch=dev" alt="Build Test" /></a></td>
 <td align="center"><a href="https://github.com/Undefined01/flakes/actions/workflows/build-test.yml"><img src="https://github.com/Undefined01/flakes/actions/workflows/build-test.yml/badge.svg?branch=bot%2Fdev-lock" alt="Build Test" /></a></td>
 </tr>
@@ -91,7 +91,13 @@
 ## Known Issues
 
 
-- [ ] Sparkle package is refactored and only supports Linux now. Use the overridden version for darwin.
+- [ ] [Sparkle package](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/by-name/sp/sparkle/package.nix) is refactored and only supports Linux now. This repo downloads the prebuilt-binary from [Github Releases](https://github.com/xishang0128/sparkle/releases) for darwin.
+
+- [x] In fish, the recommended wrapper for yazi uses `builtin cd`, which does not trigger the recording of directory history.
+
+    Current fix: override the generated wrapper in [home/modules/commandline/yazi/default.nix](home/modules/commandline/yazi/default.nix), and switch to plain `cd` after reading `--cwd-file`.
+
+    References: [home-manager yazi module source](https://github.com/nix-community/home-manager/blob/0d02ec1d0a05f88ef9e74b516842900c41f0f2fe/modules/programs/yazi.nix#L235), [issue #2859](https://github.com/sxyazi/yazi/issues/2859).
 
 <!--
 Templates:
@@ -160,6 +166,11 @@ Templates:
     ```
     nix run nixpkgs#sops home/secrets/common.yaml
     bash -c 'cd home/secrets/; nix run .#agenix -- -e common.age'
+    ```
+- Update mutable-home-files manually:
+    ```
+    nix eval --json .#darwinConfigurations.darwin.config.home-manager.users.han.home.mutableFileInternal.taskPayload | tee /tmp/payload.json
+    nix run github:Undefined01/mutable-home-files -- --task-file /tmp/payload.json
     ```
 - Visualize the Nix store:
     ```
