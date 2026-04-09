@@ -58,16 +58,15 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-P0KwmLwj1FIWBduT2DzOaRCYrbQ+kvcCdCgabAhmMm8=";
   };
 
-  nativeBuildInputs =
-    [
-      pnpmConfigHook
-      pnpm
-      nodejs
-      makeWrapper
-    ]
-    ++ lib.optionals stdenvNoCC.hostPlatform.isLinux [
-      copyDesktopItems
-    ];
+  nativeBuildInputs = [
+    pnpmConfigHook
+    pnpm
+    nodejs
+    makeWrapper
+  ]
+  ++ lib.optionals stdenvNoCC.hostPlatform.isLinux [
+    copyDesktopItems
+  ];
 
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
@@ -82,7 +81,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   buildPhase = ''
     runHook preBuild
-    
+
     # electron.dist 只读，electron-builder 复制时保留了 mode/flags/ACL，导致目标也只读
     # 因此先复制一份到工作目录，修改权限后再传给 electron-builder
     ELECTRON_SRC="${electron.dist}"
@@ -103,68 +102,67 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postBuild
   '';
 
-  installPhase =
-    ''
-      runHook preInstall
-    ''
-    + lib.optionalString stdenvNoCC.hostPlatform.isLinux ''
-      mkdir -p $out/lib/sparkle
-      cp -r dist/*-unpacked/{locales,resources{,.pak}} $out/lib/sparkle/
+  installPhase = ''
+    runHook preInstall
+  ''
+  + lib.optionalString stdenvNoCC.hostPlatform.isLinux ''
+    mkdir -p $out/lib/sparkle
+    cp -r dist/*-unpacked/{locales,resources{,.pak}} $out/lib/sparkle/
 
-      install -D resources/icon.png $out/share/icons/hicolor/512x512/apps/sparkle.png
+    install -D resources/icon.png $out/share/icons/hicolor/512x512/apps/sparkle.png
 
-      export resourceDir="$out/lib/sparkle/resources"
-    ''
-    + lib.optionalString stdenvNoCC.hostPlatform.isDarwin ''
-      appPath="$(find dist -maxdepth 2 -name 'Sparkle.app' -print -quit)"
-      if [ -z "$appPath" ]; then
-        echo "error: Sparkle.app not found under dist/" >&2
-        find dist -maxdepth 2 -print >&2 || true
-        exit 1
-      fi
-      echo $appPath
+    export resourceDir="$out/lib/sparkle/resources"
+  ''
+  + lib.optionalString stdenvNoCC.hostPlatform.isDarwin ''
+    appPath="$(find dist -maxdepth 2 -name 'Sparkle.app' -print -quit)"
+    if [ -z "$appPath" ]; then
+      echo "error: Sparkle.app not found under dist/" >&2
+      find dist -maxdepth 2 -print >&2 || true
+      exit 1
+    fi
+    echo $appPath
 
-      mkdir -p "$out/Applications"
-      cp -r "$appPath" "$out/Applications/Sparkle.app"
-      chmod -R u+w "$out/Applications/Sparkle.app"
+    mkdir -p "$out/Applications"
+    cp -r "$appPath" "$out/Applications/Sparkle.app"
+    chmod -R u+w "$out/Applications/Sparkle.app"
 
-      export resourceDir="$out/Applications/Sparkle.app/Contents/Resources"
-    ''
-    + ''
-      mkdir -p "$resourceDir"/{files,sidecar}
-      ln -s ${sub-store-frontend} "$resourceDir/files/sub-store-frontend"
-      ln -s ${sub-store}/share/sub-store/sub-store.bundle.js "$resourceDir/files/sub-store.bundle.js"
-      ln -s ${dbip-asn-lite.mmdb} "$resourceDir/files/ASN.mmdb"
-      ln -s ${dbip-country-lite.mmdb} "$resourceDir/files/country.mmdb"
-      ln -s ${v2ray-geoip}/share/v2ray/geoip.dat "$resourceDir/files/geoip.dat"
-      ln -s ${v2ray-domain-list-community}/share/v2ray/geosite.dat "$resourceDir/files/geosite.dat"
-      ln -s ${lib.getExe sparkle-service} "$resourceDir/files/sparkle-service"
-      ln -s ${lib.getExe mihomo} "$resourceDir/sidecar/mihomo"
-    ''
-    + lib.optionalString stdenvNoCC.hostPlatform.isLinux ''
-      makeWrapper '${lib.getExe electron}' $out/bin/sparkle \
-        --add-flags "$resourceDir/app.asar" \
-        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --wayland-text-input-version=3}}" \
-        --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
-        --set-default ELECTRON_IS_DEV 0 \
-        --inherit-argv0
-    ''
-    + lib.optionalString stdenvNoCC.hostPlatform.isDarwin ''
-      appExe="$(find "$out/Applications/Sparkle.app/Contents/MacOS" -maxdepth 1 -type f -perm -111 -print -quit)"
-      if [ -z "$appExe" ]; then
-        echo "error: no executable found under Sparkle.app/Contents/MacOS" >&2
-        find "$out/Applications/Sparkle.app/Contents/MacOS" -maxdepth 1 -print >&2 || true
-        exit 1
-      fi
+    export resourceDir="$out/Applications/Sparkle.app/Contents/Resources"
+  ''
+  + ''
+    mkdir -p "$resourceDir"/{files,sidecar}
+    ln -s ${sub-store-frontend} "$resourceDir/files/sub-store-frontend"
+    ln -s ${sub-store}/share/sub-store/sub-store.bundle.js "$resourceDir/files/sub-store.bundle.js"
+    ln -s ${dbip-asn-lite.mmdb} "$resourceDir/files/ASN.mmdb"
+    ln -s ${dbip-country-lite.mmdb} "$resourceDir/files/country.mmdb"
+    ln -s ${v2ray-geoip}/share/v2ray/geoip.dat "$resourceDir/files/geoip.dat"
+    ln -s ${v2ray-domain-list-community}/share/v2ray/geosite.dat "$resourceDir/files/geosite.dat"
+    ln -s ${lib.getExe sparkle-service} "$resourceDir/files/sparkle-service"
+    ln -s ${lib.getExe mihomo} "$resourceDir/sidecar/mihomo"
+  ''
+  + lib.optionalString stdenvNoCC.hostPlatform.isLinux ''
+    makeWrapper '${lib.getExe electron}' $out/bin/sparkle \
+      --add-flags "$resourceDir/app.asar" \
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --wayland-text-input-version=3}}" \
+      --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
+      --set-default ELECTRON_IS_DEV 0 \
+      --inherit-argv0
+  ''
+  + lib.optionalString stdenvNoCC.hostPlatform.isDarwin ''
+    appExe="$(find "$out/Applications/Sparkle.app/Contents/MacOS" -maxdepth 1 -type f -perm -111 -print -quit)"
+    if [ -z "$appExe" ]; then
+      echo "error: no executable found under Sparkle.app/Contents/MacOS" >&2
+      find "$out/Applications/Sparkle.app/Contents/MacOS" -maxdepth 1 -print >&2 || true
+      exit 1
+    fi
 
-      makeWrapper "$appExe" $out/bin/sparkle \
-        --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
-        --set-default ELECTRON_IS_DEV 0 \
-        --inherit-argv0
-    ''
-    + ''
-      runHook postInstall
-    '';
+    makeWrapper "$appExe" $out/bin/sparkle \
+      --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
+      --set-default ELECTRON_IS_DEV 0 \
+      --inherit-argv0
+  ''
+  + ''
+    runHook postInstall
+  '';
 
   desktopItems = lib.optionals stdenvNoCC.hostPlatform.isLinux [
     (makeDesktopItem {
@@ -204,4 +202,3 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     ];
   };
 })
-
