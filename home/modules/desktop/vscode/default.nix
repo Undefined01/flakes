@@ -10,7 +10,7 @@ let
   inherit (lib.options) mkOption;
   cfg = config.customize.vscode;
 
-  configDir = config.programs.vscode.nameShort;
+  configDir = "Code";
   userDir =
     if pkgs.stdenv.hostPlatform.isDarwin then
       "${config.home.homeDirectory}/Library/Application Support/${configDir}/User"
@@ -156,6 +156,12 @@ in
             "[json]" = {
               "editor.defaultFormatter" = "vscode.json-language-features";
             };
+            "[jsonl]" = {
+              "editor.defaultFormatter" = "vscode.json-language-features";
+            };
+            "[jsonc]" = {
+              "editor.defaultFormatter" = "vscode.json-language-features";
+            };
           }
           // (addPrefix "gitlens" {
             "graph.layout" = "editor";
@@ -166,6 +172,30 @@ in
             "defaultProfile.osx" = "fish";
             "scrollback" = 100000;
           });
+
+        keybindings = [
+          {
+            key = "ctrl+q";
+            command = "-workbench.action.quickOpenNavigateNextInViewPicker";
+            when = "inQuickOpen && inViewsPicker";
+          }
+          {
+            key = "ctrl+q";
+            command = "-workbench.action.quickOpenView";
+          }
+          {
+            key = "ctrl+j";
+            command = "-workbench.action.togglePanel";
+          }
+          {
+            key = "shift+enter";
+            command = "workbench.action.terminal.sendSequence";
+            args = {
+              text = builtins.fromJSON ''"\u001b\r"'';  # Nix does not support \u escape, use fromJSON to workaround
+            };
+            when = "terminalFocus";
+          }
+        ];
       };
     };
   };
