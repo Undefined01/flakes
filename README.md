@@ -129,6 +129,11 @@ Templates:
     nix fmt -- --ci
     EOF
     ```
+- Test configurations without building or fetching cache
+
+    ```
+    nix build --no-link --print-build-logs .#darwinConfigurations.darwin.system --dry-run
+    ```
 - Merge [the updates from daily](https://github.com/Undefined01/flakes/compare/dev...bot/dev-lock):
 
     ```
