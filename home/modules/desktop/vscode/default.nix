@@ -187,6 +187,14 @@ in
             key = "ctrl+j";
             command = "-workbench.action.togglePanel";
           }
+          {
+            key = "shift+enter";
+            command = "workbench.action.terminal.sendSequence";
+            args = {
+              text = "\u001b\r";
+            };
+            when = "terminalFocus";
+          }
         ];
       };
     };
