@@ -129,7 +129,8 @@ Templates:
     nix fmt -- --ci
     EOF
     ```
-- Merge the updates from daily:
+- Merge [the updates from daily](https://github.com/Undefined01/flakes/compare/dev...bot/dev-lock):
+
     ```
     git fetch origin bot/dev-lock
     git merge --squash origin/bot/dev-lock
@@ -139,7 +140,9 @@ Templates:
     The builder script for stdenv: https://github.com/NixOS/nixpkgs/blob/master/pkgs/stdenv/generic/setup.sh
 
     ```bash
-    nix-shell default.nix -A package   # or: nix develop .#package
+    nix-shell default.nix -A package
+    # or: nix develop .#package
+
     cd $(mktemp -d)
     
     genericBuild
