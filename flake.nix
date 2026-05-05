@@ -208,6 +208,20 @@
         }
       );
 
+      devShells = forAllSystems (
+        system:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = builtins.attrValues self.overlays;
+          };
+        in
+        lib.packagesFromDirectoryRecursive {
+          callPackage = lib.callPackageWith pkgs;
+          directory = ./shell;
+        }
+      );
+
       overlays = import ./overlays { inherit inputs; };
 
       nixosConfigurations = nixos // wsl;

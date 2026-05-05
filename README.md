@@ -129,7 +129,13 @@ Templates:
     nix fmt -- --ci
     EOF
     ```
-- Merge the updates from daily:
+- Test configurations without building or fetching cache
+
+    ```
+    nix build --no-link --print-build-logs .#darwinConfigurations.darwin.system --dry-run
+    ```
+- Merge [the updates from daily](https://github.com/Undefined01/flakes/compare/dev...bot/dev-lock):
+
     ```
     git fetch origin bot/dev-lock
     git merge --squash origin/bot/dev-lock
@@ -139,7 +145,9 @@ Templates:
     The builder script for stdenv: https://github.com/NixOS/nixpkgs/blob/master/pkgs/stdenv/generic/setup.sh
 
     ```bash
-    nix-shell default.nix -A package   # or: nix develop .#package
+    nix-shell default.nix -A package
+    # or: nix develop .#package
+
     cd $(mktemp -d)
     
     genericBuild
