@@ -191,7 +191,7 @@ in
             key = "shift+enter";
             command = "workbench.action.terminal.sendSequence";
             args = {
-              text = builtins.fromJSON ''"\u001b\r"'';  # Nix does not support \u escape, use fromJSON to workaround
+              text = builtins.fromJSON ''"\u001b\r"''; # Nix does not support \u escape, use fromJSON to workaround
             };
             when = "terminalFocus";
           }
