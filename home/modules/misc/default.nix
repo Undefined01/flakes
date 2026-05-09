@@ -6,6 +6,8 @@
 }:
 
 {
+  imports = [ ./sops-nix ];
+
   nixpkgs.overlays = builtins.attrValues (import ../../../overlays { inherit inputs; });
   nixpkgs.config = import ./nixpkgs-config.nix;
   xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
