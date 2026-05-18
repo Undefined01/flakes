@@ -1,5 +1,11 @@
 { pkgs, inputs, ... }:
 
+let
+  codex = pkgs.pnpmCli.override {
+    name = "codex";
+    npmPkgName = "@openai/codex";
+  };
+in
 {
   home.mutableFile.".codex/config.toml" = {
     format = "toml";
@@ -27,4 +33,8 @@
     sopsFile = ./apikeys.enc;
     format = "binary";
   };
+
+  home.packages = [
+    codex
+  ];
 }

@@ -31,6 +31,7 @@
     ../../modules/commandline/neovim
     ../../modules/commandline/rclone
     ../../modules/commandline/codex
+    ../../modules/commandline/claudecode
   ];
 
   home.packages = with pkgs; [
