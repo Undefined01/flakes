@@ -1,13 +1,25 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  isLinux,
+  ...
+}:
 
 let
-  inherit (lib) mkDefault mkEnableOption mkIf mkOption types;
+  inherit (lib)
+    mkDefault
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    ;
 in
 {
   imports = [
+    ./console
     ./misc
     ./nix
-    ./user
   ];
 
   options.custom.system.profiles.minimal = {
@@ -31,7 +43,7 @@ in
     mkIf cfg.profiles.minimal.enable {
       custom.system.stacks.base.misc.enable = mkDefault true;
       custom.system.stacks.base.nix.enable = mkDefault true;
-      custom.system.stacks.base.user.enable = mkDefault true;
+      custom.system.stacks.base.console.enable = mkDefault isLinux;
 
       environment.systemPackages = cfg.profiles.minimal.packages;
     };

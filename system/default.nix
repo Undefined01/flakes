@@ -1,10 +1,19 @@
-{ lib, isLinux, isDarwin, ... }:
+{
+  lib,
+  isLinux,
+  isDarwin,
+  ...
+}:
 
 {
   imports = [
     ./base
     ./commandline
     ./desktop
-  ] ++ lib.optionals isLinux [ ./linux ]
-    ++ lib.optionals isDarwin [ ./darwin ];
+  ]
+  ++ lib.optionals isLinux [
+    ./hardware
+    ./impermanence
+  ]
+  ++ lib.optionals isDarwin [ ./homebrew ];
 }

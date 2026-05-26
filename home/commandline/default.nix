@@ -1,7 +1,18 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkDefault mkEnableOption mkIf mkOption types;
+  inherit (lib)
+    mkDefault
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    ;
 in
 {
   imports = [
@@ -73,7 +84,11 @@ in
     stacks.commandline = {
       editor = {
         variant = mkOption {
-          type = types.enum [ "neovim" "vim" "none" ];
+          type = types.enum [
+            "neovim"
+            "vim"
+            "none"
+          ];
           default = "none";
           description = "Preferred editor variant.";
         };
@@ -83,12 +98,20 @@ in
       git = {
         enable = mkEnableOption "Enable git configuration.";
         ui = mkOption {
-          type = types.enum [ "lazygit" "gitui" "both" "none" ];
+          type = types.enum [
+            "lazygit"
+            "gitui"
+            "both"
+            "none"
+          ];
           default = "both";
           description = "Preferred git UI.";
         };
         diff = mkOption {
-          type = types.enum [ "difftastic" "diff" ];
+          type = types.enum [
+            "difftastic"
+            "diff"
+          ];
           default = "difftastic";
           description = "Preferred git diff backend.";
         };
@@ -120,10 +143,18 @@ in
       custom.home.stacks.commandline.editor.variant = mkDefault "neovim";
       custom.home.stacks.commandline.editor.lsp.enable = mkDefault true;
 
-      custom.home.stacks.commandline.neovim.enable = mkDefault (cfg.stacks.commandline.editor.variant == "neovim");
-      custom.home.stacks.commandline.neovim.defaultEditor = mkDefault (cfg.stacks.commandline.editor.variant == "neovim");
-      custom.home.stacks.commandline.vim.enable = mkDefault (cfg.stacks.commandline.editor.variant == "vim");
-      custom.home.stacks.commandline.vim.defaultEditor = mkDefault (cfg.stacks.commandline.editor.variant == "vim");
+      custom.home.stacks.commandline.neovim.enable = mkDefault (
+        cfg.stacks.commandline.editor.variant == "neovim"
+      );
+      custom.home.stacks.commandline.neovim.defaultEditor = mkDefault (
+        cfg.stacks.commandline.editor.variant == "neovim"
+      );
+      custom.home.stacks.commandline.vim.enable = mkDefault (
+        cfg.stacks.commandline.editor.variant == "vim"
+      );
+      custom.home.stacks.commandline.vim.defaultEditor = mkDefault (
+        cfg.stacks.commandline.editor.variant == "vim"
+      );
 
       customize.git.difftastic.enable = mkDefault (cfg.stacks.commandline.git.diff == "difftastic");
 
