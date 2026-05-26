@@ -6,6 +6,8 @@ in
 {
   imports = [
     "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+
+    ../base/system
   ];
 
   custom.system.profiles.commandline.enable = true;
@@ -16,8 +18,6 @@ in
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDcTQOKYRyLoviozP5Ba6k8N+1Sn7LZ1wECHiPa2FF1V amoscr@163.com"
     ];
   };
-
-  custom.system.host.primaryUser = meta.username;
 
   nixpkgs.hostPlatform = meta.platform;
 

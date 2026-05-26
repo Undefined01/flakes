@@ -5,7 +5,8 @@
 
   imports = [
     ./fonts.nix
-  ] ++ lib.optionals isLinux [
+  ]
+  ++ lib.optionals isLinux [
     ./fontconfig.nix
   ];
 }

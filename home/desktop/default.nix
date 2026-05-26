@@ -1,7 +1,18 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkDefault mkEnableOption mkIf mkOption types;
+  inherit (lib)
+    mkDefault
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    ;
 in
 {
   imports = [
@@ -42,7 +53,12 @@ in
 
     stacks.desktop = {
       terminal.variant = mkOption {
-        type = types.enum [ "foot" "wezterm" "both" "none" ];
+        type = types.enum [
+          "foot"
+          "wezterm"
+          "both"
+          "none"
+        ];
         default = "none";
         description = "Preferred terminal variant.";
       };
@@ -57,10 +73,16 @@ in
       custom.home.stacks.desktop.terminal.variant = mkDefault "both";
 
       custom.home.stacks.desktop.foot.enable = mkDefault (
-        let v = cfg.stacks.desktop.terminal.variant; in v == "foot" || v == "both"
+        let
+          v = cfg.stacks.desktop.terminal.variant;
+        in
+        v == "foot" || v == "both"
       );
       custom.home.stacks.desktop.wezterm.enable = mkDefault (
-        let v = cfg.stacks.desktop.terminal.variant; in v == "wezterm" || v == "both"
+        let
+          v = cfg.stacks.desktop.terminal.variant;
+        in
+        v == "wezterm" || v == "both"
       );
 
       custom.home.stacks.desktop.hyprland.enable = mkDefault true;
