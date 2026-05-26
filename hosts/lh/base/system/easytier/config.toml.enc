@@ -1,0 +1,14 @@
+{
+	"data": "ENC[AES256_GCM,data:zDjsHzrhrfdmJNutZQiS9xKjZ0Br6oxxw06VgUqWIntROr6KbjUpqicGxQwZxWcTNGKmILLJ46OgXoADHPdMv2/kMJFi7qwpOa6GE3AOopbT+UkXGV8LOlhoUaCYDQ+TtOVpbUl9WfmVBDMq57x2yFFNzX6qQPAjs2f91oEujJgLbc9IRHs/yFkZ5bouKQcIVv3KMn0PAmQd7+HVq7UXLwo2qcX5PQiN7cUPEHcJK4MI4Lld3xSqm0JVDitu5TpoIwvYmmrngJQNmrTg57bDEATay2awkSttvUFUXy108crGVRFq9kiFuXdyAPcvOidsSd5wvmT4EljCGofcvvJy4AIDAwYbqCLifdv8EsfJRAoAQL6tA/ACSBsK9sZpxHWxbiOX9TmgQCc848S16HiC0whwdfruhNivkmD6NlnNhUs+26IUbsc/2VTt/0R/tBbBCneYVwa7choSdRtiDPgiCCtt1BZFCFLrTcrLWaDYICgWkNxNtlsrSeCdIXy61zmQjr9FRZmre3sDc1NzaM8qvYFga1e3qkM90Y58X9hqPSOKpIR2m+hMjqxnVP72LlZc7hEXu2tcjmDmoZDVqELBSyqUPw013hzLzyGpPvOQjf3O863COT+FYXbAWsPBtjZ7GvcLog5/LSNYcVb1xS2JXycDOlU/iu5Iu6KjEk0aUwnbRGABDEpIaGBxhSv5tfAWmt3Si5rgoyodGzO5bOOpT6mVXKpkMCwMpeg5R/Tzrhx6/vaj47eEni1aayusQ7dU84CokEm7PkVJHGmRwZ+8hr54oHZi3khkz7ZRjCyHsCsgbTXNTDXERQsmrGYHO5O/zMvrC3lPrzrlqKqB5YfsJe/k/l6kTnnhqOiTPMI/lfffuXHb97003eBUSMixO17iNReoNfcPuVIzsb366kY1ySY6J6eFUzQT1tAv0IsOiIJOH6G4eOU7H4nD+flg5KAOBo/TPkvHtOO5fwSOyuvmKMyIc6WiBWpI7nFCCGypORyW2Rjem9UGs4J5PlVX,iv:rRW6OzvY2HChRK3UAlwkR+CLWUfBhbY7rUOP3f4703I=,tag:aaT00VJrKOA9JqQJWFOyIw==,type:str]",
+	"sops": {
+		"age": [
+			{
+				"enc": "-----BEGIN AGE ENCRYPTED FILE-----\nYWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBPc2FvSVQ1b256SWUxRTUv\nb2k0NDd3QkRuSGZJZnBvemwrcTJxK3VDSGd3ClpINHJMS1pJcnZBdUdTRUl0Sysz\nUzMrQ1FMdDVrR3RlYmVTVlY4ZnVMRHcKLS0tIHJXSXA1R0YvV25aV3NBZlRaNldp\nYXFuRUNpeU1Ja2dJSzRTU0ptWjdkWTQKKzFtCk7pj5Ul0UjajXqpRXy9P+1JPDsY\npFjftDz5zhJfFfMsHgeH1zloWje6Y8rUFUFkWotH7micxRzKXRsFDg==\n-----END AGE ENCRYPTED FILE-----\n",
+				"recipient": "age1c3fnsxugftwvjwmmsxz6ff4xaqsg97salhzmjfrmxd6uh5ajzacq99cmtq"
+			}
+		],
+		"lastmodified": "2026-05-25T11:07:00Z",
+		"mac": "ENC[AES256_GCM,data:JxuZ5xKIvom4wQnSiqimfjJqpyoy8ngGgdj3CRzNnqAgTVBpiP1Xa5g0LjbAtK3qxoFSaqgZEucbR5vp6FhRdK5t5vSMIRw/wg/hbbOgeO6P3RxIB3zmzc6rn7zllEOASAjKeQlakJ/9XT5U15GQbAAs4pzltPlnDNmCjwtmmoU=,iv:Bpvsx3RSLA/VnIKfRJniaIYRs54kkZPrWeZrsn9a7ko=,tag:34C2JaNNWLWwGNbnRvjOjw==,type:str]",
+		"version": "3.13.0"
+	}
+}

@@ -1,0 +1,30 @@
+{ config, lib, ... }:
+
+{
+  options.custom.home.stacks.commandline.uv = {
+    enable = lib.mkEnableOption "Enable uv.";
+  };
+
+  config = lib.mkIf config.custom.home.stacks.commandline.uv.enable {
+    programs.uv = {
+      enable = true;
+      settings = {
+        pip.index-url = "https://pypi.mirrors.ustc.edu.cn/simple/";
+        index = [
+          {
+            url = "https://pypi.mirrors.ustc.edu.cn/simple/";
+            default = true;
+          }
+        ];
+        python-downloads = "manual";
+        # python-install-mirror = "https://github.com/astral-sh/python-build-standalone/releases/download";
+        # or export UV_PYTHON_INSTALL_MIRROR="https://github.com/astral-sh/python-build-standalone/releases/download"
+        python-install-mirror = "https://hub.gitmirror.com/https://github.com/astral-sh/python-build-standalone/releases/download";
+      };
+    };
+
+    home.shellAliases = {
+      python = "uv run python";
+    };
+  };
+}

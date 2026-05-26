@@ -23,6 +23,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    impermanence = {
+      url = "github:nix-community/impermanence";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # utils
     flake-compat = {
@@ -69,8 +73,6 @@
   outputs =
     { self, nixpkgs, ... }@inputs:
     let
-      inherit (self) outputs;
-
       lib = nixpkgs.lib.extend (final: prev: { custom = import ./lib { inherit (nixpkgs) lib; }; });
 
       forAllSystems = lib.genAttrs [
@@ -81,65 +83,102 @@
         "x86_64-darwin"
       ];
 
-      defaultSystemSpecifier = {
-        isLinux = false;
-        isWsl = false;
-        isDarwin = false;
-      };
-      buildSystemFromPath =
-        {
-          builder,
-          path,
-          specialArgs ? { },
-        }:
-        builtins.listToAttrs (
-          map (host: {
-            name = lib.removeSuffix ".nix" host;
-            value = builder {
-              specialArgs = {
-                inherit inputs outputs lib;
-              }
-              // specialArgs;
-              modules = [ (lib.path.append path host) ];
-            };
-          }) (builtins.attrNames (builtins.readDir path))
+      listDirectories =
+        path:
+        lib.attrNames (
+          lib.filterAttrs (_name: type: type == "directory") (builtins.readDir path)
         );
-      nixos = buildSystemFromPath {
-        builder = lib.nixosSystem;
-        path = ./system/top/nixos;
-        specialArgs = defaultSystemSpecifier // {
-          isLinux = true;
-        };
-      };
-      wsl = buildSystemFromPath {
-        builder = lib.nixosSystem;
-        path = ./system/top/wsl;
-        specialArgs = defaultSystemSpecifier // {
-          isLinux = true;
-          isWsl = true;
-        };
-      };
-      darwin = buildSystemFromPath {
-        builder = inputs.darwin.lib.darwinSystem;
-        path = ./system/top/darwin;
-        specialArgs = defaultSystemSpecifier // {
-          isDarwin = true;
-        };
-      };
 
-      home = lib.custom.callDirectoryRecursive {
-        callFunc =
-          host:
-          inputs.home-manager.lib.homeManagerConfiguration {
-            pkgs = nixpkgs.legacyPackages.x86_64-linux;
-            extraSpecialArgs = {
-              user = "lh";
-              inherit inputs outputs;
-            };
-            modules = [ host ];
+      hostRoot = ./hosts/lh;
+      hostBaseHome = ./hosts/lh/base/home/default.nix;
+      hostBaseSystem = ./hosts/lh/base/system/default.nix;
+      hostEntries =
+        listDirectories hostRoot
+        |> map (
+          name:
+          let
+            hostDir = lib.path.append hostRoot name;
+          in
+          {
+            inherit name;
+            meta = import (lib.path.append hostDir "meta.nix");
+            systemPath = lib.path.append hostDir "system.nix";
+            homePath = lib.path.append hostDir "home.nix";
+          }
+        )
+        |> lib.filter (entry: entry.name != "base");
+      systemHostEntries = lib.filter (entry: entry.meta.kind != "home-only" && lib.pathExists entry.systemPath) hostEntries;
+      homeHostEntries = lib.filter (entry: lib.pathExists entry.homePath) hostEntries;
+
+      buildSystemConfiguration =
+        builder:
+        entry:
+        builder {
+          specialArgs = {
+            inherit lib;
+            inherit inputs;
+            inherit hostBaseHome;
+            inherit hostBaseSystem;
+            hostMeta = entry.meta;
+            hostName = entry.name;
+            isLinux = lib.strings.hasSuffix "-linux" entry.meta.platform;
+            isDarwin = lib.strings.hasSuffix "-darwin" entry.meta.platform;
           };
-        directory = ./home/top;
-      };
+          modules = [
+            hostBaseSystem
+            ./system
+            entry.systemPath
+          ];
+        };
+
+      buildHomeConfiguration =
+        entry:
+        inputs.home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${entry.meta.platform};
+          extraSpecialArgs = {
+            inherit inputs;
+            customLib = lib.custom;
+            inherit hostBaseHome;
+            hostMeta = entry.meta;
+            hostName = entry.name;
+            isLinux = lib.strings.hasSuffix "-linux" entry.meta.platform;
+            isDarwin = lib.strings.hasSuffix "-darwin" entry.meta.platform;
+          };
+          modules = [
+            hostBaseHome
+            ./home
+            entry.homePath
+          ];
+        };
+
+      nixosConfigurationEntries =
+        map (
+          entry:
+          {
+            inherit (entry) name meta;
+            value = buildSystemConfiguration lib.nixosSystem entry;
+          }
+        ) (lib.filter (entry: entry.meta.kind == "nixos") systemHostEntries);
+      darwinConfigurationEntries =
+        map (
+          entry:
+          {
+            inherit (entry) name meta;
+            value = buildSystemConfiguration inputs.darwin.lib.darwinSystem entry;
+          }
+        ) (lib.filter (entry: entry.meta.kind == "darwin") systemHostEntries);
+      homeConfigurationEntries =
+        map (
+          entry:
+          {
+            inherit (entry) name meta;
+            value = buildHomeConfiguration entry;
+          }
+        ) homeHostEntries;
+
+      nixosConfigurations = builtins.listToAttrs (map (entry: { inherit (entry) name value; }) nixosConfigurationEntries);
+      darwinConfigurations = builtins.listToAttrs (map (entry: { inherit (entry) name value; }) darwinConfigurationEntries);
+      homeConfigurations = builtins.listToAttrs (map (entry: { inherit (entry) name value; }) homeConfigurationEntries);
 
       # getSystemPackages =
       #   attr:
@@ -228,47 +267,75 @@
 
       overlays = import ./overlays { inherit inputs; };
 
-      nixosConfigurations = nixos // wsl;
-      darwinConfigurations = darwin;
-      homeConfigurations = home;
+      nixosConfigurations = nixosConfigurations;
+      darwinConfigurations = darwinConfigurations;
+      homeConfigurations = homeConfigurations;
 
-      checks = {
-        x86_64-linux = {
-          packages =
-            outputs.nixosConfigurations
-            |> flatMapRecursive (as: !(as ? config)) (path: value: {
-              "${lib.concatStringsSep "-" path}" = getSystemPackages value;
-            }) [ ];
-          configurations =
-            (
-              outputs.nixosConfigurations
-              |> flatMapRecursive (as: !(as ? config)) (path: value: {
-                "${lib.concatStringsSep "-" path}" = value.config.system.build.toplevel;
-              }) [ "system" ]
-            )
-            // (
-              outputs.homeConfigurations.docker
-              |>
-                flatMapRecursive (as: !(as ? config))
-                  (path: value: { "${lib.concatStringsSep "-" path}" = value.activationPackage; })
-                  [
-                    "home"
-                    "docker"
-                  ]
+      checks =
+        let
+          buildSystemPackageChecks =
+            entries:
+            builtins.listToAttrs (
+              map (
+                entry:
+                {
+                  name = entry.name;
+                  value = {
+                    system = packagesToAttrset entry.value.config.environment.systemPackages;
+                    home = builtins.mapAttrs (
+                      _: userConfig: packagesToAttrset userConfig.home.packages
+                    ) entry.value.config.home-manager.users;
+                  };
+                }
+              ) entries
             );
+
+          buildSystemConfigurationChecks =
+            platform:
+            entries:
+            builtins.listToAttrs (
+              map (
+                entry:
+                {
+                  name = entry.name;
+                  value = if platform == "x86_64-linux" then entry.value.config.system.build.toplevel else entry.value.system;
+                }
+              ) entries
+            );
+
+          buildHomeConfigurationChecks =
+            entries:
+            builtins.listToAttrs (
+              map (
+                entry:
+                {
+                  name = entry.name;
+                  value = entry.value.activationPackage;
+                }
+              ) entries
+            );
+
+          checksForPlatform =
+            platform:
+            let
+              systemEntries =
+                if platform == "x86_64-linux" then
+                  lib.filter (entry: entry.meta.platform == platform) nixosConfigurationEntries
+                else
+                  lib.filter (entry: entry.meta.platform == platform) darwinConfigurationEntries;
+              homeEntries = lib.filter (entry: entry.meta.platform == platform) homeConfigurationEntries;
+            in
+            {
+              packages = buildSystemPackageChecks systemEntries;
+              configurations = {
+                system = buildSystemConfigurationChecks platform systemEntries;
+                home = buildHomeConfigurationChecks homeEntries;
+              };
+            };
+        in
+        {
+          x86_64-linux = checksForPlatform "x86_64-linux";
+          aarch64-darwin = checksForPlatform "aarch64-darwin";
         };
-        aarch64-darwin = {
-          packages =
-            outputs.darwinConfigurations
-            |> flatMapRecursive (as: !(as ? config)) (path: value: {
-              "${lib.concatStringsSep "-" path}" = getSystemPackages value;
-            }) [ ];
-          configurations =
-            outputs.darwinConfigurations
-            |> flatMapRecursive (as: !(as ? config)) (path: value: {
-              "${lib.concatStringsSep "-" path}" = value.system;
-            }) [ "system" ];
-        };
-      };
     };
 }
