@@ -3,7 +3,6 @@
   inputs,
   pkgs,
   lib,
-  customLib,
   ...
 }:
 
@@ -13,7 +12,9 @@
   ];
 
   config = lib.mkIf config.custom.home.stacks.base.enable {
-    nixpkgs.overlays = builtins.attrValues (import (customLib.fromFlakeRoot "overlays") { inherit inputs; });
+    nixpkgs.overlays = builtins.attrValues (
+      import (lib.custom.fromFlakeRoot "overlays") { inherit inputs; }
+    );
     nixpkgs.config = import ./nixpkgs-config.nix;
     xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
 
