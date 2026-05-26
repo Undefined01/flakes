@@ -55,9 +55,7 @@ jobs:
       matrix:
         include:
         - runner: ubuntu-latest
-          config: x86_64-linux.packages
         - runner: macos-latest
-          config: aarch64-darwin.packages
     runs-on: ${{ matrix.runner }}
 
     steps:
@@ -84,7 +82,7 @@ jobs:
         nix config show
         df -h
         free -h || memory_pressure
-        nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --max-jobs 1 --eval-workers 1 --no-link --flake .#checks.${{ matrix.config }}
+        nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --max-jobs 1 --eval-workers 1 --no-link --file .github/workflows/system-packages.nix
 
   configurations:
     name: Build Configurations
@@ -120,7 +118,7 @@ jobs:
         nix config show
         df -h
         free -h || memory_pressure
-        nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --max-jobs 1 --eval-workers 1 --no-link --file .github/workflows/system-packages.nix
+        nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --max-jobs 1 --eval-workers 1 --no-link --flake .#${{ matrix.config }}
 
   check-flake:
     name: Check Flake
