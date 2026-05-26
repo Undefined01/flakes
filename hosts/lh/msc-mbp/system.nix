@@ -4,9 +4,10 @@ let
   meta = import ./meta.nix;
 in
 {
-  custom.system.profiles.minimal.enable = true;
+  imports = [
+    ../base/system
+  ];
 
-  custom.system.stacks.base.font.enable = true;
   custom.system.stacks.homebrew.enable = true;
 
   custom.system.users.${meta.username} = {
@@ -16,8 +17,6 @@ in
     ];
     homeConfiguration = ./home.nix;
   };
-
-  custom.system.host.primaryUser = meta.username;
 
   # nix integration for zsh and fish
   programs.zsh.enable = true;

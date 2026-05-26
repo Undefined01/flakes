@@ -14,7 +14,7 @@
     enable = lib.mkEnableOption "Enable sops-nix.";
   };
 
-  config =  {
+  config = {
     sops = {
       age.sshKeyPaths = lib.mkDefault [ "${config.home.homeDirectory}/.ssh/id_ed25519" ];
     };
