@@ -29,7 +29,7 @@ jobs:
 
       - name: Define Configuration Matrix
         id: jobs
-        shell: nix shell nixpkgs#{jq} --run "bash {0}"
+        shell: nix shell nixpkgs#jq --command bash {0}
         run: |
           set -euo pipefail
 
@@ -77,7 +77,7 @@ jobs:
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
         extraPullNames: nix-community
 
-    - name: Build Common Packages for ${{ matrix.config }}
+    - name: Build Common Packages
       run: |
         nix config show
         df -h
