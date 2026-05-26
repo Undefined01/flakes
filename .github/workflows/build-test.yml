@@ -29,7 +29,7 @@ jobs:
 
       - name: Define Configuration Matrix
         id: jobs
-        shell: nix shell nixpkgs#{jq} --run "bash"
+        shell: nix shell nixpkgs#{jq} --run "bash {0}"
         run: |
           set -euo pipefail
 
