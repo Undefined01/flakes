@@ -29,6 +29,7 @@ jobs:
 
       - name: Define Configuration Matrix
         id: jobs
+        shell: nix shell nixpkgs#{jq} --run "bash"
         run: |
           set -euo pipefail
 
@@ -116,14 +117,6 @@ jobs:
 
     - name: Build ${{ matrix.config }}
       run: |
-        nix config show
-        echo "-----------------------------------------------"
-        cat /etc/nix/nix.conf
-        echo "Moving user nix settings (set by cachix) to system settings to bypass the issue of nix-eval-jobs"
-        echo "substituters = $(nix config show substituters)" | sudo tee -a /etc/nix/nix.conf
-        echo "trusted-public-keys = $(nix config show trusted-public-keys)" | sudo tee -a /etc/nix/nix.conf
-        cat /etc/nix/nix.conf
-        echo "-----------------------------------------------"
         nix config show
         df -h
         free -h || memory_pressure
