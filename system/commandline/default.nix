@@ -1,4 +1,9 @@
-{ config, lib, isLinux, ... }:
+{
+  config,
+  lib,
+  isLinux,
+  ...
+}:
 
 let
   inherit (lib) mkDefault mkEnableOption mkIf;

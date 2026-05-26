@@ -6,6 +6,8 @@ in
 {
   imports = [
     ./hardware-configuration.nix
+
+    ../base/system
   ];
 
   custom.system.profiles.desktop.enable = true;
@@ -17,8 +19,6 @@ in
     ];
     homeConfiguration = ./home.nix;
   };
-
-  custom.system.host.primaryUser = meta.username;
 
   hardware.facter.reportPath = ./facter.json;
 

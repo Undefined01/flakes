@@ -3,6 +3,7 @@
   inputs,
   config,
   lib,
+  hostMeta,
   ...
 }:
 {
@@ -17,13 +18,13 @@
       # functionality it is relevant for has been adjusted to allow
       # specifying the relevant user separately, moved under the
       # `users.users.*` namespace, or migrated to Home Manager.
-      user = config.hostSpec.primaryUser;
+      user = hostMeta.username;
       enable = true;
       taps = builtins.attrNames config.nix-homebrew.taps;
     };
 
     nix-homebrew = {
-      user = config.hostSpec.primaryUser;
+      user = hostMeta.username;
       enable = true;
       taps = {
         "homebrew/homebrew-core" = inputs.homebrew-core;

@@ -1,12 +1,20 @@
-{ config, lib, isLinux, isDarwin, ... }:
+{
+  config,
+  lib,
+  isLinux,
+  isDarwin,
+  ...
+}:
 
 {
   options.custom.system.stacks.base.misc.enable = lib.mkEnableOption "Enable misc system defaults.";
 
   imports = [
-  ] ++ lib.optionals isLinux [
+  ]
+  ++ lib.optionals isLinux [
     ./linux.nix
-  ] ++ lib.optionals isDarwin [
+  ]
+  ++ lib.optionals isDarwin [
     ./darwin.nix
   ];
 
