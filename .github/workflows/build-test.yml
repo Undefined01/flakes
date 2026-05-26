@@ -29,19 +29,20 @@ jobs:
 
       - name: Define Configuration Matrix
         id: jobs
+        shell: nix shell nixpkgs#{jq} --run "bash"
         run: |
           set -euo pipefail
 
-          linux_configs="$(nix eval --json .#checks.x86_64-linux.configurations --apply 'builtins.attrNames')"
-          darwin_configs="$(nix eval --json .#checks.aarch64-darwin.configurations --apply 'builtins.attrNames')"
+          linux_configs="$(nix eval --json .#. --apply 'outputs: outputs.nixosConfigurations |> builtins.attrNames')"
+          darwin_configs="$(nix eval --json .#. --apply 'outputs: outputs.darwinConfigurations |> builtins.attrNames')"
 
           jobs="$(jq -cn \
             --argjson linux "$linux_configs" \
             --argjson darwin "$darwin_configs" \
             '{
               include:
-                ([ $linux[] | { runner: "ubuntu-latest", system: "x86_64-linux", config: . } ] +
-                 [ $darwin[] | { runner: "macos-latest", system: "aarch64-darwin", config: . } ])
+                ([ $linux[] | { runner: "ubuntu-latest", system: "x86_64-linux", config: "nixosConfigurations." + . } ] +
+                 [ $darwin[] | { runner: "macos-latest", system: "aarch64-darwin", config: "darwinConfigurations." + . } ])
             }'
           )"
 
@@ -81,14 +82,8 @@ jobs:
     - name: Build Common Packages for ${{ matrix.config }}
       run: |
         nix config show
-        echo "Moving user nix settings (set by cachix) to system settings to bypass the issue of nix-eval-jobs"
-        echo "substituters = $(nix config show substituters)" | sudo tee -a /etc/nix/nix.conf
-        echo "trusted-public-keys = $(nix config show trusted-public-keys)" | sudo tee -a /etc/nix/nix.conf
-        cat /etc/nix/nix.conf
-        nix config show
         df -h
         free -h || memory_pressure
-        nix run nixpkgs#nix-eval-jobs -- --flake .#packages.x86_64-linux.darwinPkgs.sparkle --check-cache-status
         nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --max-jobs 1 --eval-workers 1 --no-link --flake .#checks.${{ matrix.config }}
 
   configurations:
@@ -120,20 +115,12 @@ jobs:
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
         extraPullNames: nix-community
 
-    - name: Build checks.${{ matrix.system }}.configurations.${{ matrix.config }}
+    - name: Build ${{ matrix.config }}
       run: |
-        nix config show
-        echo "-----------------------------------------------"
-        cat /etc/nix/nix.conf
-        echo "Moving user nix settings (set by cachix) to system settings to bypass the issue of nix-eval-jobs"
-        echo "substituters = $(nix config show substituters)" | sudo tee -a /etc/nix/nix.conf
-        echo "trusted-public-keys = $(nix config show trusted-public-keys)" | sudo tee -a /etc/nix/nix.conf
-        cat /etc/nix/nix.conf
-        echo "-----------------------------------------------"
         nix config show
         df -h
         free -h || memory_pressure
-        nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --max-jobs 1 --eval-workers 1 --no-link --flake .#checks.${{ matrix.system }}.configurations.${{ matrix.config }}
+        nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --max-jobs 1 --eval-workers 1 --no-link --file .github/workflows/system-packages.nix
 
   check-flake:
     name: Check Flake

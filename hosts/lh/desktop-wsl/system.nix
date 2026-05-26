@@ -6,6 +6,8 @@ in
 {
   imports = [
     inputs.nixos-wsl.nixosModules.wsl
+
+    ../base/system
   ];
 
   custom.system.profiles.commandline.enable = true;
@@ -18,10 +20,8 @@ in
     homeConfiguration = ./home.nix;
   };
 
-  custom.system.host.primaryUser = meta.username;
-
   wsl.enable = true;
-  wsl.defaultUser = config.hostSpec.primaryUser;
+  wsl.defaultUser = meta.username;
 
   wsl.docker-desktop.enable = false;
   wsl.usbip.enable = false;

@@ -1,10 +1,29 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  isLinux,
+  ...
+}:
 
 let
-  inherit (lib) mkDefault mkEnableOption mkIf mkOption types;
+  inherit (lib)
+    mkDefault
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    ;
 in
 {
-  imports = [ ];
+  imports = lib.optionals isLinux [
+    ../desktop/wayland
+    ../desktop/hyprland
+    ../desktop/sway
+    ../desktop/thunar
+    ../desktop/input
+    ../desktop/clash-verge
+  ];
 
   options.custom.system = {
     profiles.desktop = {
