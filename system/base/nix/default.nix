@@ -3,6 +3,7 @@
   pkgs,
   lib,
   inputs,
+  hostMeta,
   ...
 }:
 
@@ -73,6 +74,7 @@
 
     nixpkgs = {
       config.allowUnfree = true;
+      hostPlatform = hostMeta.platform;
       overlays = builtins.attrValues (import (lib.custom.fromFlakeRoot "overlays") { inherit inputs; });
     };
   };

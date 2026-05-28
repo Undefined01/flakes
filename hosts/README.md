@@ -1,6 +1,6 @@
 # Hosts
 
-The flake now discovers host definitions from `hosts/lh/*`. Each immediate subdirectory is one host, and the folder name becomes the flake output name.
+The flake now discovers host definitions from `hosts/*`. Each immediate subdirectory with a `meta.nix` file is one host, and the folder name becomes the flake output name.
 
 ## Layout
 
@@ -10,7 +10,7 @@ hosts/
     <host>/
       meta.nix
       home.nix
-      system.nix    # only for system-managed hosts
+      system.nix
 ```
 
 ## `meta.nix`
@@ -21,7 +21,7 @@ Typical shape:
 
 ```nix
 {
-  kind = "nixos"; # or "darwin" or "home-only"
+  kind = "nixos"; # or "darwin" or "home"
   platform = "x86_64-linux";
   username = "lh";
   description = "Primary workstation";
@@ -33,36 +33,34 @@ Fields:
 - `kind`: selects the builder.
   - `nixos` builds a NixOS system configuration.
   - `darwin` builds a nix-darwin system configuration.
-  - `home-only` builds only a Home Manager configuration.
+  - `home` builds a Home Manager configuration.
 - `platform`: the target Nix platform string used for `pkgs`.
 - `username`: the primary login user for this host.
 - `description`: free-form documentation for humans.
 
 ## Host file responsibilities
 
-`home.nix` owns the Home Manager identity directly:
+`system.nix` is the root of the host's system configuration when `kind` is `nixos` or `darwin`.
 
-```nix
-{
-  home.username = meta.username;
-  home.homeDirectory = "/home/${meta.username}";
-}
-```
+Typically, `system.nix` should set the stateVersion, import the hardware configuration, and set any machine-specific system settings. It could also attach `home.nix` to the primary user entry under `custom.system.users` if you want to enable Home Manager for that user.
 
-Do not inject the username through `specialArgs`. The host file should state it directly.
+You can also put the shared configuration under a subdirectory and import it from `system.nix`. For example, you could have a `base/` directory to hold the common configuration for all your NixOS hosts, and then import `../base/default.nix` from each host's `system.nix`.
 
-For system-managed hosts, `system.nix` should import `./meta.nix`, attach `./home.nix` through `custom.system.users.<name>.homeConfiguration`, and set any machine-specific system settings.
+Examples:
 
-For `home-only` hosts, only `home.nix` is required.
+- [base configuration](./lh/base)
+- [NixOS](./lh/msc-pc)
+- [MacBook](./lh/msc-mbp)
+- [WSL](./lh/desktop-wsl)
+- [Home Manager Modules](./lh/docker)
 
 ## Creating a new host
 
 1. Copy the closest existing host directory under `hosts/lh/`.
 2. Edit `meta.nix` first and pick the right `kind`, `platform`, and `username`.
-3. Write `home.nix` so it sets `home.username` and `home.homeDirectory` itself.
-4. If the host is system-managed, add or update `system.nix` and point its user entry at `./home.nix`.
-5. Add host-specific hardware files or platform settings only where they belong.
-6. Evaluate the flake before building:
+3. Write `system.nix` and `home.nix` for the new host, importing shared configuration as needed.
+4. Add host-specific hardware files or platform settings only where they belong.
+5. Evaluate the flake before building:
 
    ```bash
    nix eval .#homeConfigurations --apply builtins.attrNames
@@ -72,12 +70,11 @@ For `home-only` hosts, only `home.nix` is required.
 
 ## Creating a new user on an existing host
 
-If a host needs an additional user, add another entry under `custom.system.users` in that host's `system.nix` and give that user its own `homeConfiguration` path.
+The username set in `meta.nix` is the primary user for that host, which is used for homebrew, darwin preferences, etc.
 
-Keep the host-local `home.nix` files responsible for their own username and home directory. That keeps the flake discovery simple and avoids spreading identity through `specialArgs`.
+If a host needs an additional user, add another entry under `custom.system.users` in that host's `system.nix` and give that user its own `homeConfiguration` path.
 
 ## Notes
 
-- The output key is the folder name, so rename the directory if you want a different flake attribute name.
-- `home-only` hosts are included in `homeConfigurations` but skipped by the system builders.
-- When you add a new host directory, make sure it lives under `hosts/lh/` so the current flake sees it.
+- The output key is the folder name and supports deep paths, so rename the directory if you want a different flake attribute name.
+- When you add a new host directory, make sure it has a `meta.nix` file so the current flake sees it.

@@ -201,6 +201,15 @@ in
             };
             when = "terminalFocus";
           }
+          {
+            key = "ctrl+shift+`";
+            command = "workbench.action.toggleMaximizedPanel";
+          }
+          {
+            key = "ctrl+shift+`";
+            command = "-workbench.action.terminal.new";
+            when = "terminalProcessSupported || terminalWebExtensionContributedProfile";
+          }
         ];
       };
     };

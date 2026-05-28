@@ -1,8 +1,5 @@
-{ ... }:
+{ hostMeta, ... }:
 
-let
-  meta = import ./meta.nix;
-in
 {
   imports = [
     ./hardware-configuration.nix
@@ -12,8 +9,8 @@ in
 
   custom.system.profiles.desktop.enable = true;
 
-  custom.system.users.${meta.username} = {
-    name = meta.username;
+  custom.system.users.${hostMeta.username} = {
+    name = hostMeta.username;
     authorizedKeys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDcTQOKYRyLoviozP5Ba6k8N+1Sn7LZ1wECHiPa2FF1V amoscr@163.com"
     ];
@@ -38,8 +35,6 @@ in
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
-  nixpkgs.hostPlatform = meta.platform;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

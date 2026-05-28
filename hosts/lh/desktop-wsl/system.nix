@@ -1,8 +1,10 @@
-{ config, inputs, ... }:
+{
+  config,
+  inputs,
+  hostMeta,
+  ...
+}:
 
-let
-  meta = import ./meta.nix;
-in
 {
   imports = [
     inputs.nixos-wsl.nixosModules.wsl
@@ -12,8 +14,8 @@ in
 
   custom.system.profiles.commandline.enable = true;
 
-  custom.system.users.${meta.username} = {
-    name = meta.username;
+  custom.system.users.${hostMeta.username} = {
+    name = hostMeta.username;
     authorizedKeys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDcTQOKYRyLoviozP5Ba6k8N+1Sn7LZ1wECHiPa2FF1V amoscr@163.com"
     ];
@@ -21,12 +23,10 @@ in
   };
 
   wsl.enable = true;
-  wsl.defaultUser = meta.username;
+  wsl.defaultUser = hostMeta.username;
 
   wsl.docker-desktop.enable = false;
   wsl.usbip.enable = false;
-
-  nixpkgs.hostPlatform = meta.platform;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

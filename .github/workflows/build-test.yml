@@ -41,8 +41,8 @@ jobs:
             --argjson darwin "$darwin_configs" \
             '{
               include:
-                ([ $linux[] | { runner: "ubuntu-latest", system: "x86_64-linux", config: "nixosConfigurations." + . } ] +
-                 [ $darwin[] | { runner: "macos-latest", system: "aarch64-darwin", config: "darwinConfigurations." + . } ])
+                ([ $linux[] | { runner: "ubuntu-latest", system: "x86_64-linux", config: "nixosConfigurations." + . + ".config.system.build.toplevel"} ] +
+                 [ $darwin[] | { runner: "macos-latest", system: "aarch64-darwin", config: "darwinConfigurations." + . + ".config.system.build.toplevel" } ])
             }'
           )"
 
