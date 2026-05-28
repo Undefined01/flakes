@@ -9,7 +9,7 @@
 {
   imports = [
     ./sops-nix
-    ./codex
+    ./ai
   ]
   ++ lib.optionals isDarwin [
     ./darwin-preferences

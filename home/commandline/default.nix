@@ -76,6 +76,7 @@ in
           difftastic
 
           zellij
+          osc
         ];
         description = "Default packages for the commandline profile.";
       };

@@ -55,19 +55,13 @@
 
     - **NixOS / WSL-NixOS** (nixosConfiguration):
         ```bash
-        sudo -E nixos-rebuild switch --flake ".?submodules=1#wsl"
+        sudo -E nixos-rebuild switch --flake ".?submodules=1#lh-msc-pc"
         ```
-        Change the profile after `#` to pick another, e.g. `.?submodules=1#work`.
-
-        You may need hardware info first:
-        ```bash
-        sudo -E nix shell nixpkgs#nixos-install-tools --command nixos-generate-config --show-hardware-config > hardware-configuration.nix
-        sudo -E nix run nixpkgs#nixos-facter > facter.json
-        ```
+        Change the profile after `#` to pick another, e.g. `.?submodules=1#lh-desktop-wsl`. List all available profiles with `nix eval .#nixosConfigurations --apply 'builtins.attrNames`.
 
     - **Other Linux (Home Manager)**:
         ```bash
-        sudo -E nix run home-manager -- switch --flake ".?submodules=1#lh"
+        sudo -E nix run home-manager -- switch --flake ".?submodules=1#lh-docker"
         ```
         Home-Manager only manages user-level configuration, so you may want to manually create or edit `/etc/nix/nix.conf` to modify system-wide Nix settings:
         ```
@@ -83,10 +77,14 @@
 
     - **macOS (darwinConfiguration)**:
         ```bash
+        # First time setup
         sudo -E nix run nix-darwin -- switch --flake ".?submodules=1#darwin"
+        # Subsequent updates
         sudo darwin-rebuild switch --flake ".?submodules=1#darwin"
         ```
         You may need `killall Dock` or system reboot to make the system preference changes take effect.
+
+You can configure a new host by copying an existing host under `hosts/`.
 
 ## Known Issues
 
@@ -172,8 +170,10 @@ Templates:
     ```
 - Set up secrets:
     ```
+    # edit a secret
     nix run nixpkgs#sops home/secrets/common.yaml
-    bash -c 'cd home/secrets/; nix run .#agenix -- -e common.age'
+    # create a new secret
+    nix run nixpkgs#sops -- -e file.yaml > encrypted-file.yaml
     ```
 - Update mutable-home-files manually:
     ```
@@ -211,4 +211,9 @@ Templates:
 - Garbage collect old system generations (ensure the latest build boots):
     ```
     sudo nix-collect-garbage --delete-old
+    ```
+- Generate hardware configuration for NixOS:
+    ```bash
+    sudo -E nix shell nixpkgs#nixos-install-tools --command nixos-generate-config --show-hardware-config > hardware-configuration.nix
+    sudo -E nix run nixpkgs#nixos-facter > facter.json
     ```

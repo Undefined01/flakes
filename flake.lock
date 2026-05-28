@@ -211,11 +211,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779085824,
-        "narHash": "sha256-/4pUJcVcwFxVPTPCLTL5LcwhxRicibGMhjdCaUqZhFI=",
+        "lastModified": 1779970078,
+        "narHash": "sha256-cT4Xm7x6+U2njFBuuyRFbXWhagPEImFqxJb7GmNc9ms=",
         "owner": "Undefined01",
         "repo": "mutable-home-files",
-        "rev": "cf19f18b9676feb5e085f77bffea612d36fd200f",
+        "rev": "e57ca68ffc54f5868b0573bde564fc763d48d383",
         "type": "github"
       },
       "original": {
