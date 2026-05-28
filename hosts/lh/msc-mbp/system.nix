@@ -1,8 +1,5 @@
-{ inputs, ... }:
+{ inputs, hostMeta, ... }:
 
-let
-  meta = import ./meta.nix;
-in
 {
   imports = [
     ../base/system
@@ -10,8 +7,8 @@ in
 
   custom.system.stacks.homebrew.enable = true;
 
-  custom.system.users.${meta.username} = {
-    name = meta.username;
+  custom.system.users.${hostMeta.username} = {
+    name = hostMeta.username;
     authorizedKeys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDcTQOKYRyLoviozP5Ba6k8N+1Sn7LZ1wECHiPa2FF1V amoscr@163.com"
     ];
@@ -21,8 +18,6 @@ in
   # nix integration for zsh and fish
   programs.zsh.enable = true;
   programs.fish.enable = true;
-
-  nixpkgs.hostPlatform = meta.platform;
 
   system = {
     stateVersion = 5;
