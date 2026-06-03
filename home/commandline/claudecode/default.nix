@@ -34,6 +34,30 @@ in
       wrapped
     ];
 
+    home.mutableFile.".claude.json" = {
+      format = "json";
+      ownership = {
+        default = "declared";
+      };
+      layers = [
+        {
+          source = ./claude.json;
+        }
+      ];
+    };
+
+    home.mutableFile.".claude/settings.json" = {
+      format = "json";
+      ownership = {
+        default = "declared";
+      };
+      layers = [
+        {
+          source = ./settings.json;
+        }
+      ];
+    };
+
     home.file.".config/ccstatusline/settings.json".source = ./ccstatusline.json;
   };
 }

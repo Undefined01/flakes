@@ -23,7 +23,7 @@ fi
 if [ -n "${OPENAI_API_KEY:-}" ]; then
     # Prepend to arguments -c model_provider=Custom -c model_providers.Custom.name=OpenAI -c model_providers.Custom.wire_api=responses -c model_providers.Custom.base_url=$OPENAI_BASE_URL -c model_providers.Octopus.env_key=OPENAI_API_KEY
 	echo "Using endpoint: ${OPENAI_BASE_URL:-https://api.openai.com/v1} with model provider Custom"
-	set -- -c model_provider=Custom -c model_providers.Custom.name=OpenAI -c model_providers.Custom.wire_api=responses -c model_providers.Custom.base_url=${OPENAI_BASE_URL:-https://api.openai.com/v1} -c model_providers.Custom.env_key=OPENAI_API_KEY "$@"
+	set -- -c model_provider=Custom -c model_providers.Custom.name=OpenAI -c model_providers.Custom.wire_api=responses -c model_providers.Custom.base_url="${OPENAI_BASE_URL:-https://api.openai.com/v1}" -c model_providers.Custom.env_key=OPENAI_API_KEY "$@"
 fi
 
 codex "$@"

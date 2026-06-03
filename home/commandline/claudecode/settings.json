@@ -1,0 +1,9 @@
+{
+  "cleanupPeriodDays": 1800,
+  "includeCoAuthoredBy": false,
+  "statusLine": {
+    "type": "command",
+    "command": "nix shell nixpkgs#{nodejs,pnpm} --command pnpx -- ccstatusline@latest",
+    "padding": 0
+  }
+}
