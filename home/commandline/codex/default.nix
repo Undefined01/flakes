@@ -30,6 +30,13 @@ in
             path = [ "mcp_servers" ];
             mode = "local";
           }
+          {
+            path = [
+              "tui"
+              "model_availability_nux"
+            ];
+            mode = "local";
+          }
         ];
       };
       layers = [
