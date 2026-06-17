@@ -98,7 +98,6 @@ in
       ms-vscode.remote-server
       ms-kubernetes-tools.vscode-kubernetes-tools
 
-      github.copilot
       github.copilot-chat
     ];
 
@@ -176,7 +175,8 @@ in
             accessibleViewPreserveCursorPosition = true;
             "defaultProfile.linux" = "fish";
             "defaultProfile.osx" = "fish";
-            "scrollback" = 100000;
+            # 100,000 is too large for VS Code. It gets stuck frequently.
+            # "scrollback" = 100000;
           });
 
         keybindings = [
