@@ -16,7 +16,7 @@
       enableDefaultConfig = false;
       package = pkgs.openssh;
       includes = [ "config.d/*" ];
-      matchBlocks = {
+      settings = {
         "*" = {
           serverAliveInterval = 15;
           serverAliveCountMax = 120;
