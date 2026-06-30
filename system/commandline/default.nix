@@ -31,9 +31,9 @@ in
 
       custom.system.stacks.service.ssh.enable = mkDefault true;
       custom.system.stacks.service.podman.enable = mkDefault true;
-      custom.system.stacks.service.zerotierone.enable = mkDefault true;
-      custom.system.stacks.service.easytier.enable = mkDefault true;
-      custom.system.stacks.service.cloudflared.enable = mkDefault true;
-      custom.system.stacks.service.samba.enable = mkDefault true;
+      custom.system.stacks.service.zerotierone.enable = mkDefault false;
+      custom.system.stacks.service.easytier.enable = mkDefault false;
+      custom.system.stacks.service.cloudflared.enable = mkDefault false;
+      custom.system.stacks.service.samba.enable = mkDefault false;
     };
 }
