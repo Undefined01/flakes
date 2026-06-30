@@ -53,11 +53,30 @@
 
 3. Apply the configuration
 
-    - **NixOS / WSL-NixOS** (nixosConfiguration):
+    - **NixOS / NixOS-WSL** (nixosConfiguration):
         ```bash
         sudo -E nixos-rebuild switch --flake ".?submodules=1#lh-msc-pc"
         ```
         Change the profile after `#` to pick another, e.g. `.?submodules=1#lh-desktop-wsl`. List all available profiles with `nix eval .#nixosConfigurations --apply 'builtins.attrNames`.
+
+        If the installed `nix` is too old and complains `warning: unknown experimental feature 'pipe-operators'`,
+        you can enter a temporary shell with `nix shell github:NixOS/nixpkgs/nixos-unstable#{nix,nixos-rebuild-ng}`.
+
+    - **NixOS-WSL** (first installation):
+
+        You can get the NixOS-WSL rootfs from [Releases](https://github.com/nix-community/NixOS-WSL/releases/latest), or build it yourself by:
+
+        ```bash
+        sudo nix run .#nixosConfigurations.lh-desktop-wsl.config.system.build.tarballBuilder
+        ```
+
+        Then import the image by execute the following command in Powershell:
+
+        ```
+        wsl --install --from-file nixos.wsl --name NixOS --location .
+        ```
+
+        The location options specifies where to place the VM disk file (vhdx). Choose a path like `D:/VMs/NixOS` if your C drive is almost full.
 
     - **Other Linux (Home Manager)**:
         ```bash

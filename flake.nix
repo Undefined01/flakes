@@ -96,7 +96,10 @@
             overlays = builtins.attrValues self.overlays;
           };
         in
-        lib.packagesFromDirectoryRecursive {
+        {
+          inherit nixpkgs pkgs;
+        }
+        // lib.packagesFromDirectoryRecursive {
           callPackage = lib.callPackageWith pkgs;
           directory = ./pkgs;
         }

@@ -28,6 +28,11 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
+  custom.system.stacks.service.zerotierone.enable = true;
+  custom.system.stacks.service.easytier.enable = true;
+  custom.system.stacks.service.cloudflared.enable = true;
+  custom.system.stacks.service.samba.enable = true;
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
