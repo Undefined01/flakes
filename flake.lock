@@ -167,11 +167,11 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1784475664,
-        "narHash": "sha256-7H/sDFoWKE9ZE4Uuw0K9QxtdAmTqfBA9IsYuQjbn3wY=",
+        "lastModified": 1784475733,
+        "narHash": "sha256-MFDzgQN7RyIf0zt+eu5wq4s/YM168KNsatVFn3kuWUk=",
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "55f1c7a299d7b3fc4f6ddf6bbdd4c7e7e55e39e1",
+        "rev": "e54d2ef4ca6ab98e6fd596dc48cb02c483bfe989",
         "type": "github"
       },
       "original": {
@@ -213,15 +213,15 @@
       "locked": {
         "lastModified": 1784476164,
         "narHash": "sha256-IffVJvLAW+mxhTk0vYyBy/Ygz/7vnWtS+y7oX0k9B1E=",
-        "ref": "refs/heads/main",
+        "owner": "Undefined01",
+        "repo": "mutable-home-files",
         "rev": "1ffc06c3f38ee4dfe9adf13abc5fb8b5ffa21429",
-        "revCount": 15,
-        "type": "git",
-        "url": "file:/home/lh/flakes/lib/mutable-home-files"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:/home/lh/flakes/lib/mutable-home-files"
+        "owner": "Undefined01",
+        "repo": "mutable-home-files",
+        "type": "github"
       }
     },
     "nix-homebrew": {
