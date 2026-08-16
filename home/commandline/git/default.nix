@@ -46,8 +46,8 @@ in
 
       settings = lib.mkMerge [
         {
-          user.name = "Undefined01";
-          user.email = "amoscr@163.com";
+          user.name = lib.mkDefault "Undefined01";
+          user.email = lib.mkDefault "amoscr@163.com";
 
           alias = {
             graph = "log --all --decorate --oneline --graph";
@@ -66,6 +66,7 @@ in
           log.date = "iso";
           column.ui = "auto";
           branch.sort = "committerdate";
+          rerere.enabled = true;
         }
         (lib.optionalAttrs cfg.difftastic.enable {
           alias.difft = "-c diff.external=${lib.escapeShellArg difftCommand} diff";

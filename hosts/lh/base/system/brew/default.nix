@@ -15,6 +15,8 @@
       "obs"
       # "zerotier-one"
       "tencent-meeting"
+      "contexts"
+      "squirrel-app"
     ];
   };
 }
