@@ -90,8 +90,8 @@ let
     meta:
     inputs.home-manager.lib.homeManagerConfiguration {
       pkgs = inputs.nixpkgs.legacyPackages.${meta.platform};
+      lib = lib;
       extraSpecialArgs = {
-        inherit lib;
         inherit inputs;
         hostMeta = meta;
         isLinux = hasSuffix "-linux" meta.platform;

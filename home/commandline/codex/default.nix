@@ -23,6 +23,14 @@ in
         default = "sealed";
         rules = [
           {
+            path = [ "model" ];
+            mode = "local";
+          }
+          {
+            path = [ "model_reasoning_effort" ];
+            mode = "local";
+          }
+          {
             path = [ "projects" ];
             mode = "local";
           }

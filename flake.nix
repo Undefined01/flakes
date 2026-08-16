@@ -16,6 +16,7 @@
     };
     mutable-home-files = {
       url = "github:Undefined01/mutable-home-files";
+      # url = "git+file:/home/lh/flakes/lib/mutable-home-files";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };

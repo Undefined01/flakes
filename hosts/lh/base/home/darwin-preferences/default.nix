@@ -6,7 +6,7 @@
 }:
 
 {
-  targets.darwin = lib.mkIf pkgs.stdenv.isDarwin {
+  targets.darwin = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
     defaults = {
       "com.apple.desktopservices" = {
         DSDontWriteNetworkStores = true;
@@ -135,6 +135,62 @@
       "com.apple.finder" = {
         AppleShowAllFiles = true;
         _FXShowPosixPathInTitle = true;
+
+        # Toolbar on the top
+        # Compared to the default settings, add com.apple.finder.PATH component for returning to parent directory.
+        "NSToolbar Configuration Browser" = {
+          "TB Default Item Identifiers" = [
+            "com.apple.finder.BACK"
+            "com.apple.finder.SWCH"
+            "NSToolbarSpaceItem"
+            "com.apple.finder.ARNG"
+            "NSToolbarSpaceItem"
+            "com.apple.finder.SHAR"
+            "com.apple.finder.LABL"
+            "com.apple.finder.ACTN"
+            "NSToolbarSpaceItem"
+            "com.apple.finder.SRCH"
+          ];
+          "TB Item Identifiers" = [
+            "com.apple.finder.BACK"
+            "com.apple.finder.PATH"
+            "com.apple.finder.SWCH"
+            "NSToolbarSpaceItem"
+            "com.apple.finder.ARNG"
+            "NSToolbarSpaceItem"
+            "com.apple.finder.SHAR"
+            "com.apple.finder.LABL"
+            "com.apple.finder.ACTN"
+            "NSToolbarSpaceItem"
+            "com.apple.finder.SRCH"
+          ];
+        };
+        # Show the path bar in the bottom.
+        ShowPathbar = 1;
+      };
+
+      # Disable the command+space shortcut for spotlight
+      "64" = {
+        enabled = 0;
+        value = {
+          parameters = [
+            32
+            49
+            1048576
+          ];
+          type = "standard";
+        };
+      };
+      "65" = {
+        enabled = 0;
+        value = {
+          parameters = [
+            32
+            49
+            1572864
+          ];
+          type = "standard";
+        };
       };
 
       # 充电提示音

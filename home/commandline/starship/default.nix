@@ -142,7 +142,23 @@
           # Account for changes in variable name between v2.7 and v3.0
           set STARSHIP_DURATION "$CMD_DURATION$cmd_duration"
           set STARSHIP_JOBS (count (jobs -p))
-          starship prompt --terminal-width="$COLUMNS" --status=$STARSHIP_CMD_STATUS --pipestatus="$STARSHIP_CMD_PIPESTATUS" --keymap=$STARSHIP_KEYMAP --cmd-duration=$STARSHIP_DURATION --jobs=$STARSHIP_JOBS
+
+          # `starship prompt` will print a ESC[J character at the start of the prompt,
+          # which cleans the screen from cursor to end.
+          # This is a workaround for a fish rendering bug and is hard-coded.
+          # ```
+          # // A workaround for a fish bug (see #739,#279). Applying it to all shells
+          # // breaks things (see #808,#824,#834). Should only be printed in fish.
+          # if Shell::Fish == context.shell && context.target == Target::Main {
+          #     buf.push_str("\x1b[J"); // An ASCII control code to clear screen
+          # }
+          # ```
+          # Hence, in transient prompt, we need to remove the ESC[J character.
+          starship prompt --terminal-width="$COLUMNS" \
+            --status=$STARSHIP_CMD_STATUS --pipestatus="$STARSHIP_CMD_PIPESTATUS" \
+            --keymap=$STARSHIP_KEYMAP --cmd-duration=$STARSHIP_DURATION \
+            --jobs=$STARSHIP_JOBS \
+            | string replace -r '^\e\[J' '''
 
           # starship module directory
           # starship module status

@@ -22,6 +22,7 @@ in
     ../desktop/firefox
     ../desktop/thunderbird
     ../desktop/zotero
+    ./input
   ];
 
   options.custom.home = {
@@ -55,6 +56,8 @@ in
       custom.home.stacks.desktop.firefox.enable = mkDefault true;
       custom.home.stacks.desktop.thunderbird.enable = mkDefault true;
       custom.home.stacks.desktop.zotero.enable = mkDefault true;
+
+      custom.home.stacks.desktop.input.enable = mkDefault true;
 
       home.packages = cfg.profiles.darwin.packages;
     };

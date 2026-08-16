@@ -158,6 +158,9 @@ in
             "terminal.integrated.enableMultiLinePasteWarning" = "never";
             "diffEditor.ignoreTrimWhitespace" = false;
 
+            # Make the ssh disconnected popup draw in VS Code instead of system, disabling icon bounce in Dock.
+            "window.dialogStyle" = "custom";
+
             "[json]" = {
               "editor.defaultFormatter" = "vscode.json-language-features";
             };
