@@ -17,11 +17,15 @@
       ];
 
       # only enabled when atuin does not take-off ctrl+r
-      historyWidget = if (!config.custom.home.stacks.commandline.atuin.enable) then {
-        options = [ "--layout=reverse" ];
-      } else {
-        command = "";
-      };
+      historyWidget =
+        if (!config.custom.home.stacks.commandline.atuin.enable) then
+          {
+            options = [ "--layout=reverse" ];
+          }
+        else
+          {
+            command = "";
+          };
     };
   };
 }
