@@ -41,10 +41,10 @@
       gc =
         let
           periodConfig =
-            lib.optionalAttrs pkgs.stdenv.isLinux {
+            lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
               dates = "daily";
             }
-            // lib.optionalAttrs pkgs.stdenv.isDarwin {
+            // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
               interval = {
                 Weekday = 1;
                 Hour = 0;

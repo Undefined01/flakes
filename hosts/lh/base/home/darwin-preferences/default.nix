@@ -6,7 +6,7 @@
 }:
 
 {
-  targets.darwin = lib.mkIf pkgs.stdenv.isDarwin {
+  targets.darwin = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
     defaults = {
       "com.apple.desktopservices" = {
         DSDontWriteNetworkStores = true;
