@@ -24,7 +24,7 @@ jobs:
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
           nix_path: nixpkgs=channel:nixos-unstable
-          # install_url: https://releases.nixos.org/nix/nix-2.34.8/install
+          install_url: https://releases.nixos.org/nix/nix-2.34.8/install
           extra_nix_config: |
             experimental-features = nix-command flakes pipe-operators
 
@@ -68,6 +68,7 @@ jobs:
       with:
         github_access_token: ${{ secrets.GITHUB_TOKEN }}
         nix_path: nixpkgs=channel:nixos-unstable
+        install_url: https://releases.nixos.org/nix/nix-2.34.8/install
         extra_nix_config: |
           experimental-features = nix-command flakes pipe-operators
 
@@ -104,6 +105,7 @@ jobs:
       with:
         github_access_token: ${{ secrets.GITHUB_TOKEN }}
         nix_path: nixpkgs=channel:nixos-unstable
+        install_url: https://releases.nixos.org/nix/nix-2.34.8/install
         extra_nix_config: |
           experimental-features = nix-command flakes pipe-operators
 
@@ -120,10 +122,7 @@ jobs:
         nix config show
         df -h
         free -h || memory_pressure
-        nix shell nixpkgs#nixVersions.latest -c nix flake metadata --json . | jq .locked.narHash
-        nix shell nixpkgs#nixVersions.latest -c nix flake metadata --json \
-          "git+file://$PWD?rev=$(git rev-parse HEAD)&shallow=1" | jq .locked.narHash
-        nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --max-jobs 1 --eval-workers 1 --no-link --flake path:.#${{ matrix.config }}
+        nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --max-jobs 1 --eval-workers 1 --no-link --flake .#${{ matrix.config }}
 
   check-flake:
     name: Check Flake
@@ -139,6 +138,7 @@ jobs:
       with:
         github_access_token: ${{ secrets.GITHUB_TOKEN }}
         nix_path: nixpkgs=channel:nixos-unstable
+        install_url: https://releases.nixos.org/nix/nix-2.34.8/install
         extra_nix_config: |
           experimental-features = nix-command flakes pipe-operators
 
@@ -163,6 +163,7 @@ jobs:
       with:
         github_access_token: ${{ secrets.GITHUB_TOKEN }}
         nix_path: nixpkgs=channel:nixos-unstable
+        install_url: https://releases.nixos.org/nix/nix-2.34.8/install
         extra_nix_config: |
           experimental-features = nix-command flakes pipe-operators
 
