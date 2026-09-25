@@ -119,7 +119,7 @@ jobs:
         nix config show
         df -h
         free -h || memory_pressure
-        nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --max-jobs 1 --eval-workers 1 --no-link --flake .#${{ matrix.config }}
+        nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --max-jobs 1 --eval-workers 1 --no-link --flake .#${{ matrix.config }}?submodules=0
 
   check-flake:
     name: Check Flake
