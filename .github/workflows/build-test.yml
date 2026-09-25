@@ -97,6 +97,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v6
+      with:
+        submodules: recursive
 
     - name: Install Nix
       uses: cachix/install-nix-action@v31
@@ -115,9 +117,16 @@ jobs:
 
     - name: Build ${{ matrix.config }}
       run: |
+        nix --version
         nix config show
         df -h
         free -h || memory_pressure
+        nix shell nixpkgs#nixVersions.stable -c nix flake metadata --json . | jq -r .locked.narHash
+        nix shell nixpkgs#nixVersions.stable -c nix flake metadata --json \
+          "git+file://$PWD?rev=$(git rev-parse HEAD)&shallow=1" | jq .locked.narHash
+        nix shell nixpkgs#nixVersions.latest -c nix flake metadata --json . | jq -r .locked.narHash
+        nix shell nixpkgs#nixVersions.latest -c nix flake metadata --json \
+          "git+file://$PWD?rev=$(git rev-parse HEAD)&shallow=1" | jq .locked.narHash
         nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --max-jobs 1 --eval-workers 1 --no-link --flake .#${{ matrix.config }}
 
   check-flake:
